@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+body{
+  
+   overflow-x: hidden;
+}
+a{
+  text-decoration: none;
+  color: white;
+}
+.button{
+    padding: 10px 30px 10px;
+    background-color: palevioletred;
+    color: whitesmoke;
+    border: 1px solid pink;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+.button:hover{
+    padding: 10px 30px 10px;
+    background-color: pink;
+    color: black;
+    border: 1px solid pink;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+.swiper {
+    width: 100%;
+    height: 100vh;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header__center {
+    font-size: 2rem;
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    grid-column-gap: 1.2rem;
+    align-items: center;
+}
+
+.header__center::before,
+.header__center::after {
+    content: "";
+    display: block;
+    height: 1px;
+    background-color: currentColor;
+}
+  .link:hover{
+    color: pink;
+    text-decoration: underline pink;
+  }
+  .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+    text-align: center;
+    font-weight: 500;
+    font-family: "Poppins", sans-serif;
+ }
+.dropdown-menu  .dropdown-item:hover{
+   background-color: rgb(223, 223, 223);
+   color: palevioletred;
+   font-weight: 500;
+   text-align: center;
+   font-family: "Poppins", sans-serif;
+}
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+
+.card{
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    border: none;
+}
+.card:hover{
+  background-color: pink;
+  box-shadow: 2px 2px 15px palevioletred;
+}
+.flex-wrapper { 
+  display: flex; 
+  min-height: 50vh; 
+  flex-direction: column; 
+  justify-content: space-between 
+}
+.fa-brands{
+  color: white;
+  font-size: 1.5em;
+  cursor: pointer;
+ 
+}
+.fa-brands:hover{
+    color: palevioletred;
+    cursor: pointer;
+    font-size: 1.5em;
+}
+.fa-instagram{
+  color: white;
+  font-size: 1.5em;
+  
+}
+.fa-facebook{
+  color: white;
+  font-size: 1.5;
+}
+.fa-envelope{
+  color: white;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.map-responsive {
+  overflow: hidden;
+  padding-bottom: 30%;
+  position: relative;
+  height: 500px;
+  /* box-shadow: 2px 2px 10px 2px rgb(255, 255, 255); */
+}
+
+.map-responsive iframe {
+  left: 0;
+  top: 0;
+  padding: 1em 1em 1em;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+  cursor: pointer;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+  cursor: pointer;
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: pink;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+.search{
+  position: relative;
+  width: 60px;
+  height: 40px;
+  background: transparent;
+  transition: 0.5s;
+  box-shadow: 2px 2px 10px pink;
+  display: flex;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.search.active{
+  width: 360px;
+}
+.search .icon{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 40px;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search .input{
+  position: relative;
+  width: 300px;
+  height: 40px;
+  left: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search .input input{
+position: absolute;
+top: 0;
+width: 100%;
+height: 100%;
+border: none;
+outline: navajowhite;
+font-size: 18px;
+}
+.clear{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  right: 15px;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+.clear::before{
+  position: absolute;
+  content: '';
+  width: 1px;
+  height: 15px;
+  background: #999;
+  transform: rotate(45deg);
+}
+.clear::after{
+  position: absolute;
+  content: '';
+  width: 1px;
+  height: 15px;
+  background: #999;
+  transform: rotate(315deg);
+}

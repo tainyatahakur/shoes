@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+body{
+   overflow-x: hidden;
+}
+.swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  #diff_size{
+   
+    border: none;
+    /* overflow: hidden; */
+
+
+  }
+  #diff_size::-moz-focus-inner {
+    border: 0;
+  }
+  #diff_size:focus {
+    outline: none;
+  }
+  #diff_size option{
+    width: 50px;
+    margin-right: 5px;
+    font-size: 1.2em;
+    padding: 10px 0;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    border: pink solid 1px;
+    border-radius: 5px;
+    color: palevioletred;
+    }
+    #diff_fit{
+   
+        border: none;
+        /* overflow: hidden; */
+    
+    
+      }
+      #diff_fit::-moz-focus-inner {
+        border: 0;
+      }
+      #diff_fit:focus {
+        outline: none;
+      }
+      #diff_fit option{
+        width: 50px;
+        margin-right: 5px;
+        font-size: 1.2em;
+        padding: 10px 0;
+        text-align: center;
+        display: inline-block;
+        cursor: pointer;
+        border: pink solid 1px;
+        border-radius: 5px;
+        color: palevioletred;
+        }
+        .fa-solid{
+          color: palevioletred;
+        }
+        .rate {
+          float: left;
+          height: 46px;
+          padding: 0 10px;
+      }
+      .rate:not(:checked) > input {
+          position:absolute;
+          top:-9999px;
+      }
+      .rate:not(:checked) > label {
+          float:right;
+          width:1em;
+          overflow:hidden;
+          white-space:nowrap;
+          cursor:pointer;
+          font-size:30px;
+          color:#ccc;
+      }
+      .rate:not(:checked) > label:before {
+          content: '★ ';
+      }
+      .rate > input:checked ~ label {
+          color: palevioletred;    
+      }
+      .rate:not(:checked) > label:hover,
+      .rate:not(:checked) > label:hover ~ label {
+          color: pink;  
+      }
+      .rate > input:checked + label:hover,
+      .rate > input:checked + label:hover ~ label,
+      .rate > input:checked ~ label:hover,
+      .rate > input:checked ~ label:hover ~ label,
+      .rate > label:hover ~ input:checked ~ label {
+          color: palevioletred;
+      }
+      

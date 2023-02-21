@@ -1,14 +1,528 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <title>House Of Ruhi</title>
+    <link href="{% static 'css/index.css' %}" rel="stylesheet" />
+    <!--cdn-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://kit.fontawesome.com/8feaa5fbd6.js" crossorigin="anonymous"></script>
+    <!--swiper-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <!--aos-->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 </head>
-<body>
-    <h1>Ruhi Shoes</h1>
-    <a href="{% url 'contact' %}">contact</a>
-    <a href="{% url 'showcontact' %}">showcontact</a>
+
+<body style="background-color: rgb(253, 240, 242);">
+    <div class="popup mx-auto text-center">
+        <div class="container mx-auto" style="width: 60vw;
+        background-color: #ffffff;
+        padding: 3em 1.8em;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 50%;
+        left: 50%;
+        z-index: 1000000;
+        border-radius: 0.6em;
+        box-shadow: 0 0.6em 2.5em rgba(0, 7, 70, 0.2) ;">
+            <div class="container-fluid mx-auto">
+              <div class="close mx-auto text-center">
+                <i
+                  class="fa-solid fa-xmark mx-auto"
+                  style="font-size: 1.8em; cursor: pointer; float: right;"
+                ></i>
+              </div>
+            </div>
+          <div class="container-fluid text-center">
+            <i
+              class="fa-solid fa-location-dot"
+              style="color: pink; font-size: 5em"
+            ></i>
+            <h1 class="mt-5" id="location-details">
+              Click On The 'Get Location' Button
+            </h1>
+            <button class="button mt-5" id="get-location">GET LOCATION</button>
+            <p style="font-size: 1em" class="mt-4">Note: It Helps us to accurately get your location</p>
+          </div>
+        </div>
+      </div>
+    <nav class="navbar fixed-top navbar-expand-lg bg-body-black">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#"
+                            style="font-size: 1.5em; font-weight: 400; color: palevioletred">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="font-size: 1.5em; font-weight: 400; color: palevioletred" ;>
+                            Shop
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/html/heels.html">Heels</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item" href="/html/shoes.html">Shoes</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/html/flats.html">Flats</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"
+                            style="font-size: 1.5em; font-weight: 400; color: palevioletred">Contact Us</a>
+                    </li>
+                </ul>
+                <hr style="border: 1px solid; color: palevioletred" />
+                <div class="icons" style="display: flex;">
+                    <div class="search">
+                        <div class="icon">
+                            <i class="fa-solid fa-magnifying-glass" style="color: palevioletred; font-size: 1.4em"
+                                title="search">
+                            </i>
+                        </div>
+                        <div class="input">
+                            <input type="text" placeholder="Search" id="mysearch">
+                            <span class="clear" onclick="document.getElementById('mysearch').value ='' ">
+                            </span>
+                        </div>
+                    </div>
+
+                    <a href="#">
+                        <i class="fa-solid fa-right-to-bracket mx-2 mt-2"
+                            style="color: palevioletred; font-size: 1.4em"></i></a>
+                    <a href="#">
+                        <i class="fa-solid fa-cart-shopping mx-2 mt-2" style="color: palevioletred; font-size: 1.4em">
+                        </i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--swiper-->
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="{% static 'images/img1.jpg' %}" alt="sandle" class="img-fluid" style="position: absolute" />
+                <div class="content" style="position: relative">
+                    <h1 style="color: palevioletred">
+                        WELCOME TO THE HOUSE OF RUHII
+                    </h1>
+                    <button class="button">SHOP NOW</button>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <img src="{% static 'images/img2.jpg' %}" alt="sandle" class="img-fluid" style="position: absolute" />
+                <div class="content" style="position: relative">
+                    <h3 style="color: palevioletred">
+                        Experience Comfort and Style Like Never Before With Our Women's
+                        Shoes.
+                    </h3>
+                    <button class="button">SHOP NOW</button>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <img src="{% static 'images/img3.jpg' %}" alt="sandle" class="img-fluid" style="position: absolute" />
+                <div class="content" style="position: relative">
+                    <h3 style="color: palevioletred">
+                        Shop Now and Discover Your New Favorite Pair of Women's Shoes.
+                    </h3>
+                    <button class="button">SHOP NOW</button>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <img src="{% static 'images/img4.jpg' %}" alt="sandle" class="img-fluid" style="position: absolute" />
+                <div class="content" style="position: relative">
+                    <h3 style="color: palevioletred">
+                        Find The Perfect Balance of Style and Comfort With Our Range of
+                        Women's Shoes.
+                    </h3>
+                    <button class="button">SHOP NOW</button>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <!--content-->
+    <div class="container text-center mt-5">
+        <div class="header__center">
+            <h1 style="color: palevioletred;font-size: 1.5em;">HOUSE OF RUHII</h1>
+        </div>
+    </div>
+    <div class="container mt-5 text-center">
+        <h3>
+            From The Office To a Night Out, Our Versatile Range of Women's Shoes Has
+            Got You Covered.
+        </h3>
+        <button class="button mt-3">SHOP NOW</button>
+    </div>
+    <div class="container text-center mt-5">
+        <h3>Our Best Seller</h3>
+    </div>
+    <!--contwent-->
+    <div class="container mt-3">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card" style="border: none">
+                    <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
+                        onmouseover="this.src='../../../static/images/img2.jpg'" onmouseout="this.src='.../../../static/images/img1.jpg'" />
+                    <div class="card-body">
+                        <h5 class="card-title">Shoes Name</h5>
+                        <p class="card-text">&#8377</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="border: none">
+                    <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
+                        onmouseover="this.src='../../../static/images/img2.jpg'" onmouseout="this.src='../../../static/images/img1.jpg'" />
+                    <div class="card-body">
+                        <h5 class="card-title">Shoes Name</h5>
+                        <p class="card-text">&#8377</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="border: none">
+                    <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
+                        onmouseover="this.src='../../../static/images/img2.jpg'" onmouseout="this.src='../../../static/images/img1.jpg'" />
+                    <div class="card-body">
+                        <h5 class="card-title">Shoes Name</h5>
+                        <p class="card-text">&#8377</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="border: none">
+                    <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
+                        onmouseover="this.src='../../../static/images/img2.jpg'" onmouseout="this.src='../../../static/images/img1.jpg'" />
+                    <div class="card-body">
+                        <h5 class="card-title">Shoes Name</h5>
+                        <p class="card-text">&#8377</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="border: none">
+                    <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
+                        onmouseover="this.src='../../../static/images/img2.jpg'" onmouseout="this.src='../../../static/images/img1.jpg'" />
+                    <div class="card-body">
+                        <h5 class="card-title">Shoes Name</h5>
+                        <p class="card-text">&#8377</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="border: none">
+                    <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
+                        onmouseover="this.src='../../../static/images/img2.jpg'" onmouseout="this.src='../../../static/images/img1.jpg'" />
+                    <div class="card-body">
+                        <h5 class="card-title">Shoes Name</h5>
+                        <p class="card-text">&#8377</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--testimonails-->
+    <div class="container-fluid bg-light mt-5" style="padding: 1em 1em 1em">
+        <div class="container text-center mt-4">
+            <h3 style="color: palevioletred;">Customer's Review</h3>
+        </div>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-sm-4">
+                    <span><img src="{% static 'images/5 star rating.png' %}" class="img-fluid"
+                            style="width: 50%" /></span>
+                    <p>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum
+                        expedita magnam quos est! Eum, sapiente aliquam. Quo in asperiores
+                        reiciendis veniam atque blanditiis, modi dolorem mollitia ad
+                        accusantium fuga eaque?
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <span><img src="{% static 'images/5 star rating.png' %}" class="img-fluid"
+                            style="width: 50%" /></span>
+                    <p>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum
+                        expedita magnam quos est! Eum, sapiente aliquam. Quo in asperiores
+                        reiciendis veniam atque blanditiis, modi dolorem mollitia ad
+                        accusantium fuga eaque?
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <span><img src="{% static 'images/5 star rating.png' %}" class="img-fluid"
+                            style="width: 50%" /></span>
+                    <p>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum
+                        expedita magnam quos est! Eum, sapiente aliquam. Quo in asperiores
+                        reiciendis veniam atque blanditiis, modi dolorem mollitia ad
+                        accusantium fuga eaque?
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--categories-->
+    <div class="container-fluid mt-5 text-center">
+        <h1 style="color: palevioletred;">OUR COLLECTIONS</h1>
+    </div>
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="container" style="position: relative; margin: auto;">
+                    <img src="{% static 'images/img1.jpg' %}" alt="Avatar" class="image" style="width:100%">
+                    <div class="middle">
+                        <a href="#"><button class="btn-1">
+                                <div class="text">SHOP NOW</div>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3 mt-1">
+                <div class="container" style="position: relative" ;>
+                    <img src="{% static 'images/img1.jpg' %}" alt="Avatar" class="image" style="width:100%">
+                    <div class="middle">
+                        <a href="#"><button class="btn-1">
+                                <div class="text">SHOP NOW</div>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mt-1">
+                <div class="container" style="position: relative" ;>
+                    <img src="{% static 'images/img1.jpg' %}" alt="Avatar" class="image" style="width:100%">
+                    <div class="middle">
+                        <a href="#"><button class="btn-1">
+                                <div class="text">SHOP NOW</div>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mt-1">
+                <div class="container" style="position: relative" ;>
+                    <img src="{% static 'images/img1.jpg' %}" alt="Avatar" class="image" style="width:100%">
+                    <div class="middle">
+                        <a href="#"><button class="btn-1">
+                                <div class="text">SHOP NOW</div>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--wdwd-->
+    <div class="container-fluid bg-light" style="padding-bottom: 1em;">
+        <div class="container-fluid text-center mt-5 bg-light">
+            <h2>WHY CHOOSE <span style="color: palevioletred;">HOUSE OF RUHII..?</span></h2>
+        </div>
+        <div class="container-fluid bg-light">
+            <div class="container mt-3 bg-light">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <img src="{% static 'images/img1.jpg' %}" class="img-fluid" style="position: sticky" />
+                    </div>
+                    <div class="col-sm-6 mt-4" style="text-align: left">
+                        <p>
+                            <span style="font-size: 1.2em; font-weight: 500; color: palevioletred;"> Quality:</span>
+                            Emphasize the high-quality materials used in your shoes
+                            and their durability, comfort and long-lasting value.
+                        </p>
+
+                        <p>
+                            <span style="font-size: 1.2em; font-weight: 500;color: palevioletred;">Style:</span>
+                            Highlight the unique and fashionable designs of your
+                            shoes, making sure to show that they offer a wide range of
+                            styles to meet the needs and tastes of different women.
+                        </p>
+
+                        <p>
+                            <span style="font-size: 1.2em; font-weight: 500;color: palevioletred;">Comfort:</span> Point
+                            out the comfort features of your shoes, such as
+                            cushioned insoles and flexible soles, that ensure a comfortable
+                            fit for all-day wear.
+                        </p>
+
+                        <p>
+                            <span style="font-size: 1.2em; font-weight: 500;color: palevioletred;">Expertise:</span>
+                            Showcase your brand's expertise in creating shoes for
+                            women and how you understand the importance of style and
+                            comfort.
+                        </p>
+
+                        <p>
+                            <span style="font-size: 1.2em; font-weight: 500;color: palevioletred;"> Customer
+                                Service:</span> Emphasize your commitment to excellent
+                            customer service, such as easy returns and exchanges, helpful
+                            staff, and a responsive customer support team.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+    <div class="container-fluid" style="background-color: pink; padding: 1em 1em 1em;">
+        <div class="row text-center">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-3">
+                <h3>Join Our Mailing List</h3>
+            </div>
+            <div class="col-sm-3" style="display: flex;">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="@email">
+                <button class="button mx-2" style="border-radius: 10px;"><i
+                        class="fa-solid fa-arrow-right"></i></button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="flex-wrapper bg-black mx-auto">
+        <div class="container-fluid" style="padding-top: 1em">
+            <div class="row g-3">
+                <div class="col-sm-4 mb-2 text-center">
+                    <h3 style="color: palevioletred">USEFUL LINKS</h3>
+                    <ul style="list-style: none; color: white; font-size: 1.5em;">
+                        <a href="#" style="text-decoration: none">
+                            <li style="list-style: none; color: white; margin-left: -25px" class="list mb-2">
+                                HOME
+                            </li>
+                        </a>
+
+                        <a href="#" style="text-decoration: none">
+                            <li style="list-style: none; color: white; margin-left: -25px; " class="mb-2">
+                                SHOP
+                            </li>
+                        </a>
+                        <a href="#" style="text-decoration: none">
+                            <li style="list-style: none; color: white; margin-left: -25px; " class="mb-2">
+                                MY ACCOUNT
+                            </li>
+                        </a>
+                        <a href="#" style="text-decoration: none">
+                            <li style="list-style: none; color: white; margin-left: -25px;" class="mb-2">
+                                VIEW CART
+                            </li>
+                        </a>
+                        <a href="#" style="text-decoration: none">
+                            <li style="list-style: none; color: white; margin-left: -25px; " class="mb-2">
+                                CONTACT US
+                            </li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="col-sm-4 mb-4 text-center">
+                    <h3 style="color: palevioletred">GET CONNECTED </h3>
+                    <a href="#"><i class="fa-brands fa-facebook mx-2"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+                <div class="col-sm-4 mb-2 text-center"">
+            <h3 style=" color: palevioletred">SHOP ADDRESS</h3>
+                    <p style="color: whitesmoke; font-size: 1.5em">NAME OF SHOP</p>
+                    <p style="color: whitesmoke; font-size: 1.5em">STREET NAME</p>
+                    <p style="color: whitesmoke; font-size: 1.5em">LOCATION</p>
+                    <p style="color: whitesmoke; font-size: 1.5em">CITY</p>
+                    <i class="fa-solid fa-phone mx-2" style="color: palevioletred"></i>
+                    <span style="color: whitesmoke; font-size: 1.3em">0123456789</span><br>
+                    <i class="fa-solid fa-envelope mx-2 mt-2" style="color: palevioletred"></i>
+                    <span style="color: whitesmoke; font-size: 1.3em">@gmail.com</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p style="
+                font-size: 1.5em;
+                font-weight: 600;
+                color: whitesmoke;
+                text-align: center;
+              ">
+                        Visit Us Here!
+                    </p>
+                    <div class="map-responsive">
+                        <h1>YOUR LOCATION ON MAP WILL BE SHOWN HERE</h1>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h3 style="text-align: center; color: whitesmoke">Our Facebook</h3>
+                    <div class="container mx-auto text-center">
+                        <h1>YOUR FACEBOOK PAGE WILL BE SHOWN HERE</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border: 1px solid white" />
+
+        <div class="footer">
+            <div class="container-fluid">
+                <p>Narula</p>
+            </div>
+        </div>
+    </div>
+    <!--script-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 30,
+            centeredSlides: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+    <script>
+        var nav = document.querySelector("nav");
+
+        window.addEventListener("scroll", function () {
+            if (window.pageYOffset > 100) {
+                nav.classList.add("bg-light", "shadow");
+            } else {
+                nav.classList.remove("bg-light", "shadow");
+            }
+        });
+    </script>
+    <script src="/js/index.js"></script>
 </body>
+
 </html>

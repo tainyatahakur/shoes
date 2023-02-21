@@ -1,0 +1,460 @@
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <title>House OF RUHII - Flats</title>
+    <link href="{% static 'css/index.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/shoes.css' %}" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/8feaa5fbd6.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body style="background-color: rgb(253, 240, 242);">
+
+    <nav class="navbar fixed-top navbar-expand-lg bg-body-black">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="#"
+                style="font-size: 1.5em; font-weight: 400; color: palevioletred"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="font-size: 1.5em; font-weight: 400; color: palevioletred";
+              >
+                Shop
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/html/heels.html">Heels</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="/html/shoes.html">Shoes</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="/html/flats.html">Flats</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                style="font-size: 1.5em; font-weight: 400; color: palevioletred"
+                >Contact Us</a
+              >
+            </li>
+          </ul>
+          <hr style="border: 1px solid; color: palevioletred" />
+          <div class="icons" style="display: flex;">
+              <div class="search">
+                <div class="icon">
+              <i
+                class="fa-solid fa-magnifying-glass"
+                style="color: palevioletred; font-size: 1.4em"
+                title="search"
+                >
+              </i>
+                </div>
+                <div class="input">
+                  <input type="text" placeholder="Search" id="mysearch">
+                  <span class="clear" onclick="document.getElementById('mysearch').value ='' " >   
+                  </span>
+                </div>
+              </div>
+                 
+            <a href="#">
+              <i
+                class="fa-solid fa-right-to-bracket mx-2 mt-2"
+                style="color: palevioletred; font-size: 1.4em"
+              ></i
+            ></a>
+            <a href="#">
+              <i
+                class="fa-solid fa-cart-shopping mx-2 mt-2"
+                style="color: palevioletred; font-size: 1.4em"
+                >
+              </i></a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="main mx-auto">
+      <div class="container mt-5">
+        <div class="header__center" style="margin-top: 3.5em">
+          <h1 style="color: black; text-align: center">HOUSE OF RUHII</h1>
+        </div>
+      </div>
+      <div class="container-fluid text-center">
+        <h1 style="color: palevioletred" class="mt-5">Collection Of FLATS</h1>
+      </div>
+      <div
+        style="text-align: center; font-size: 1.2em; color: rgb(99, 31, 42)"
+        class="container text-center"
+      >
+        <p>
+            Flats are a versatile staple for any woman's wardrobe. Our collection of women's flats boasts a range of styles, from sophisticated ballet flats to playful and printed loafers. Perfect for work or play, our flats are designed with comfort in mind, allowing you to stay on your feet all day without sacrificing style. With so many options to choose from, you're sure to find the perfect pair of flats to complete any outfit and add a touch of effortless elegance to your look.
+        </p>
+        <hr style="border: 1 px solid palevioletred; margin-top: 1.5em;">
+      </div>
+      
+      <div class="container">
+        <div class="row">
+            <div class="col-sm-10"></div>
+            <div class="col-sm-2">
+        <div class="nav-item dropdown text-center">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.2em;">
+              SORT BY
+            </a>
+            <ul class="dropdown-menu mx-5">
+              <li><a class="dropdown-item" href="#">Price, low to high</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Price, high to low</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Best Selling</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Featured</a></li>
+            </ul>
+          </div>
+            </div>
+        </div>
+ 
+
+    <div class="container mt-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="col">
+            <div class="card" style="border: none">
+              <img
+                src="{% static 'images/img1.jpg' %}"
+                class="card-img-top"
+                onmouseover="this.src='../../../static/images/img2.jpg'"
+                onmouseout="this.src='../../../static/images/img1.jpg'"
+              />
+              <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-10">
+                <h5 class="card-title">Shoes Name</h5>
+                <p class="card-text">&#8377</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="#">
+                            <i
+                              class="fa-solid fa-cart-shopping mt-2"
+                              title="add to cart"
+                              style="color: palevioletred; font-size: 1.4em"
+                            ></i
+                          ></a>
+                    </div>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card" style="border: none">
+              <img
+                src="{% static 'images/img1.jpg' %}"
+                class="card-img-top"
+                onmouseover="this.src='../../../static/images/img2.jpg'"
+                onmouseout="this.src='../../../static/images/img1.jpg'"
+              />
+              <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-10">
+                <h5 class="card-title">Shoes Name</h5>
+                <p class="card-text">&#8377</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="#">
+                            <i
+                            class="fa-solid fa-cart-shopping mt-2"
+                              title="add to cart"
+                              style="color: palevioletred; font-size: 1.4em"
+                            ></i
+                          ></a>
+                    </div>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card" style="border: none">
+              <img
+                src="{% static 'images/img1.jpg' %}"
+                class="card-img-top"
+                onmouseover="this.src='../../../static/images/img2.jpg'"
+                onmouseout="this.src='../../../static/images/img1.jpg'"
+              />
+              <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-10">
+                <h5 class="card-title">Shoes Name</h5>
+                <p class="card-text">&#8377</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="#">
+                            <i
+                            class="fa-solid fa-cart-shopping mt-2"
+                              title="add to cart"
+                              style="color: palevioletred; font-size: 1.4em"
+                            ></i
+                          ></a>
+                    </div>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card" style="border: none">
+              <img
+                src="../images/img1.jpg"
+                class="card-img-top"
+                onmouseover="this.src='../../../static/images/img2.jpg'"
+                onmouseout="this.src='../../../static/images/img1.jpg'"
+              />
+              <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-10">
+                <h5 class="card-title">Shoes Name</h5>
+                <p class="card-text">&#8377</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="#">
+                            <i
+                            class="fa-solid fa-cart-shopping mt-2"
+                              title="add to cart"
+                              style="color: palevioletred; font-size: 1.4em"
+                            ></i
+                          ></a>
+                    </div>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card" style="border: none">
+              <img
+                src="../images/img1.jpg"
+                class="card-img-top"
+                onmouseover="this.src='../../../static/images/img2.jpg'"
+                onmouseout="this.src='../../../static/images/img1.jpg'"
+              />
+              <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-10">
+                <h5 class="card-title">Shoes Name</h5>
+                <p class="card-text">&#8377</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="#">
+                            <i
+                            class="fa-solid fa-cart-shopping mt-2"
+                              title="add to cart"
+                              style="color: palevioletred; font-size: 1.4em"
+                            ></i
+                          ></a>
+                    </div>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card" style="border: none">
+              <img
+                src="../images/img1.jpg"
+                class="card-img-top"
+                onmouseover="this.src='../../../static/images/img2.jpg'"
+                onmouseout="this.src='../../../static/images/img1.jpg'"
+              />
+              <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-10">
+                <h5 class="card-title">Shoes Name</h5>
+                <p class="card-text">&#8377</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="#">
+                            <i
+                            class="fa-solid fa-cart-shopping mt-2"
+                              title="add to cart"
+                              style="color: palevioletred; font-size: 1.4em"
+                            ></i
+                          ></a>
+                    </div>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<div class="flex-wrapper bg-black mx-auto mt-5">
+    <div class="container-fluid" style="padding-top: 1em">
+      <div class="row g-3">
+        <div class="col-sm-4 mb-2 text-center">
+          <h3 style="color: palevioletred">USEFUL LINKS</h3>
+          <ul style="list-style: none; color: white; font-size: 1.5em;">
+            <a href="#" style="text-decoration: none"
+              ><li
+                style="list-style: none; color: white; margin-left: -25px"
+                class="list mb-2"
+              >
+                HOME
+              </li></a
+            >
+
+            <a href="#" style="text-decoration: none"
+              ><li
+                style="list-style: none; color: white; margin-left: -25px; "
+                class="mb-2"
+              >
+                SHOP
+              </li></a
+            >
+            <a href="#" style="text-decoration: none"
+            ><li
+              style="list-style: none; color: white; margin-left: -25px; "
+              class="mb-2"
+            >
+              MY ACCOUNT
+            </li></a
+          >
+          <a href="#" style="text-decoration: none"
+          ><li
+            style="list-style: none; color: white; margin-left: -25px;"
+            class="mb-2"
+          >
+            VIEW CART
+          </li></a
+        >
+        <a href="#" style="text-decoration: none"
+        ><li
+          style="list-style: none; color: white; margin-left: -25px; "
+          class="mb-2"
+        >
+          CONTACT US
+        </li></a
+      >
+          </ul>
+        </div>
+        <div class="col-sm-4 mb-4 text-center">
+          <h3 style="color: palevioletred">GET CONNECTED </h3>
+          <a href="#"><i class="fa-brands fa-facebook mx-2"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+        <div class="col-sm-4 mb-2 text-center"">
+          <h3 style="color: palevioletred">SHOP ADDRESS</h3>
+          <p style="color: whitesmoke; font-size: 1.5em">NAME OF SHOP</p>
+          <p style="color: whitesmoke; font-size: 1.5em">STREET NAME</p>
+          <p style="color: whitesmoke; font-size: 1.5em">LOCATION</p>
+          <p style="color: whitesmoke; font-size: 1.5em">CITY</p>
+          <i class="fa-solid fa-phone mx-2" style="color: palevioletred"></i>
+          <span style="color: whitesmoke; font-size: 1.3em">0123456789</span><br>
+          <i class="fa-solid fa-envelope mx-2 mt-2" style="color: palevioletred"></i>
+          <span style="color: whitesmoke; font-size: 1.3em">@gmail.com</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-sm-6">
+          <p
+            style="
+              font-size: 1.5em;
+              font-weight: 600;
+              color: whitesmoke;
+              text-align: center;
+            "
+          >
+            Visit Us Here!
+          </p>
+          <div class="map-responsive">
+            <h1>YOUR LOCATION ON MAP WILL BE SHOWN HERE</h1>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <h3 style="text-align: center; color: whitesmoke">Our Facebook</h3>
+          <div class="container mx-auto text-center">
+            <h1>YOUR FACEBOOK PAGE WILL BE SHOWN HERE</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr style="border: 1px solid white" />
+
+    <div class="footer">
+      <div class="container-fluid">
+        <p>Narula</p>
+      </div>
+    </div>
+  </div>
+  <!--script-->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"
+  ></script>
+ 
+  <script>
+    var nav = document.querySelector("nav");
+
+    window.addEventListener("scroll", function () {
+      if (window.pageYOffset > 100) {
+        nav.classList.add("bg-light", "shadow");
+      } else {
+        nav.classList.remove("bg-light", "shadow");
+      }
+    });
+  </script>
+   <script src="/js/index.js"></script>
+</body>
+</html>
+
+  </body>
+</html>
