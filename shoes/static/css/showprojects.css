@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&family=Tinos&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tinos', serif, cursive;
+    text-align: center;
+}
+body{
+    background-image: #13091F;
+    background-size: 100% 100%;
+    color: black;
+}
+.table{
+    color: black;
+}
+.table-dark{
+    color: #fff; 
+}
+.table tbody tr td{
+    color: #f5f5f5;
+}
+.table tbody tr td a{
+    color: black;
+    text-decoration: none;
+}
+
+.bx{
+    font-size: 20px;
+    cursor: pointer;
+    color: black;
+}
+.bxs-trash-alt:hover{
+    color: black;
+}
+.bxs-edit-alt:hover{
+    color: rgb(252, 252, 22);
+}
+
+.bxs-chevron-up{
+    font-size: 30px;
+    transition: 0.3s ease;
+}
+.bxs-chevron-up:hover{
+    font-size: 35px;
+    padding: 2px 2px;
+    background-color: lightgrey;
+}
+.bxs-phone-call{
+    color: black;
+}
+.btn-1{
+    padding:10px 40px;
+    background-color: #000; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+.btn-1:hover{
+    padding:10px 40px;
+    background-color: #000; 
+    color: white;
+    border: none;
+    box-shadow: 2px 2px 2px black;
+}

@@ -19,6 +19,8 @@
 </head>
 
 <body style="background-color: rgb(253, 240, 242);">
+{% block popup %}
+
     <div class="popup mx-auto text-center">
         <div class="container mx-auto" style="width: 60vw;
         background-color: #ffffff;
@@ -30,27 +32,24 @@
         z-index: 1000000;
         border-radius: 0.6em;
         box-shadow: 0 0.6em 2.5em rgba(0, 7, 70, 0.2) ;">
+        
             <div class="container-fluid mx-auto">
-              <div class="close mx-auto text-center">
-                <i
-                  class="fa-solid fa-xmark mx-auto"
-                  style="font-size: 1.8em; cursor: pointer; float: right;"
-                ></i>
-              </div>
+                <div class="close mx-auto text-center">
+                    <i class="fa-solid fa-xmark mx-auto" style="font-size: 1.8em; cursor: pointer; float: right;"></i>
+                </div>
             </div>
-          <div class="container-fluid text-center">
-            <i
-              class="fa-solid fa-location-dot"
-              style="color: pink; font-size: 5em"
-            ></i>
-            <h1 class="mt-5" id="location-details">
-              Click On The 'Get Location' Button
-            </h1>
-            <button class="button mt-5" id="get-location">GET LOCATION</button>
-            <p style="font-size: 1em" class="mt-4">Note: It Helps us to accurately get your location</p>
-          </div>
+            <div class="container-fluid text-center">
+                <i class="fa-solid fa-location-dot" style="color: pink; font-size: 5em"></i>
+                <h1 class="mt-5" id="location-details">
+                    Click On The 'Get Location' Button
+                </h1>
+                <button class="button mt-5" id="get-location">GET LOCATION</button>
+                <p style="font-size: 1em" class="mt-4">Note: It Helps us to accurately get your location</p>
+            </div>
         </div>
-      </div>
+    </div>
+{% endblock popup %}
+
     <nav class="navbar fixed-top navbar-expand-lg bg-body-black">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
@@ -62,7 +61,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#"
+                        <a class="nav-link" aria-current="page" href="/"
                             style="font-size: 1.5em; font-weight: 400; color: palevioletred">Home</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -71,21 +70,64 @@
                             Shop
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/html/heels.html">Heels</a></li>
+                            <li><a class="dropdown-item" href="{% url 'heels' %}">Heels</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="/html/shoes.html">Shoes</a></li>
+                            <li><a class="dropdown-item" href="{% url 'shoes' %}">Shoes</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
                             <li>
-                                <a class="dropdown-item" href="/html/flats.html">Flats</a>
+                                <a class="dropdown-item" href="{% url 'flats' %}">Flats</a>
                             </li>
+                                <hr class="dropdown-divider" />
+
+                            <li><a class="dropdown-item" href="{% url 'boots' %}">Boots</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+
+                            <li><a class="dropdown-item" href="{% url 'loafer' %}">Loafer</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+
+                            <li><a class="dropdown-item" href="{% url 'mules' %}">Mules</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+
+                            <li><a class="dropdown-item" href="{% url 'pumps' %}">Pumps</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+
+                             <li><a class="dropdown-item" href="{% url 'sandal' %}">Sandal</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+
+                             <li><a class="dropdown-item" href="{% url 'sneaker' %}">Sneaker</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+
+                            <li><a class="dropdown-item" href="{% url 'wedges' %}">Wedges</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+
+                            <li><a class="dropdown-item" href="{% url 'espadrilles' %}">Espadrilles</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            
+                    
+
+
+
+
+                            
+                            
+
+                            
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"
+                        <a class="nav-link" href="{% url 'contact' %}"
                             style="font-size: 1.5em; font-weight: 400; color: palevioletred">Contact Us</a>
                     </li>
                 </ul>
@@ -114,6 +156,8 @@
             </div>
         </div>
     </nav>
+{% block content %}
+
     <!--swiper-->
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
@@ -182,7 +226,8 @@
             <div class="col">
                 <div class="card" style="border: none">
                     <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
-                        onmouseover="this.src='../../../static/images/img2.jpg'" onmouseout="this.src='.../../../static/images/img1.jpg'" />
+                        onmouseover="this.src='../../../static/images/img2.jpg'"
+                        onmouseout="this.src='.../../../static/images/img1.jpg'" />
                     <div class="card-body">
                         <h5 class="card-title">Shoes Name</h5>
                         <p class="card-text">&#8377</p>
@@ -192,7 +237,8 @@
             <div class="col">
                 <div class="card" style="border: none">
                     <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
-                        onmouseover="this.src='../../../static/images/img2.jpg'" onmouseout="this.src='../../../static/images/img1.jpg'" />
+                        onmouseover="this.src='../../../static/images/img2.jpg'"
+                        onmouseout="this.src='../../../static/images/img1.jpg'" />
                     <div class="card-body">
                         <h5 class="card-title">Shoes Name</h5>
                         <p class="card-text">&#8377</p>
@@ -202,7 +248,8 @@
             <div class="col">
                 <div class="card" style="border: none">
                     <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
-                        onmouseover="this.src='../../../static/images/img2.jpg'" onmouseout="this.src='../../../static/images/img1.jpg'" />
+                        onmouseover="this.src='../../../static/images/img2.jpg'"
+                        onmouseout="this.src='../../../static/images/img1.jpg'" />
                     <div class="card-body">
                         <h5 class="card-title">Shoes Name</h5>
                         <p class="card-text">&#8377</p>
@@ -212,7 +259,8 @@
             <div class="col">
                 <div class="card" style="border: none">
                     <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
-                        onmouseover="this.src='../../../static/images/img2.jpg'" onmouseout="this.src='../../../static/images/img1.jpg'" />
+                        onmouseover="this.src='../../../static/images/img2.jpg'"
+                        onmouseout="this.src='../../../static/images/img1.jpg'" />
                     <div class="card-body">
                         <h5 class="card-title">Shoes Name</h5>
                         <p class="card-text">&#8377</p>
@@ -222,7 +270,8 @@
             <div class="col">
                 <div class="card" style="border: none">
                     <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
-                        onmouseover="this.src='../../../static/images/img2.jpg'" onmouseout="this.src='../../../static/images/img1.jpg'" />
+                        onmouseover="this.src='../../../static/images/img2.jpg'"
+                        onmouseout="this.src='../../../static/images/img1.jpg'" />
                     <div class="card-body">
                         <h5 class="card-title">Shoes Name</h5>
                         <p class="card-text">&#8377</p>
@@ -232,7 +281,8 @@
             <div class="col">
                 <div class="card" style="border: none">
                     <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
-                        onmouseover="this.src='../../../static/images/img2.jpg'" onmouseout="this.src='../../../static/images/img1.jpg'" />
+                        onmouseover="this.src='../../../static/images/img2.jpg'"
+                        onmouseout="this.src='../../../static/images/img1.jpg'" />
                     <div class="card-body">
                         <h5 class="card-title">Shoes Name</h5>
                         <p class="card-text">&#8377</p>
@@ -522,7 +572,9 @@
             }
         });
     </script>
-    <script src="/js/index.js"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+    
+    {% endblock content %}
 </body>
 
 </html>

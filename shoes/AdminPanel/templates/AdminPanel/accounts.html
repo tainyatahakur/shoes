@@ -1,0 +1,85 @@
+{% extends 'Pages/editpage.html' %}
+
+
+    {% load widget_tweaks %}
+
+    {% block content %}
+    {% load static %}
+
+    <section class="home-section bg-light" style="padding-left: 5%">
+        <div class="home-content">
+            <i class="bx bx-menu" style="color: rgb(0, 0, 0)"></i>
+        </div>
+    <div class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h2><b><i class="fa-regular fa-clipboard mx-2"></i>Accounts</b></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content" style="padding-left: 20px;">
+        <br>
+        <!--table-->
+        <div class="container-fluid">
+            <table id="example" class="table table-bordered border-dark" style="width:100%">
+                <thead>
+                    <tr class="table-dark">
+                        <th class="table-dark">S.No</th>
+                        <th class="table-dark">Name</th>
+                        <th class="table-dark">Booking Date</th>
+                        <th class="table-dark">Appointment Date</th>
+                        <th class="table-dark">Total Payment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% if user.is_superuser %}
+                    {% for i in data %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{i.name}}</td>
+                        <td>{{i.BookingTime}}</td>
+                        <td>{{i.datentime}}</td>
+                        <td>{{i.total_payment}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong style="font-size: 1.3rem;">Total</strong></td>
+                        <td><strong>&#163; {{total}}</strong></td>
+                    </tr>
+                    {% endif %}
+
+
+                </tbody>
+            </table>
+            <div class="container-fluid mx-auto">
+                <a href="#"><i class='bx bxs-chevron-up'></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let arrow = document.querySelectorAll(".arrow");
+        for (var i = 0; i < arrow.length; i++) {
+            arrow[i].addEventListener("click", (e) => {
+                let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
+                arrowParent.classList.toggle("showMenu");
+            });
+        }
+
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".bx-menu");
+        console.log(sidebarBtn);
+        sidebarBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("close");
+        });
+    </script>
+
+
+    {% endblock content %}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+
+<link rel="stylesheet" href="{% static 'css/showprojects.css' %}">
+
+</head>
+
+<body> 
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }} p-2  mb-2 bg-success"
+        style="text-align:center; width :95%; margin: auto auto; list-style:none;" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+
+<section class="home-section bg-light" style="padding-left: 5%">
+    <div class="home-content">
+        <i class="bx bx-menu" style="color: rgb(0, 0, 0)"></i>
+    </div>
+    <div class="main-content" style="margin-top: 35px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h2 style="text-align: center;"><b>All Booking</b></h2>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <br>
+        <!--table-->
+        <div class="container-fluid mt-3">
+            <table id="example" class="table table-bordered border-dark" style="width:100%">
+                <thead>
+                    <tr class="table-dark">
+                        <th class="table-dark">Name</th>
+                        <th class="table-dark">Subcategory</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in s %}
+                    <tr>
+                        <td style="color: #000;">{{forloop.counter}}</td>
+                        <td style="color: #000;">{{item.id}}</td>
+                        <td style="color: #000;">{{item.name}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="container-fluid mx-auto">
+                <a href="#"><i class='bx bxs-chevron-up'></i></a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let arrow = document.querySelectorAll(".arrow");
+        for (var i = 0; i < arrow.length; i++) {
+            arrow[i].addEventListener("click", (e) => {
+                let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
+                arrowParent.classList.toggle("showMenu");
+            });
+        }
+
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".bx-menu");
+        console.log(sidebarBtn);
+        sidebarBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("close");
+        });
+    </script>
+</body>
+</html>

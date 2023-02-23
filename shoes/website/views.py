@@ -1,7 +1,6 @@
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -11,6 +10,10 @@ from website.models import BookingModel
 from website.forms import BookingForm
 from website.forms import ProductModel
 from website.forms import ProductForm
+from website.forms import CategoryForm
+from website.forms import CategoryModel
+from website.models import AddToCartModel
+from website.forms import AddToCartForm
 
 def index(request):
     return render(request, 'website/index.html')
@@ -113,8 +116,13 @@ def UpdateContact(request, id):
     data = ContactModel.objects.get(id = id)
     form = ContactForm(instance=data)
 
+def UpdateProduct(request, id):
+    data = ProductModel.objects.get(id = id)
+
+    form = ProductForm(instance=data)
+
     if request.method == "POST":
-        form = ContactForm(request.POST, instance=data)
+        form = ProductForm(request.POST, instance=data)
         print(form)
         if form.is_valid():
             form.save()
@@ -122,13 +130,18 @@ def UpdateContact(request, id):
             return redirect("/")
         else:
             print("Form Error: ", form.errors)
-    context = {'form': form}
-    return render(request, 'website/update.html', context)
+    context = {'form': form, 'data': data}
+    return render(request, 'AdminPanel/updateproduct.html', context)
 
 def Deletecontact(request, id):
     data = ContactModel.objects.get(id = id)
     data.delete()
     return redirect('showcontact')
+
+def DeleteProduct(request, id):
+    data = ProductModel.objects.get(id = id)
+    data.delete()
+    return redirect('showproduct')
 
 def product(request):
     form = ProductForm()
@@ -143,37 +156,136 @@ def product(request):
         else:
             print("Form Error: ", form.errors)
     context = {'form': form}
-    return render(request, 'website/product.html', context)
+    return render(request, 'AdminPanel/add_product.html', context)
+
+def category(request):
+    form = CategoryForm()
+
+    if request.method == "POST":
+        name = request.POST.get('name')
+        print("Name: ", name)
+        form = CategoryForm(request.POST)
+        print(form)
+        if form.is_valid():
+            form.save()
+            print("Form Saved")
+            return redirect("/")
+        else:                                           
+            print("Form Error: ", form.errors)
+    context = {'form': form}
+    return render(request, 'AdminPanel/add_product_cat.html', context)
+
+def showcategory(request):
+    data = CategoryModel.objects.all()
+    print(data)
+    context = {'s': data}
+    return render (request,'AdminPanel/show_prod_cat.html', context)
 
 def showproduct(request):
     data = ProductModel.objects.all()
     print(data)
     context = {'data': data}
-    return render (request,'website/showproduct.html', context)
+    return render (request,'AdminPanel/Show_Product.html', context)
 
 def Flats(request):
-    data = ProductModel.objects.filter(category=1)
+    data = ProductModel.objects.filter(cat=8)
     print(data)
     context = {'data': data}
     return render (request,'website/flats.html', context)
 
 def Shoes(request):
-    data = ProductModel.objects.filter(category=1)
-    print(data)
+    data = ProductModel.objects.filter(cat=7)
+    print(data) 
     context = {'data': data}
     return render (request,'website/shoes.html', context)
 
-def heels(request):
-    data = ProductModel.objects.filter(category=1)
+def Heels(request):
+    data = ProductModel.objects.filter(cat=6)
     print(data)
     context = {'data': data}
     return render (request,'website/heels.html', context)
 
-def search_view(request):
-    query = request.GET.get('q')
-    queryset = MyModel.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
-    context = {'queryset': queryset, 'query': query}
-    return render(request, 'search.html', context)
+def Boots(request):
+    data = ProductModel.objects.filter(cat=15)
+    print(data)
+    context = {'data': data}
+    return render (request,'website/boots.html', context)
+
+def Loafer(request):
+    data = ProductModel.objects.filter(cat=14)
+    print(data)
+    context = {'data': data}
+    return render (request,'website/loafer.html', context)
+
+def Mules(request):
+    data = ProductModel.objects.filter(cat=10)
+    print(data)
+    context = {'data': data}
+    return render (request,'website/mules.html', context)
+
+def Pumps(request):
+    data = ProductModel.objects.filter(cat=12)
+    print(data)
+    context = {'data': data}
+    return render (request,'website/pumps.html', context)
+
+def Sandal(request):
+    data = ProductModel.objects.filter(cat=13)
+    print(data)
+    context = {'data': data}
+    return render (request,'website/sandal.html', context)
+
+def Sneaker(request):
+    data = ProductModel.objects.filter(cat=11)
+    print(data)
+    context = {'data': data}
+    return render (request,'website/sneaker.html', context)
+
+def Wedges(request):
+    data = ProductModel.objects.filter(cat=9)
+    print(data)
+    context = {'data': data}
+    return render (request,'website/wedges.html', context)
+
+def Espadrilles(request):
+    data = ProductModel.objects.filter(cat=16)
+    print(data)
+    context = {'data': data}
+    return render (request,'website/espadrilles.html', context)
+
+def AddToCart(request):
+    data = AddToCartModel.objects.all()
+    total_price = 0
+    form = AddToCartForm()
+
+    if request.method == "POST":
+        form = AddToCartForm(request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            form.save()
+            return redirect("/")
+        else:
+            print("Form Error: ", form.errors)
+
+    context = {'form': form, 'data': data, 'total_price': total_price}
+    return render(request, 'website/checkoutpage.html', context)
+
+def showAddToCart(request):
+    data = AddToCartModel.objects.all()
+    total_price = data.aggregate(Sum('price'))['price__sum']
+    form = AddToCartForm()
+
+    if request.method == "POST":
+        form = AddToCartForm(request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            form.save()
+            return redirect("/")
+        else:
+            print("Form Error: ", form.errors)
+
+    context = {'form': form, 'data': data, 'total_price': total_price}
+    return render(request, '/showaddtocart.html', context)
 
 
 

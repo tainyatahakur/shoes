@@ -21,11 +21,25 @@ class ContactModel(models.Model):
     def __str__(self):
         return self.name
 
+class CategoryModel(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+    
 class ProductModel(models.Model):
     name = models.CharField(max_length=50)
     price = models.IntegerField()
-    category = models.CharField(max_length=50)
+    cat = models.ForeignKey("CategoryModel", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
 
+class AddToCartModel(models.Model):
+    name = models.CharField(max_length=50)
+    price = models.IntegerField()
+    quantity = models.IntegerField(default=1)
+    total_price = models.IntegerField(default=1)
+
+    def _str_(self):
+        return self.name

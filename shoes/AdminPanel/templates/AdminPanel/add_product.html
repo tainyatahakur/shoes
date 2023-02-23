@@ -1,0 +1,91 @@
+{% extends 'AdminPanel/editpage.html' %}
+
+
+{% block content %}
+{% load static %}
+
+<!--jquery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--datesrc-->
+
+
+<link rel="stylesheet" href="{% static 'css/addstaff.css' %}">
+
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }} p-2 mb-2 bg-success text-white" style="list-style: none; border-radius: 10px; width: 95%; margin: auto auto; margin-top: 75px; z-index: 1;" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+
+<section class="home-section bg-light" style="padding-left: 5%">
+    <div class="home-content">
+        <i class="bx bx-menu" style="color: rgb(0, 0, 0)"></i>
+    </div>
+<div class="main-content" style="padding-left: 70px; margin-top: 75px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2><b><i class="fa-solid fa-clipboard-user mx-2"></i>Add Product Name</b></h2>
+            </div>
+            <div class="col-sm-4">
+                <a href=""><button class="btn-1"><i class='bx bxs-file-plus'></i>Add Product Category</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% load widget_tweaks %}
+
+
+<div class="container" style="padding-left: 20px;">
+    <form class="row g-3 mt-3" method="POST" action="">
+        {% csrf_token %}
+        
+        <div class="col-md-3">
+            <label for="text" class="form-label">Name</label>
+            <input type="text" class="form-control" id="text" name="name" value="{{prodid.name}}">
+        </div>
+        <div class="col-md-3">
+            <label for="text" class="form-label">Price</label>
+            {% render_field form.price|add_class:"form-control" %}
+        </div>
+        <div class="col-md-3">
+            <label for="text" class="form-label">Product Category</label>
+            {% render_field form.cat|add_class:"form-control" %}
+        </div>
+        
+        <div class="col-md-12">
+                <button type="submit" class="btn-2" style="background-color: ff5f1f; padding: 10px 35px;">Submit</button>
+        </div>
+        <div class="col-md-3">
+
+        </div>
+    </form>
+</div>
+
+<script>
+    $(function () {
+        $('#datepicker').datepicker();
+    });
+</script>
+
+<script>
+    let arrow = document.querySelectorAll(".arrow");
+    for (var i = 0; i < arrow.length; i++) {
+        arrow[i].addEventListener("click", (e) => {
+            let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
+            arrowParent.classList.toggle("showMenu");
+        });
+    }
+
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".bx-menu");
+    console.log(sidebarBtn);
+    sidebarBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+    });
+</script>
+
+{% endblock content %}
