@@ -46,16 +46,18 @@ def signin(request):
 
     if request.method == 'POST':
         username = request.POST['username']
-        pass1 = request.POST['pass1']
-
+        pass1 = request.POST['password']
+        print('username: ', username)
         user = authenticate(username=username, password=pass1)
 
         if user is not None:
             login(request, user)
             fname = user.first_name
-            return render(request, "website/index.html",{'fname': fname} )
-
+            print("login Done")
+            # return render(request, "website/index.html",{'fname': fname} )
+            return redirect('index')
         else:
+           print('form error ')
            messages.error(request, "Bad Credentials")
            return redirect('index')
 
@@ -82,7 +84,7 @@ def contact(request):
         else:
             print("Form Error: ", form.errors)
     context = {'form': form}
-    return render(request, 'website/contact.html', context)
+    return render(request, 'AdminPanel/contact.html', context)
 
 def booking(request):
     form = BookingForm()
@@ -109,7 +111,7 @@ def showcontact(request):
     data = ContactModel.objects.all()
     print(data)
     context = {'data' : data}
-    return render(request, 'website/showcontact.html', context)
+    return render(request, 'AdminPanel/showcontact.html', context)
 
 
 def UpdateContact(request, id):
@@ -127,11 +129,28 @@ def UpdateProduct(request, id):
         if form.is_valid():
             form.save()
             print("Form Saved")
-            return redirect("/")
+            # return redirect("/")
         else:
             print("Form Error: ", form.errors)
     context = {'form': form, 'data': data}
     return render(request, 'AdminPanel/updateproduct.html', context)
+
+def UpdateCategory(request, id):
+    data = CategoryModel.objects.get(id = id)
+
+    form = CategoryForm(instance=data)
+
+    if request.method == "POST":
+        form = CategoryForm(request.POST, instance=data)
+        print(form)
+        if form.is_valid():
+            form.save()
+            print("Form Saved")
+            
+        else:
+            print("Form Error: ", form.errors)
+    context = {'form': form, 'data': data}
+    return render(request, 'AdminPanel/updatecategory.html', context)
 
 def Deletecontact(request, id):
     data = ContactModel.objects.get(id = id)
@@ -142,6 +161,11 @@ def DeleteProduct(request, id):
     data = ProductModel.objects.get(id = id)
     data.delete()
     return redirect('showproduct')
+
+def DeleteCategory(request, id):
+    data = CategoryModel.objects.get(id = id)
+    data.delete()
+    return redirect('showcategory')
 
 def product(request):
     form = ProductForm()
@@ -173,12 +197,12 @@ def category(request):
         else:                                           
             print("Form Error: ", form.errors)
     context = {'form': form}
-    return render(request, 'AdminPanel/add_product_cat.html', context)
+    return render(request, 'website/category.html', context)
 
 def showcategory(request):
     data = CategoryModel.objects.all()
     print(data)
-    context = {'s': data}
+    context = {'data': data}
     return render (request,'AdminPanel/show_prod_cat.html', context)
 
 def showproduct(request):

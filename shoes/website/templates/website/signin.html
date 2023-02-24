@@ -1,26 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login Page</title>
+    {% load static %}
+    <!--css-->
+    <link href="{% static 'css/login.css' %}" rel="stylesheet">
 </head>
+
 <body>
-    <h3>Sign In</h3>
+    <section>
+            <div class="form-container">
+                <h1>Login</h1>
+                <form action="#" method='POST'>
+                {% csrf_token %}   
+                    <div class="control">
+                        <label for="email">Email</label>
+                        <input type="text" name="username" id="email">
+                    </div>
+                    <div class="control">
+                        <label for="psw">Password</label>
+                        <input type="password" name="password" id="psw">
+                    </div>
+                    <span><input type="checkbox" value="lsRememberMe" id="rememberMe"> Remember Me </span>
+                    <div class="control">
+                        <input type="submit" value="Login" onclick="lsRememberMe()">
+                    </div>
+                <div class="link">
+                    <a href="#">Forgot Password ?</a>
+                </div>
+            </div>
+        </form>
+    </section>
 
-    <form action="/signin" method="post">
-    {% csrf_token %}
-        <label for="">Username</label>
-        <input type="text" id="Username" name="username" placeholder="Enter Your Username" required>
-        <br> 
+    <script>
+        const rmCheck = document.getElementById("rememberMe"),
+            emailInput = document.getElementById("email");
 
-        <label for="">Password</label>
-        <input type="password" id="pass1" name="pass1" placeholder="Enter Your Password" required>
-        <br>
+        if (localStorage.checkbox && localStorage.checkbox !== "") {
+            rmCheck.setAttribute("checked", "checked");
+            emailInput.value = localStorage.username;
+        } else {
+            rmCheck.removeAttribute("checked");
+            emailInput.value = "";
+        }
 
-        <button type="submit">Sign In</button>
-
-    </form>
+        function lsRememberMe() {
+            if (rmCheck.checked && emailInput.value !== "") {
+                localStorage.username = emailInput.value;
+                localStorage.checkbox = rmCheck.value;
+            } else {
+                localStorage.username = "";
+                localStorage.checkbox = "";
+            }
+        }
+    </script>
 </body>
+
 </html>

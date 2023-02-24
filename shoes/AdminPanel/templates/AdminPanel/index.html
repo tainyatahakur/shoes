@@ -1,790 +1,330 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'AdminPanel/editpage.html' %}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Reena.uk</title>
+{% block exstyle %}
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+{% load static %}
 
-  <!--jquery-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-    integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link href="{% static 'style/dashboard.css' %}" rel="stylesheet">
+<!--current dateand time-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+<!--boxicon-->
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<!--bootsrap-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<!--fontawesome-->
+<script src="https://kit.fontawesome.com/8feaa5fbd6.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<!--jquery-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" charset="utf-8"></script>
+<!--chart-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<!--google material icon-->
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
-  {% block csslink %}
-  {% load static %}
-  <link href="{% static 'css/body.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/index.css' %}" rel="stylesheet" />
+<!--googlechart-->
+<script>
+    const labels = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+    ];
 
-  {% endblock csslink %}
-  <!--time-->
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Number Of Projects Per Month',
+            backgroundColor: '#FF5F1F',
+            borderColor: '#FF5F1F',
+            data: [2, 10, 5, 2, 20, 30, 45, 40, 30, 20, 10, 5],
+        }]
+    };
 
-  <!-- Tel Validation -->
-  <link href="{% static 'build/css/demo.css' %}" rel="stylesheet" />
-  <link href="{% static 'build/css/intlTelInput.css' %}" rel="stylesheet" />
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            animations: {
+                tension: {
+                    duration: 1000,
+                    easing: 'linear',
+                    from: 1,
+                    to: 0,
+                    loop: true
+                }
+            },
+            scales: {
+                y: { // defining min and max so hiding the dataset does not change scale range
+                    min: 0,
+                    max: 100
+                }
+            }
+        }
+    };
+</script>
+{% endblock exstyle %}
 
-   <!--fontawesome-->
-  <script src="https://kit.fontawesome.com/8feaa5fbd6.js" crossorigin="anonymous"></script>
-  <!--css-->
 
-</head>
+{% block content %}
 
-{% block body %}
+{% if user.is_superuser %}
 
-<body style="background-color: rgb(240, 227, 240)">
-  {% endblock body %}
-
-    <!-- Messages -->
-    <ul class="messages" style="z-index: 10000;">
-      {% for message in messages %}
-      <li{% if message.tags %} class="{{ message.tags }} p-2  mb-2 bg-success"
-        style="text-align:center; width :95%; margin: auto auto; list-style:none;" {% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    <!-- End Messages -->
-
-  <div class="header fixed-top">
-    <div class="container-fluid bg-light" style="height: 2em">
-      <div class="row">
-        <div class="col-sm-6 mx-auto">
-          <div class="contact mt-1 mx-auto">
-            <div class="number">
-              <i class="fa-solid fa-phone mt-1 mx-1" style="color: purple"></i>
-              <span style="color: black"> 07969385877 </span>
-            </div>
-            <span class="line mx-2">|</span>
-            <div class="email">
-              <i class="fa-solid fa-envelope mt-1 mx-2" style="color: purple"></i>
-              <span style="color: black"> reenavirdee@hotmail.com </span>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-5"></div>
-        <div class="col-sm-1">
-          <div class="socials mt-1 mx-auto">
-            <div class="instagram">
-              <a href="#"><i class="fa-brands fa-instagram mx-2" style="color: purple"></i></a>
-            </div>
-            <div class="facebook">
-              <a href="https://www.facebook.com/ReenasHairAndBeauty/"><i class="fa-brands fa-facebook"
-                  style="color: purple"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
+<section class="home-section bg-black">
+    <div class="home-content">
+        <i class='bx bx-menu' style="color: #ff5f1f;"></i>
+        {% block head-title %}
+        <span class="text" style="color: #fff;">Dashboard</span>
+        {% endblock head-title %}
     </div>
-    <nav class="navbar navbar-expand-lg bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand mx-3" href="/"><img src="{% static 'images/reenalogo.png' %}" style="color: purple" class="img-fluid" /></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Treatments
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" href="">Dermalogica Treatments</a>
-                </li>
-                <li><a class="dropdown-item" href="">CACI Synergy</a></li>
-                
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">Pricelist</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'aboutus' %}">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'documents' %}">Gallery</a>
-            </li>
-            {% if user.is_authenticated and not user.is_superuser %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'user_bookings' %}">Bookings</a>
-            </li>
-            {% endif %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'contactus' %}">Contact</a>
-            </li>
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Login</a>
-            </li>
-            {% endif %}
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="{% url 'cart' %}"><i class="fa-solid fa-cart-shopping"></i></a>
-            </li> -->
-          </ul>
-          <hr />
-          <div class="conatiner text-center">
-            <ul style="list-style: none;">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'cart' %}"><i class="fa-solid fa-cart-shopping" style="color: purple;"></i></a>              
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </div>
 
+    <div class="datetime mx-auto mt-2 bg-black">
+        <div class="time mx-2"></div>
+        <div class="date mx-2"></div>
+    </div>
 
-
-  <!-- Modal -->
-  <!-- {% block modal %}
-  <div class="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header" style="color: lightcoral">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel"
-            style="color: black; font-size: 20px; font-weight: 500; text-align: left; ">
-            <i class="fa-solid fa-calendar-check" style="color: lightcoral; font-size: 1.2em"></i>
-            Book Appointment
-          </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="main mx-auto mt-3">
-            <div class="container bg-light" style="
-              box-shadow: 2px 2px 2px lightcoral;
-              border-radius: 10px;
-            ">
-              <div class="row g-3">
-                <form method="POST" action="" id="bookingform">
-                  {% csrf_token %}
-                  <div class="col-sm-12">
-                    <div class="container-fluid">
-                      <label for="formGroupExampleInput" class="form-label mt-3"
-                        style="color: black; font-size: 20px; font-weight: 500; text-align: left; ">
-                        <i class="fa-solid fa-user mx-2" style="color: lightcoral; font-size: 1.2em"></i>Name</label>
+    <div class="main-content mt-4">
+        <div class="container-fluid bg-black">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats bg-dark">
+                        <div class="card-header">
+                            <div class="icon icon-warning">
+                                <span class="material-icons">equalizer</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <p class="category"><strong>Projects</strong></p>
+                            <h3 class="card-title">{{tot_proj}}</h3>
+                        </div>
                     </div>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" />
-
-                    <div class="container-fluid">
-                      <label for="Phone Number" class="form-label mt-3 mx-auto"
-                        style="color: black; font-size: 20px; font-weight: 500; text-align: left; ">
-                        <i class="fa-solid fa-phone mx-2" style="color: lightcoral; font-size: 1.2em"></i>
-                        Phone Number</label>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats bg-dark">
+                        <div class="card-header">
+                            <div class="icon icon-rose">
+                                <span class="material-icons">shopping_cart</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <p class="category"><strong>Enquiry</strong></p>
+                            <h3 class="card-title">{{tot_enq}}</h3>
+                        </div>
                     </div>
-                    <input type="tel" id="phone" placeholder="Phone Number" name="phone" class="form-control"
-                      style="width: 100%" />
-                  </div>
-
-                  <div class="row">
-                    <div class="mt-2 col-md-12" id="id_servicescon">
-                      <p class="form-label mt-3"
-                        style="color: black; font-size: 20px; font-weight: 500; text-align: left; ">
-                        <i class="fa-solid fa-spa mx-2" style="color: lightcoral;"></i>Search For Multiple Service
-                      </p>
-                      <select name="services" id="id_services" class="p-2 selectpicker" multiple="multiple"
-                        data-live-search="true"
-                        style="border: 1px solid lightcoral; width: 100%; padding-bottom: 20px; border: 1px solid black;"
-                        data-actions-box="true" data-done-button="true">
-                        {% for i in cat %}
-                        <optgroup label="{{i.name}}">
-                          {% for pro in prods %}
-                          {% if pro.cat.name == i.name %}
-                          {% if item.selected %}
-                          <option value="{{ pro.id }}" selected>{{pro.name}} - &#163;{{pro.price}}</option>
-                          {% else %}
-                          <option value="{{ pro.id }}">{{pro.name}} - &#163;{{pro.price}}</option>
-                          {% endif %}
-
-                          {% endif %}
-                          {% endfor %}
-                        </optgroup>
-                        {% endfor %}
-
-                      </select>
-                      <input type="hidden" id="total_amount"></input>
-                      <input type="hidden" name="total_payment" id="total_payment"></input>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats bg-dark">
+                        <div class="card-header">
+                            <div class="icon icon-success">
+                                <span class="material-icons">attach_money</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <p class="category"><strong>Revenue</strong></p>
+                            <h3 class="card-title">Rs. {{tot_pay}}</h3>
+                        </div>
                     </div>
-                  </div>
-
-                  <div class="container text-center mx-auto">
-                    <label for="datetime-local" class="form-label mt-3">Select Date and Time</label>
-                    <input type="datetime-local" class="form-control mx-auto" name="datentime" id="datentime"
-                      placeholder="Select Date and Time" style="
-                      border-radius: 0;
-                      text-align: center;
-                      width: 50%;
-                    " />
-                  </div>
-                  <div class="container text-center mt-3">
-                    <input type="hidden" name="timeslot" id="timeslot"
-                      style="text-align: center; border: none; margin-top: 5px; background-color: transparent; pointer-events: none;" />
-                  </div>
-                  <input type="hidden" name="payment_status" id="paymentstatus">
-
-                  <div id="paypal-button-container" style="width: 50%; margin:auto; margin-bottom: 25px;"></div>
-                  <script
-                    src="https://www.paypal.com/sdk/js?client-id=AWFL7YRuIbPx-nbOh0-l8K8yxbOKsaaIzjSC4NMMJEcR3el2R0hEjF26UrosJAx7f9R-QQEXMgb_LT7u&currency=USD"></script>
-
-                  <script>
-
-                    paypal.Buttons({
-                      createOrder: (data, actions) => {
-                        var amountt = document.getElementById("total_amount").value;
-                        return actions.order.create({
-                          purchase_units: [{
-                            amount: {
-                              value: amount//t
-                            }
-                          }]
-                        });
-                      },
-                      onApprove: (data, actions) => {
-                        let amounttt = document.getElementById("total_amount").value;
-
-                        return actions.order.capture().then(function (orderData) {
-                          console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                          const transaction = orderData.purchase_units[0].payments.captures[0];
-                          alert(`Payment has been Done`)
-                          $('#paymentstatus').val("PaymentisDonecheckit");
-                          $('#total_payment').val(amounttt);
-
-                          submitform()
-                          function submitform() {
-                            document.getElementById("bookingform").submit();
-                            alert('test');
-                          }
-                        });
-                      }
-                    }).render('#paypal-button-container');
-                  </script>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <input type="submit" value="Book" id="save" style="display: none;">
-        </div>
-        </form>
-      </div>
-    </div>
-  </div> -->
-  <!-- {% endblock modal %} -->
-  <div class="footer mb-2">
-    <p></p>
-  </div>
-
-  {% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }} p-2 mb-2 bg-success text-white"
-      style="list-style: none; border-radius: 10px; width: 95%; margin: auto auto;" {% endif %}>{{ message }}</li>
-      {% endfor %}
-  </ul>
-  {% endif %}
-  {% block content %}
-  <div class="main mx-auto" style="background-color: rgb(255, 240, 255)">
-    <div id="carouselExampleDark" class="carousel carousel-dark slide">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
-          aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="10000">
-          <img src="{% static 'images/f1.jpg' %}" class="d-block w-100" alt="..." />
-          <div class="carousel-caption d-none d-md-block">
-            <h1>Welcome to Reena's Spa and Salon</h1>
-            <p style="color: purple; font-size: 1.5em; font-weight: 500">
-              Unleash Your Inner Beauty With Our Top-Notch Makeup and Salon
-              Services.
-            </p>
-          </div>
-        </div>
-        <div class="carousel-item" data-bs-interval="2000">
-          <img src="{% static 'images/f2.jpg' %}" class="d-block w-100" alt="..." />
-          <div class="carousel-caption d-none d-md-block">
-            <h1 style="color: white">Welcome to Reena's Spa and Salon</h1>
-            <p style="color: purple; font-size: 1.5em; font-weight: 500">
-              Relax, rejuvenate, and look your best with our salon services.
-            </p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="{% static 'images/f3.jpg' %}" class="d-block w-100" alt="..." />
-          <div class="carousel-caption d-none d-md-block">
-            <h1 style="color: white">Welcome to Reena's Spa and Salon</h1>
-            <p style="color: purple; font-size: 1.5em; font-weight: 500">
-              Say Goodbye to Bad Skin Days With Our Expert Hair Services at
-              Our Salon.
-            </p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="{% static 'images/f4.jpg' %}" class="d-block w-100" alt="..." />
-          <div class="carousel-caption d-none d-md-block">
-            <h1>Welcome to Reena's Spa and Salon</h1>
-            <p style="color: purple; font-size: 1.5em; font-weight: 500">
-              Enhance your natural beauty with our top-notch makeup
-              application services.
-            </p>
-          </div>
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-
-    <!--aboutus-->
-    <div class="container text-center mt-5">
-      <h1>Reena's Salon and Spa</h1>
-    </div>
-    <div class="container text-center">
-      <p style="color: purple; font-size: 1.2em">
-        Discover the beauty within you with our professional makeup and salon
-        services. Our expert stylists will help you transform your look,
-        elevating your style to the next level. With our top-of-the-line
-        cosmetics, you can enhance your natural beauty and unleash your inner
-        goddess.
-        <br />
-        Our commitment to quality and expertise means you can trust us to
-        deliver flawless results every time. From everyday looks to special
-        occasion styles, our talented stylists have got you covered. So, why
-        wait? Book your appointment today and get ready to shine with
-        confidence!
-      </p>
-      <div class="container mt-4">
-        <button class="btn-5">BOOK AN APPOINTMENT</button>
-      </div>
-    </div>
-    <br />
-    <br />
-    <div class="container">
-      <hr style="border: 1px solid purple" />
-    </div>
-
-    <!--services-->
-
-    <div class="container mt-5 text-center mx-auto">
-      <h1 style="color: purple">OUR BEAUTY TREATMENTS</h1>
-      <p style="color: black; font-size: 1.5em">
-        Experience the ultimate pampering session with our top-rated makeup
-        and salon services
-      </p>
-    </div>
-
-    <div class="container mt-4">
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-          <a href="{% url 'dermalogica' %}" style="text-decoration: none">
-            <div class="card" style="width: 20rem; cursor: pointer; border: none">
-              <img src="{% static 'images/a7.JPG' %}" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title text-center" style="color: purple">
-                  DERMALOGICA
-                </h5>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col">
-          <a href="{% url 'massageview' %}" style="text-decoration: none">
-            <div class="card" style="width: 20rem; cursor: pointer; border: none">
-              <img src="{% static 'images/a14.JPG' %}" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title text-center" style="color: purple">
-                  MASSAGE
-                </h5>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col">
-          <a href="{% url 'bridalview' %}" style="text-decoration: none">
-            <div class="card" style="width: 20rem; cursor: pointer; border: none">
-              <img src="{% static 'images/s8.jpg' %}" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title text-center" style="color: purple">
-                  BRIDAL MAKE-UP
-                </h5>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col">
-          <a href="{% url 'Hennaview' %}" style="text-decoration: none">
-            <div class="card" style="width: 20rem; cursor: pointer; border: none">
-              <img src="{% static 'images/s4.jpg' %}" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title text-center" style="color: purple">
-                  HENNA
-                </h5>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col">
-          <a href="{% url 'caciview' %}" style="text-decoration: none">
-            <div class="card" style="width: 20rem; cursor: pointer; border: none">
-              <img src="{% static 'images/s1.png' %}" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title text-center" style="color: purple">
-                  CACISYNERGY
-                </h5>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col">
-          <a href="{% url 'tintingview' %}" style="text-decoration: none">
-            <div class="card" style="width: 20rem; cursor: pointer; border: none">
-              <img src="{% static 'images/s7.jpg' %}" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title text-center" style="color: purple">
-                  TINTING
-                </h5>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="container text-center mt-4">
-        <a href="{% url 'pricing' %}"><button class="btn-5" style="padding: 10px 30px 10px">
-            KNOW MORE
-          </button></a>
-      </div>
-    </div>
-  </div>
-
-  <!--testimonials-->
-
-  <div class="container-fluid bg-light" style="min-height: 70vh">
-    <div class="container bg-light">
-      <div class="row">
-        <div class="col-sm-6">
-          <img src="{% static 'images/silhouette-3605401.png' %}" class="img-fluid" style="padding-top: 2em" />
-        </div>
-        <div class="col-sm-6">
-          <div class="container text-center">
-            <h1 style="color: purple">WHY CHOOSE US?</h1>
-          </div>
-          <p style="color: plum">
-            <span style="color: purple">1.Expert stylists and makeup
-            artists: Our team of skilled professionals will help you achieve
-            your desired look.</span> 
-          </p>
-          <p style="color: plum">
-            <span style="color: purple">2. High-quality products: We
-            only use top-quality products to ensure the best results.</span>
-          </p>
-          <p style="color: plum">
-            <span style="color: purple">3.Customized services: Our
-            services are tailored to meet your individual needs and
-            preferences.</span> 
-          </p>
-          <p style="color: plum">
-            <span style="color: purple">4.Affordable prices: Our salon
-            offers affordable prices without sacrificing quality.</span>
-          </p>
-          <p style="color: plum">
-            <span style="color: purple">5.Wide range of services: From
-            hair care to makeup, we offer a wide range of services to meet all
-            your beauty needs.</span> 
-          </p>
-          <p style="color: plum">
-            <span style="color: purple">6.Enjoy a stress-free and
-            pampering experience.</span> 
-          </p>
-          <p style="color: plum">
-            <span style="color: purple">7. Enjoy a warm and inviting
-            atmosphere.</span>
-          </p>
-          <p style="color: plum">
-            <span style="color: purple">8.Choose from a variety of
-            premium services and treatments</span>
-          </p>
-          <div class="container mt-4 text-center">
-            <a href="{% url 'pricing' %}"><button class="btn-5">BOOK AN APPOINTMENT</button></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--testimonials-->
-  <div class="container">
-    <h1 style="color: purple">ADDITIONAL LINKS</h1>
-  </div>
-  <div class="container" style="padding: 1em 1em 1em">
-    <div class="row">
-      <div class="col-sm-4">
-        <a href="{% url 'documents' %}">
-          <img src="{% static 'images/OUR GALLERY.png' %}" alt="" class="img-fluid" />
-        </a>
-      </div>
-      <div class="col-sm-4">
-        <a href="{% url 'pricing' %}">
-          <img src="{% static 'images/OUR GALLERY(1).png' %}" alt="" class="img-fluid" />
-        </a>
-      </div>
-      <div class="col-sm-4">
-        <a href="{% url 'contactus' %}">
-          <img src="{% static 'images/OUR GALLERY(2).png' %}" alt="" class="img-fluid" />
-        </a>
-      </div>
-    </div>
-  </div>
-  {% endblock content %}
-
-  {% block footer %}
-  <!--footer-->
-  <section class="section bg-black">
-    <footer class="footer theme-bg-black">
-      <div class="container-fluid mx-auto py-1 mt-3">
-        <div class="row">
-          <div class="col-sm-4">
-            <h4 class="col-heading" style="margin-left: 31px">
-              Opening Hours
-            </h4>
-            <ul class="ul" style="text-align: left">
-              <p>Monday: Closed</p>
-              <p>Tuesday: 10am - 6pm</p>
-              <p>Wednesday: 10am - 6pm</p>
-              <p>Thursday: 10am - 6pm</p>
-              <p>Friday: 10am - 6pm</p>
-              <p>Saturday: 10am - 6pm</p>
-              <p>Sunday: Closed</p>
-            </ul>
-          </div>
-          <div class="col-sm-3 mx-auto">
-            <h4 class="col-heading mt-0" style="margin-left: 31px">
-              Reena's
-            </h4>
-            <ul class="ul" style="text-align: left">
-              <li>
-                <a href="/" class="nav-link mb-2" style="font-size: 1.2em">Home</a>
-              </li>
-              <li>
-                <a href="{% url 'aboutus' %}" class="nav-link mb-2" style="font-size: 1.2em">About Us</a>
-              </li>
-              <!-- <li>
-                <a href="#" class="nav-link mb-2" style="font-size: 1.2em">Services</a>
-              </li> -->
-              <li>
-                <a href="{% url 'pricing' %}" class="nav-link mb-2" style="font-size: 1.2em">Pricing</a>
-              </li>
-              <li>
-                <a href="{% url 'contactus' %}" class="nav-link mb-2" style="font-size: 1.2em">Contact Us</a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-sm-5 mx-auto">
-            <h4 class="col-heading mt-1" style="margin-left: 31px">
-              Contact Us
-            </h4>
-            <p style="margin-left: 33px">
-              Our Salon Is Situated in Teddington, London.
-            </p>
-            <p style="margin-left: 33px">
-              Feel Free to Visit Us, Call or Book an Appointment!
-            </p>
-            <div class="container-fluid">
-              <div class="row g-3">
-                <div class="col-sm-12" style="margin-left: 20px">
-                  <i class="fa-solid fa-location-pin mx-1"></i>
-                  <p style="display: inline; text-align: center">
-                    207 Waldegrave Road, Teddington, TW11 8LX
-                  </p>
                 </div>
-                <div class="col-sm-12" style="margin-left: 20px">
-                  <i class="fa-solid fa-envelope mx-1"></i>
-                  <p style="display: inline">reenavirdee@hotmail.com</p>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats bg-dark">
+                        <div class="card-header">
+                            <div class="icon icon-info">
+                                <span class="material-icons">follow_the_signs</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <p class="category"><strong>Site Visits</strong></p>
+                            <h3 class="card-title">{{tot_visit}}</h3>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-12 mb-3" style="margin-left: 20px">
-                  <i class="fa-solid fa-phone mx-2"></i>
-                  <p style="display: inline">07969385877</p>
+            </div>
+            <!--projects and todolist-->
+            <div class="row ">
+                <div class="col-lg-7 col-md-12">
+                    <div class="card bg-dark" style="min-height: 450px">
+                        <div class="card-header card-header-text">
+                            <h4 class="card-title">Projects</h4>
+                            <p class="category">Projects in Work</p>
+                        </div>
+                        <div class="card-content table-responsive bg-dark">
+                            <table class="table table-hover  border-dark" style="text-align: center;">
+                                <thead class="text-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Project Name</th>
+                                        <th>Address</th>
+                                        <th>Contact</th>
+                                        <th>Vendor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in my_proj %}
+                                    <tr>
+                                        <td class="text-light">{{i.id}}</td>
+                                        <td><a href="#" class="name">{{i.name|slice:"0:10"}}...</a></td>
+                                        <td class="text-light">{{i.email|slice:"0:15"}}...</td>
+                                        <td class="text-light">{{i.address|slice:"0:10"}}...</td>
+                                        <td class="text-light">{{i.phone|slice:"0:10"}}</td>
+                                        <td class="text-light">{{i.stage|slice:"0:10"}}</td>
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
+                <div class="col-lg-5 col-md-12">
+                    <div class="card bg-dark" style="min-height: 418px">
+                        <div class="card-header card-header-text">
+                            <h4 class="card-title">To-Do-List</h4>
+                            <p class="category">Today's Work</p>
+                        </div>
+                        <div class="card-content table-responsive bg-dark">
+                            <table class="table table-hover border-dark bg-dark" style="text-align: center">
+                                <thead class="text-primary">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Meetings</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in todo %}
+                                    <tr>
+                                        <td class="text-light">{{i.id}}</td>
+                                        <td><a href="#" class="name">{{i.remark|slice:"0:10"}}...</a></td>
+                                        <td class="text-light">{{i.site}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% for i in site %}
+                                    <tr>
+                                        <td class="text-light">{{i.id}}</td>
+                                        <td><a href="#" class="name">{{i.issue|slice:"0:10"}}...</a></td>
+                                        <td class="text-light">{{i.onsite}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-          </div>
+
+            <div class="container" style="width: 50%">
+                <div>
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+
         </div>
-        <hr style="border: 2px solid white" />
-        <div class="container-fluid mx-auto text-center mb-5">
-          <div class="row">
-            <div class="col-sm-6 mt-3">
-              <p style="font-size: 1.5em; font-weight: 600">Visit Us Here!</p>
-              <div class="map-responsive">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2487.391926902979!2d-0.34093818481731963!3d51.43259582399166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760c82e87c8f89%3A0x2cbb42bc02982b9c!2sReena&#39;s%20Hair%20and%20Beauty%20Salon!5e0!3m2!1sen!2sin!4v1669811046699!5m2!1sen!2sin"
-                  width="600" height="450" frameborder="0" style="border: 0" allowfullscreen="" aria-hidden="false"
-                  tabindex="0"></iframe>
-              </div>
-            </div>
-            <div class="col-sm-6 mt-3 text-center">
-              <p style="font-size: 1.5em; font-weight: 600">Follow Us</p>
-              <iframe
-                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FReenasHairAndBeauty%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
-                width="340" height="500"
-                style="border: none; overflow: hidden; box-shadow: 2px 2px 50px 8px lightblue; padding: 1em 1em 1em;"
-                scrolling="no" frameborder="0" allowfullscreen="true"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-            </div>
-          </div>
-        </div>
-
-        <hr style="border: 2px solid white" />
-
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-4 mt-3">
-              <p>All Rights Reserved</p>
-            </div>
-            <div class="col-sm-4 mx-auto"></div>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </section>
-  {% endblock footer %}
-  <!--javascript-->
-  <script src="{% static 'javascript/body.js' %}"></script>
-  <!--js-->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <!--js-->
-  <script>
-    AOS.init();
-  </script>
-  <!-- JavaScript Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-    crossorigin="anonymous"></script>
-
-  <script src="{% static 'build/js/intlTelInput.js' %}"></script>
-  <script>
-    var input = document.querySelector("#phone");
-    window.intlTelInput(input, {});
-  </script>
-
-  <script>
-
-    $('#id_services').change(function () {
-      console.log("Hello");
-      let x = $('#id_services').val()
-
-      console.log("C: ", x)
-      $.ajax({
-        type: 'GET',
-        url: "{% url 'get_booking_price' %}",
-        data: { 'services': x },
-        success: function (data) {
-          var instance = JSON.parse(data["amount"]);
-          console.log(instance)
-          $('#total_amount').val(instance);
-          console.log("Done");
-        },
-        error: function (response) {
-          alert(response["responseJSON"]["error"]);
-        }
-      })
-    })
-
-
-    // ################## CHECK FOR TIME AND DATE
-    $('#datentime').change(function () {
-      let x = $('#datentime').val()
-
-      console.log("C: ", x)
-      $.ajax({
-        type: 'POST',
-        url: "{% url 'get_booking_datentime' %}",
-        data: { 'datentime': x, 'csrfmiddlewaretoken': "{{csrf_token}}" },
-        success: function (data) {
-          console.log(data['amount'])
-          $('#timeslot').val(data['amount']);
-          console.log("Done");
-          let valueofinp = document.getElementById('timeslot').value
-          console.log("Value: ", valueofinp)
-          if (valueofinp == "Ready To Go") {
-            $('#paypal-button-container').css('display', 'block')
-          }
-          else {
-            $('#paypal-button-container').css('display', 'none')
-          }
-        },
-        error: function (error) {
-        }
-      })
-    })
-
-
-    // Booking Model AJAX CALL 
-    $(document).on('submit', '#bookingform', function (event) {
-      event.preventDefault();
-      let x = $('#bookingform')
-      console.log(serv)
-      $.ajax({
-        type: 'POST',
-        url: "{% url 'add_booking' %}",
-        data: x.serialize(),
-
-        success: function (data) {
-          console.log("Done");
-          window.location = "/"
-        },
-        error: function (error) {
-          alert("There is some error")
-          var instance = JSON.parse(data["error"]);
-          alert(instance)
-          console.log("error: ", error)
-        }
-      })
-    })
-
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-  <script>
-    config = {
-      enableTime: true,
-      dateFormat: "Y-m-d H:i",
-      minDate: "today",
-      minTime: "10:00",
-      maxTime: "18:00",
-      inline: false,
-      minuteIncrement: 30,
-
-      "disable": [
-        function (date) {
-          return (date.getDay() === 0 || date.getDay() === 1);
-        }
-      ],
-      "locale": {
-        "firstDayOfWeek": 2 // start week on Monday
-      }
+    </div>
+</section>
+<script>
+    let arrow = document.querySelectorAll(".arrow");
+    for (var i = 0; i < arrow.length; i++) {
+        arrow[i].addEventListener("click", (e) => {
+            let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+            arrowParent.classList.toggle("showMenu");
+        });
     }
-    flatpickr("input[type=datetime-local]", config);
-  </script>
 
-</body>
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".bx-menu");
+    console.log(sidebarBtn);
+    sidebarBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+    });
+</script>
+<!--chart-->
+<script>
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>
+<!--current date and time-->
+<script>
+    const timeElement = document.querySelector(".time");
+    const dateElement = document.querySelector(".date");
 
-</html>
+    /**
+    * @param {Date} date
+    */
+    function formatTime(date) {
+        const hours12 = date.getHours() % 12 || 12;
+        const minutes = date.getMinutes();
+        const isAm = date.getHours() < 12;
+
+        return `${hours12.toString().padStart(2, "0")}:${minutes
+            .toString()
+            .padStart(2, "0")} ${isAm ? "AM" : "PM"}`;
+    }
+
+    /**
+    * @param {Date} date
+    */
+    function formatDate(date) {
+        const DAYS = [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+        ];
+        const MONTHS = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ];
+
+        return `${DAYS[date.getDay()]}, ${MONTHS[date.getMonth()]
+            } ${date.getDate()} ${date.getFullYear()}`;
+    }
+
+    setInterval(() => {
+        const now = new Date();
+
+        timeElement.textContent = formatTime(now);
+        dateElement.textContent = formatDate(now);
+    }, 200);
+
+</script>
+<!--bootstrap-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js">
+</script>
+<!--chartcdn-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% else %}
+{% endif %}
+
+
+{% endblock content %}
+
