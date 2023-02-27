@@ -1,7 +1,6 @@
 {% extends 'AdminPanel/editpage.html' %}
 
-{% block exstyle %}
-
+{% block content %}
 {% load static %}
 
 <link href="{% static 'style/dashboard.css' %}" rel="stylesheet">
@@ -74,10 +73,6 @@
         }
     };
 </script>
-{% endblock exstyle %}
-
-
-{% block content %}
 
 {% if user.is_superuser %}
 
@@ -323,6 +318,11 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 {% else %}
+<section class="home-section bg-black" style="padding-left: 20px;">
+    <div class="home-content">
+      <i class='bx bx-menu' style="color: #ff5f1f;" style="padding-left: 20px;"></i>
+      <span class="text" style="color: #fff;">Dashboard</span>
+    </div>
 {% endif %}
 
 

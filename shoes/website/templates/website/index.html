@@ -5,6 +5,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
     {% load static %}
     <title>House Of Ruhi</title>
     <link href="{% static 'css/index.css' %}" rel="stylesheet" />
@@ -19,7 +21,7 @@
 </head>
 
 <body style="background-color: rgb(253, 240, 242);">
-{% block popup %}
+    {% block popup %}
 
     <div class="popup mx-auto text-center">
         <div class="container mx-auto" style="width: 60vw;
@@ -32,7 +34,7 @@
         z-index: 1000000;
         border-radius: 0.6em;
         box-shadow: 0 0.6em 2.5em rgba(0, 7, 70, 0.2) ;">
-        
+
             <div class="container-fluid mx-auto">
                 <div class="close mx-auto text-center">
                     <i class="fa-solid fa-xmark mx-auto" style="font-size: 1.8em; cursor: pointer; float: right;"></i>
@@ -48,11 +50,12 @@
             </div>
         </div>
     </div>
-{% endblock popup %}
+    {% endblock popup %}
 
     <nav class="navbar fixed-top navbar-expand-lg bg-body-black">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="#"><img src="{% static 'images/logo.jpeg' %}" alt="" class="img-fluid"
+                    style="width: auto; height: 3rem;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -81,7 +84,7 @@
                             <li>
                                 <a class="dropdown-item" href="{% url 'flats' %}">Flats</a>
                             </li>
-                                <hr class="dropdown-divider" />
+                            <hr class="dropdown-divider" />
 
                             <li><a class="dropdown-item" href="{% url 'boots' %}">Boots</a></li>
                             <li>
@@ -99,11 +102,11 @@
                             <li>
                                 <hr class="dropdown-divider" />
 
-                             <li><a class="dropdown-item" href="{% url 'sandal' %}">Sandal</a></li>
+                            <li><a class="dropdown-item" href="{% url 'sandal' %}">Sandal</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
 
-                             <li><a class="dropdown-item" href="{% url 'sneaker' %}">Sneaker</a></li>
+                            <li><a class="dropdown-item" href="{% url 'sneaker' %}">Sneaker</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
 
@@ -114,16 +117,6 @@
                             <li><a class="dropdown-item" href="{% url 'espadrilles' %}">Espadrilles</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
-                            
-                    
-
-
-
-
-                            
-                            
-
-                            
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -146,17 +139,30 @@
                         </div>
                     </div>
 
-                    <a href="#">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'signout' %}">
                         <i class="fa-solid fa-right-to-bracket mx-2 mt-2"
-                            style="color: palevioletred; font-size: 1.4em"></i></a>
-                    <a href="#">
+                            style="color: palevioletred; font-size: 1.4em">
+                        </i>
+                    </a>
+                    {% else %}
+                    <i class="fa-solid fa-power-off"></i>
+                    <a href="{% url 'signin' %}">
+                        <i class="fa-solid fa-right-to-bracket mx-2 mt-2"
+                            style="color: palevioletred; font-size: 1.4em">
+                        </i>
+                    </a>
+                    {% endif %}
+
+
+                    <a href="{% url 'checkout' %}">
                         <i class="fa-solid fa-cart-shopping mx-2 mt-2" style="color: palevioletred; font-size: 1.4em">
                         </i></a>
                 </div>
             </div>
         </div>
     </nav>
-{% block content %}
+    {% block content %}
 
     <!--swiper-->
     <div class="swiper mySwiper">
@@ -167,7 +173,9 @@
                     <h1 style="color: palevioletred">
                         WELCOME TO THE HOUSE OF RUHII
                     </h1>
-                    <button class="button">SHOP NOW</button>
+                    <!-- <button class="button">SHOP NOW</button> -->
+                    <a href="{% url 'loafer' %}"><button class="button">SHOP NOW</button></a>
+
                 </div>
             </div>
             <div class="swiper-slide">
@@ -177,7 +185,9 @@
                         Experience Comfort and Style Like Never Before With Our Women's
                         Shoes.
                     </h3>
-                    <button class="button">SHOP NOW</button>
+                    <!-- <button class="button">SHOP NOW</button> -->
+                    <a href="{% url 'flats' %}"><button class="button">SHOP NOW</button></a>
+
                 </div>
             </div>
             <div class="swiper-slide">
@@ -186,7 +196,9 @@
                     <h3 style="color: palevioletred">
                         Shop Now and Discover Your New Favorite Pair of Women's Shoes.
                     </h3>
-                    <button class="button">SHOP NOW</button>
+                    <!-- <button class="button">SHOP NOW</button> -->
+                    <a href="{% url 'sneaker' %}"><button class="button">SHOP NOW</button></a>
+
                 </div>
             </div>
             <div class="swiper-slide">
@@ -196,7 +208,7 @@
                         Find The Perfect Balance of Style and Comfort With Our Range of
                         Women's Shoes.
                     </h3>
-                    <button class="button">SHOP NOW</button>
+                    <a href="{% url 'sandal' %}"><button class="button">SHOP NOW</button></a>
                 </div>
             </div>
         </div>
@@ -215,7 +227,9 @@
             From The Office To a Night Out, Our Versatile Range of Women's Shoes Has
             Got You Covered.
         </h3>
-        <button class="button mt-3">SHOP NOW</button>
+        <!-- <button class="button mt-3">SHOP NOW</button> -->
+        <a href="{% url 'heels' %}"><button class="button">SHOP NOW</button></a>
+
     </div>
     <div class="container text-center mt-5">
         <h3>Our Best Seller</h3>
@@ -491,8 +505,8 @@
                     <a href="#"><i class="fa-brands fa-facebook mx-2"></i></a>
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
                 </div>
-                <div class="col-sm-4 mb-2 text-center"">
-            <h3 style=" color: palevioletred">SHOP ADDRESS</h3>
+                <div class="col-sm-4 mb-2 text-center">
+                    <h3 style=" color: palevioletred">SHOP ADDRESS</h3>
                     <p style="color: whitesmoke; font-size: 1.5em">NAME OF SHOP</p>
                     <p style="color: whitesmoke; font-size: 1.5em">STREET NAME</p>
                     <p style="color: whitesmoke; font-size: 1.5em">LOCATION</p>
@@ -573,7 +587,7 @@
         });
     </script>
     <script src="{% static 'js/index.js' %}"></script>
-    
+
     {% endblock content %}
 </body>
 

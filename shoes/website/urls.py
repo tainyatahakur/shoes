@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
 
-    path('', views.index ),
+    path('', views.index, name="index" ),
     path('contact/', views.contact, name='contact'),
     path('booking/', views.booking, name ='booking'),
     path('showcontact/', views.showcontact, name = 'showcontact'),
@@ -27,10 +27,13 @@ urlpatterns = [
     path('delete/<int:id>/', views.Deletecontact, name = 'delete' ),
     path('deleteproduct/<int:id>/', views.DeleteProduct, name = 'deleteproduct' ),
     path('deletecategory/<int:id>/', views.DeleteCategory, name = 'deletecatgory' ),
-    path('addtocart/', views.AddToCart, name = 'AddToCart'),
+    path('addtocart/', views.AddToCartItem, name = 'AddToCart'),
     path('signup', views.signup, name="signup"),
     path('signin', views.signin, name="signin"),
     path('signout', views.signout, name="signout"),
+    path('Checkout/', views.CartAndBooking, name="checkout"),
+    path('UserCart/', views.DelAllBooking, name="usercart"),
 
+    path('delcartitem/<int:id>/', views.DelCartBooking, name="delcartbooking"),
 
 ]

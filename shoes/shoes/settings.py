@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-*@!zr#dra4b1*v4nxcfkaz6#z&b-hv!d6%hf69&4*!#k0a28j*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.29.87']
 
 
 # Application definition
@@ -115,6 +115,10 @@ USE_I18N = True
 USE_TZ = True
 
 
+import os
+LOGIN_URL = 'signin'
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -127,3 +131,11 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "kumardigamberjha@gmail.com"
+EMAIL_HOST_PASSWORD = "zcfqvjoazsvfdsuz"
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

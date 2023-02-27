@@ -389,6 +389,7 @@
 </head>
 
 <body>
+  {% if user.is_superuser %}
 
   <div class="sidebar close" style="box-shadow: 2px 2px 2px rgb(0, 0, 0)">
     <div class="logo-details">
@@ -417,10 +418,10 @@
           <i class="bx bxs-chevron-down arrow"></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Projects</a></li>
+          <li><a class="link_name" href="#">Product</a></li>
           <li><a href="{% url 'product' %}">Add</a></li>
           <li><a href="{% url 'showproduct' %}">Show</a></li>
-          
+
           <!-- <li><a href="">Treatments</a></li> -->
           <!-- <li><a href="">Pricing</a></li> -->
           <li><a href=""></a></li>
@@ -438,9 +439,9 @@
           <li><a class="link_name" href="#">Category</a></li>
           <li><a href="{% url 'showcategory' %}">All Categories</a></li>
           <li><a href="{% url 'Category' %}">Add Categories</a></li>
-          
-          
-            
+
+
+
         </ul>
       </li>
 
@@ -465,14 +466,14 @@
       <li>
         <div class="icon-link">
           <a href="#">
-            <i class='bx bxs-calendar' ></i>
-            <span class="link_name">Today's Record</span>
+            <i class='bx bxs-calendar'></i>
+            <span class="link_name">Booking</span>
           </a>
           <i class="bx bxs-chevron-down arrow"></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Today's Record</a></li>
-          <li><a href="">Booking</a></li>
+          <li><a class="link_name" href="#">Booking</a></li>
+          <li><a href="{% url 'showbooking' %}">Booking</a></li>
           <li><a href="">Appointments</a></li>
         </ul>
       </li>
@@ -503,7 +504,7 @@
             <!-- <div class="job"></div> -->
             <a href="" class="profile_name">Login</a>
           </div>
-          <a href=""><i class="bx bx-log-out"></i></a>
+          <a href="{% url 'signout' %}"><i class="bx bx-log-out"></i></a>
         </div>
       </li>
     </ul>
@@ -621,43 +622,44 @@
               </a>
             </div>
           </div>
-            <div class="col-lg-6 col-md-12">
-              <a href="" style="text-decoration: none;">
-                <div class="card bg-dark" style="min-height: 300px">
-                  <div class="card-header card-header-text">
-                    <h4 class="card-title">Appointments</h4>
-                    <p class="category">Today's Appointments</p>
-                  </div>
-                  <div class="card-content table-responsive">
-                    <table class="table table-hover " style="text-align: center">
-                      <thead class="text-primary">
-                        <tr>
-                          <th>#</th>
-                          <th>Name</th>
-                          <th>Phone</th>
-                          <th>Time</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for i in ta6 %}
-                        <tr>
-                          <td style="color: #FF5F1F; z-index: 999;">{{forloop.counter}}</td>
-                          <td style="color: white;">{{i.name}}</td>
-                          <td><a href="#" class="name">{{i.phone}}</a></td>
-                          <td style="color: white;">{{i.datentime}}</td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-                  </div>
-              </a>
-            </div>
+          <div class="col-lg-6 col-md-12">
+            <a href="" style="text-decoration: none;">
+              <div class="card bg-dark" style="min-height: 300px">
+                <div class="card-header card-header-text">
+                  <h4 class="card-title">Appointments</h4>
+                  <p class="category">Today's Appointments</p>
+                </div>
+                <div class="card-content table-responsive">
+                  <table class="table table-hover " style="text-align: center">
+                    <thead class="text-primary">
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for i in ta6 %}
+                      <tr>
+                        <td style="color: #FF5F1F; z-index: 999;">{{forloop.counter}}</td>
+                        <td style="color: white;">{{i.name}}</td>
+                        <td><a href="#" class="name">{{i.phone}}</a></td>
+                        <td style="color: white;">{{i.datentime}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+            </a>
           </div>
         </div>
       </div>
     </div>
+    </div>
 
   </section>
+
   <script>
     let arrow = document.querySelectorAll(".arrow");
     for (var i = 0; i < arrow.length; i++) {
@@ -746,4 +748,9 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
+
   {% endblock content %}
+
+  {% endif %}
+</body>
+</html>

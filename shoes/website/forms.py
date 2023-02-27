@@ -4,6 +4,15 @@ from website.models import BookingModel
 from website.models import ProductModel 
 from website.models import CategoryModel
 from website.models import AddToCartModel
+from website.models import CartBookingModel
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+class CreateUserForm(UserCreationForm):
+    # phone_no = forms.CharField(max_length = 10)
+    class Meta:
+        model = User
+        fields = ["username","email","password1", 'password2']
 
 class ContactForm(ModelForm):
     class Meta:
@@ -29,3 +38,8 @@ class AddToCartForm(ModelForm):
     class Meta:
         model = AddToCartModel
         fields = "__all__"
+
+class CartBookingForm(ModelForm):
+    class Meta:
+        model = CartBookingModel
+        fields = '__all__'

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class BookingModel(models.Model):
     name = models.CharField(max_length=50)
@@ -13,8 +14,12 @@ class BookingModel(models.Model):
 
 
 class ContactModel(models.Model):
-    name = models.CharField(max_length=50)
-    phone = models.IntegerField()
+    fname = models.CharField(max_length=50)
+    lname = models.CharField(max_length=50)
+    # username = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    zip = models.CharField(max_length=6)
     email = models.EmailField()
     message = models.TextField()
 
@@ -39,7 +44,22 @@ class AddToCartModel(models.Model):
     name = models.CharField(max_length=50)
     price = models.IntegerField()
     quantity = models.IntegerField(default=1)
-    total_price = models.IntegerField(default=1)
+    # total_price = models.IntegerFielord(default=1)
+    foruser = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def _str_(self):
+    def __str__(self):
+        return self.name
+    
+
+class CartBookingModel(models.Model):
+    name = models.CharField(max_length=75)
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    email = models.EmailField()
+    datentime = models.DateTimeField()
+    total_payment = models.CharField(max_length=20)
+    services = models.JSONField(default=list)
+    foruser = models.ForeignKey(User, on_delete=models.CASCADE)
+    BookingTime = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
         return self.name

@@ -1,362 +1,236 @@
-  
-  {% extends "website/index.html" %}
-  
+{% extends "website/index.html" %}
+
 {% block popup %}
+
 {% load static %}
 <link href="{% static 'css/index.css' %}" rel="stylesheet" />
 <link href="{% static 'css/shoes.css' %}" rel="stylesheet" />
 {% endblock popup %}
 
-  {% block content %}
-  
-    <div class="main mx-auto">
-      <div class="container mt-5">
-        <div class="header__center" style="margin-top: 3.5em">
-          <h1 style="color: black; text-align: center">HOUSE OF RUHII</h1>
-        </div>
-      </div>
-      <div class="container-fluid text-center">
-        <h1 style="color: palevioletred" class="mt-5">Collection Of FLATS</h1>
-      </div>
-      <div
-        style="text-align: center; font-size: 1.2em; color: rgb(99, 31, 42)"
-        class="container text-center"
-      >
-        <p>
-            Flats are a versatile staple for any woman's wardrobe. Our collection of women's flats boasts a range of styles, from sophisticated ballet flats to playful and printed loafers. Perfect for work or play, our flats are designed with comfort in mind, allowing you to stay on your feet all day without sacrificing style. With so many options to choose from, you're sure to find the perfect pair of flats to complete any outfit and add a touch of effortless elegance to your look.
-        </p>
-        <hr style="border: 1 px solid palevioletred; margin-top: 1.5em;">
-      </div>
-      
-      <div class="container">
-        <div class="row">
-            <div class="col-sm-10"></div>
-            <div class="col-sm-2">
+{% block content %}
+
+<div class="main mx-auto">
+  <div class="container mt-5">
+    <div class="header__center" style="margin-top: 3.5em">
+      <h1 style="color: black; text-align: center">HOUSE OF RUHII</h1>
+    </div>
+  </div>
+  <div class="container-fluid text-center">
+    <h1 style="color: palevioletred" class="mt-5">Collection Of FLATS</h1>
+  </div>
+  <div style="text-align: center; font-size: 1.2em; color: rgb(99, 31, 42)" class="container text-center">
+    <p>
+      Flats are a versatile staple for any woman's wardrobe. Our collection of women's flats boasts a range of styles,
+      from sophisticated ballet flats to playful and printed loafers. Perfect for work or play, our flats are designed
+      with comfort in mind, allowing you to stay on your feet all day without sacrificing style. With so many options to
+      choose from, you're sure to find the perfect pair of flats to complete any outfit and add a touch of effortless
+      elegance to your look.
+    </p>
+    <hr style="border: 1 px solid palevioletred; margin-top: 1.5em;">
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10"></div>
+      <div class="col-sm-2">
         <div class="nav-item dropdown text-center">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.2em;">
-              SORT BY
-            </a>
-            <ul class="dropdown-menu mx-5">
-              <li><a class="dropdown-item" href="#">Price, low to high</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Price, high to low</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Best Selling</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Featured</a></li>
-            </ul>
-          </div>
-            </div>
-        </div>
- 
-
-    <div class="container mt-5">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-          {% for i in data %}
-          <div class="col">
-            <div class="card" style="border: none">
-              <img
-                src="{% static 'images/img1.jpg' %}"
-                class="card-img-top"
-                onmouseover="this.src='../../../static/images/img2.jpg'"
-                onmouseout="this.src='../../../static/images/img1.jpg'"
-              />
-              <div class="card-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-10">
-                <h5 class="card-title">Shoes Name</h5>
-                <p class="card-text">&#8377</p>
-                    </div>
-                    <div class="col-sm-2">
-                        <a href="#">
-                            <i
-                              class="fa-solid fa-cart-shopping mt-2"
-                              title="add to cart"
-                              style="color: palevioletred; font-size: 1.4em"
-                            ></i
-                          ></a>
-                    </div>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-          <!-- <div class="col">
-            <div class="card" style="border: none">
-              <img
-                src="{% static 'images/img1.jpg' %}"
-                class="card-img-top"
-                onmouseover="this.src='../../../static/images/img2.jpg'"
-                onmouseout="this.src='../../../static/images/img1.jpg'"
-              />
-              <div class="card-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-10">
-                <h5 class="card-title">Shoes Name</h5>
-                <p class="card-text">&#8377</p>
-                    </div>
-                    <div class="col-sm-2">
-                        <a href="#">
-                            <i
-                            class="fa-solid fa-cart-shopping mt-2"
-                              title="add to cart"
-                              style="color: palevioletred; font-size: 1.4em"
-                            ></i
-                          ></a>
-                    </div>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card" style="border: none">
-              <img
-                src="{% static 'images/img1.jpg' %}"
-                class="card-img-top"
-                onmouseover="this.src='../../../static/images/img2.jpg'"
-                onmouseout="this.src='../../../static/images/img1.jpg'"
-              />
-              <div class="card-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-10">
-                <h5 class="card-title">Shoes Name</h5>
-                <p class="card-text">&#8377</p>
-                    </div>
-                    <div class="col-sm-2">
-                        <a href="#">
-                            <i
-                            class="fa-solid fa-cart-shopping mt-2"
-                              title="add to cart"
-                              style="color: palevioletred; font-size: 1.4em"
-                            ></i
-                          ></a>
-                    </div>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card" style="border: none">
-              <img
-                src="{% static 'images/img1.jpg' %}"
-                class="card-img-top"
-                onmouseover="this.src='../../../static/images/img2.jpg'"
-                onmouseout="this.src='../../../static/images/img1.jpg'"
-              />
-              <div class="card-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-10">
-                <h5 class="card-title">Shoes Name</h5>
-                <p class="card-text">&#8377</p>
-                    </div>
-                    <div class="col-sm-2">
-                        <a href="#">
-                            <i
-                            class="fa-solid fa-cart-shopping mt-2"
-                              title="add to cart"
-                              style="color: palevioletred; font-size: 1.4em"
-                            ></i
-                          ></a>
-                    </div>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card" style="border: none">
-              <img
-                src="{% static 'images/img1.jpg' %}"
-                class="card-img-top"
-                onmouseover="this.src='../../../static/images/img2.jpg'"
-                onmouseout="this.src='../../../static/images/img1.jpg'"
-              />
-              <div class="card-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-10">
-                <h5 class="card-title">Shoes Name</h5>
-                <p class="card-text">&#8377</p>
-                    </div>
-                    <div class="col-sm-2">
-                        <a href="#">
-                            <i
-                            class="fa-solid fa-cart-shopping mt-2"
-                              title="add to cart"
-                              style="color: palevioletred; font-size: 1.4em"
-                            ></i
-                          ></a>
-                    </div>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
-          <!-- <div class="col">
-            <div class="card" style="border: none">
-              <img
-                src="{% static 'images/img1.jpg' %}"
-                class="card-img-top"
-                onmouseover="this.src='../../../static/images/img2.jpg'"
-                onmouseout="this.src='../../../static/images/img1.jpg'"
-              />
-              <div class="card-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-10">
-                <h5 class="card-title">Shoes Name</h5>
-                <p class="card-text">&#8377</p>
-                    </div>
-                    <div class="col-sm-2">
-                        <a href="#">
-                            <i
-                            class="fa-solid fa-cart-shopping mt-2"
-                              title="add to cart"
-                              style="color: palevioletred; font-size: 1.4em"
-                            ></i
-                          ></a>
-                    </div>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-      </div>
-</div>
-
-<div class="flex-wrapper bg-black mx-auto mt-5">
-    <div class="container-fluid" style="padding-top: 1em">
-      <div class="row g-3">
-        <div class="col-sm-4 mb-2 text-center">
-          <h3 style="color: palevioletred">USEFUL LINKS</h3>
-          <ul style="list-style: none; color: white; font-size: 1.5em;">
-            <a href="#" style="text-decoration: none"
-              ><li
-                style="list-style: none; color: white; margin-left: -25px"
-                class="list mb-2"
-              >
-                HOME
-              </li></a
-            >
-
-            <a href="#" style="text-decoration: none"
-              ><li
-                style="list-style: none; color: white; margin-left: -25px; "
-                class="mb-2"
-              >
-                SHOP
-              </li></a
-            >
-            <a href="#" style="text-decoration: none"
-            ><li
-              style="list-style: none; color: white; margin-left: -25px; "
-              class="mb-2"
-            >
-              MY ACCOUNT
-            </li></a
-          >
-          <a href="#" style="text-decoration: none"
-          ><li
-            style="list-style: none; color: white; margin-left: -25px;"
-            class="mb-2"
-          >
-            VIEW CART
-          </li></a
-        >
-        <a href="#" style="text-decoration: none"
-        ><li
-          style="list-style: none; color: white; margin-left: -25px; "
-          class="mb-2"
-        >
-          CONTACT US
-        </li></a
-      >
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+            style="font-size: 1.2em;">
+            SORT BY
+          </a>
+          <ul class="dropdown-menu mx-5">
+            <li><a class="dropdown-item" href="#">Price, low to high</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Price, high to low</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Best Selling</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Featured</a></li>
           </ul>
-        </div>
-        <div class="col-sm-4 mb-4 text-center">
-          <h3 style="color: palevioletred">GET CONNECTED </h3>
-          <a href="#"><i class="fa-brands fa-facebook mx-2"></i></a>
-          <a href="#"><i class="fa-brands fa-instagram"></i></a>
-        </div>
-        <div class="col-sm-4 mb-2 text-center"">
-          <h3 style="color: palevioletred">SHOP ADDRESS</h3>
-          <p style="color: whitesmoke; font-size: 1.5em">NAME OF SHOP</p>
-          <p style="color: whitesmoke; font-size: 1.5em">STREET NAME</p>
-          <p style="color: whitesmoke; font-size: 1.5em">LOCATION</p>
-          <p style="color: whitesmoke; font-size: 1.5em">CITY</p>
-          <i class="fa-solid fa-phone mx-2" style="color: palevioletred"></i>
-          <span style="color: whitesmoke; font-size: 1.3em">0123456789</span><br>
-          <i class="fa-solid fa-envelope mx-2 mt-2" style="color: palevioletred"></i>
-          <span style="color: whitesmoke; font-size: 1.3em">@gmail.com</span>
         </div>
       </div>
     </div>
 
+
     <div class="container mt-5">
-      <div class="row">
-        <div class="col-sm-6">
-          <p
-            style="
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for i in data %}
+        <div class="col">
+          <div class="card" style="border: none">
+            <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
+              onmouseover="this.src='../../../static/images/img2.jpg'"
+              onmouseout="this.src='../../../static/images/img1.jpg'" />
+            <div class="card-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-10">
+                    <h5 class="card-title">{{i.name}}</h5>
+                    <p class="card-text">&#8377 {{i.price}}</p>
+                  </div>
+                  {% if request.user.username == "" %}
+                  <div class="col-sm-2">
+                    <a href="{% url 'signin' %}">
+                      <i class="fa-solid fa-cart-shopping mt-2" title="add to cart" data-link-id="{{i.id}}"
+                        data-name="{{i.name}}" data-value="{{i.price}}" data-quantity="{{i.quantity}}"
+                        style="color: palevioletred; font-size: 1.4em"></i></a>
+                  </div>
+                </div>
+                {% else %}
+                <div class="col-sm-2">
+                  <a href="{% url 'signin' %}">
+                    <i class="fa-solid fa-cart-shopping mt-2 add-item-btn" title="add to cart" data-link-id="{{i.id}}"
+                      data-name="{{i.name}}" data-value="{{i.price}}" data-quantity="{{i.quantity}}"
+                      style="color: palevioletred; font-size: 1.4em"></i></a>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor%}
+    </div>
+
+    <div class="flex-wrapper bg-black mx-auto mt-5">
+      <div class="container-fluid" style="padding-top: 1em">
+        <div class="row g-3">
+          <div class="col-sm-4 mb-2 text-center">
+            <h3 style="color: palevioletred">USEFUL LINKS</h3>
+            <ul style="list-style: none; color: white; font-size: 1.5em;">
+              <a href="#" style="text-decoration: none">
+                <li style="list-style: none; color: white; margin-left: -25px" class="list mb-2">
+                  HOME
+                </li>
+              </a>
+
+              <a href="#" style="text-decoration: none">
+                <li style="list-style: none; color: white; margin-left: -25px; " class="mb-2">
+                  SHOP
+                </li>
+              </a>
+              <a href="#" style="text-decoration: none">
+                <li style="list-style: none; color: white; margin-left: -25px; " class="mb-2">
+                  MY ACCOUNT
+                </li>
+              </a>
+              <a href="#" style="text-decoration: none">
+                <li style="list-style: none; color: white; margin-left: -25px;" class="mb-2">
+                  VIEW CART
+                </li>
+              </a>
+              <a href="#" style="text-decoration: none">
+                <li style="list-style: none; color: white; margin-left: -25px; " class="mb-2">
+                  CONTACT US
+                </li>
+              </a>
+            </ul>
+          </div>
+          <div class="col-sm-4 mb-4 text-center">
+            <h3 style="color: palevioletred">GET CONNECTED </h3>
+            <a href="#"><i class="fa-brands fa-facebook mx-2"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          </div>
+          <div class="col-sm-4 mb-2 text-center"">
+          <h3 style=" color: palevioletred">SHOP ADDRESS</h3>
+            <p style="color: whitesmoke; font-size: 1.5em">NAME OF SHOP</p>
+            <p style="color: whitesmoke; font-size: 1.5em">STREET NAME</p>
+            <p style="color: whitesmoke; font-size: 1.5em">LOCATION</p>
+            <p style="color: whitesmoke; font-size: 1.5em">CITY</p>
+            <i class="fa-solid fa-phone mx-2" style="color: palevioletred"></i>
+            <span style="color: whitesmoke; font-size: 1.3em">0123456789</span><br>
+            <i class="fa-solid fa-envelope mx-2 mt-2" style="color: palevioletred"></i>
+            <span style="color: whitesmoke; font-size: 1.3em">@gmail.com</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-sm-6">
+            <p style="
               font-size: 1.5em;
               font-weight: 600;
               color: whitesmoke;
               text-align: center;
-            "
-          >
-            Visit Us Here!
-          </p>
-          <div class="map-responsive">
-            <h1>YOUR LOCATION ON MAP WILL BE SHOWN HERE</h1>
+            ">
+              Visit Us Here!
+            </p>
+            <div class="map-responsive">
+              <h1>YOUR LOCATION ON MAP WILL BE SHOWN HERE</h1>
+            </div>
           </div>
-        </div>
-        <div class="col-sm-6">
-          <h3 style="text-align: center; color: whitesmoke">Our Facebook</h3>
-          <div class="container mx-auto text-center">
-            <h1>YOUR FACEBOOK PAGE WILL BE SHOWN HERE</h1>
+          <div class="col-sm-6">
+            <h3 style="text-align: center; color: whitesmoke">Our Facebook</h3>
+            <div class="container mx-auto text-center">
+              <h1>YOUR FACEBOOK PAGE WILL BE SHOWN HERE</h1>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <hr style="border: 1px solid white" />
+      <hr style="border: 1px solid white" />
 
-    <div class="footer">
-      <div class="container-fluid">
-        <p>Narula</p>
+      <div class="footer">
+        <div class="container-fluid">
+          <p>Narula</p>
+        </div>
       </div>
     </div>
-  </div>
-  <!--script-->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-    crossorigin="anonymous"
-  ></script>
- 
-  <script>
-    var nav = document.querySelector("nav");
+    <!--script-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"></script>
 
-    window.addEventListener("scroll", function () {
-      if (window.pageYOffset > 100) {
-        nav.classList.add("bg-light", "shadow");
-      } else {
-        nav.classList.remove("bg-light", "shadow");
-      }
-    });
-  </script>
-   <script src="/js/index.js"></script>
-</body>
-</html>
+    <script>
+      var nav = document.querySelector("nav");
 
-  </body>
-  {% endblock %}
+      window.addEventListener("scroll", function () {
+        if (window.pageYOffset > 100) {
+          nav.classList.add("bg-light", "shadow");
+        } else {
+          nav.classList.remove("bg-light", "shadow");
+        }
+      });
+    </script>
+    <script src="{% static 'js/index.js' %}"></script>
 
+    <script>
+      $(document).ready(function () {
+        $('.add-item-btn').on('click', function (event) {
+          event.preventDefault();
+          var name = $(this).data('name');
+          var value = $(this).data('value')
+          var quantity = 1;
+    
+          var users = $(this).data('user');
+          var catid = $(this).data('link-id');
+    
+          var pageurl = "{% url 'AddToCart' %}";
+          var data = { 'name': name, 'price': value, 'foruser': users, 'quantity': quantity, 'foruser': "{{request.user.id}}" };
+          $.ajax({
+            url: pageurl,
+            method: 'POST',
+            data: data,
+            success: function (response) {
+              // $(this).css('color', 'red');
+              alert('Item Added in Cart: ' + name);
+            },
+            error: function (xhr, status, error) {
+              alert('Error saving form: ' + error);
+            }
+          });
+        });
+      })
+    </script>
+    </body>
+
+    </html>
+
+    {% endblock %}
