@@ -5,7 +5,8 @@
 {% block popup %}
 {% endblock popup %}
 
-
+{% block nav %}
+{% endblock nav %}
 
 {% load static %}
 <link href="{% static 'css/checkout.css' %}" rel="stylesheet">
@@ -58,6 +59,31 @@
                                 <input type="text" name="email" id="email" class="form-control"
                                     value="{{user.email}}" required>
                             </div>
+                            <div class="col-md-12">
+                                <label for="address" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-address-book mx-2"></i>Address</label>
+                                <input type="text" name="address" id="address" class="form-control"
+                                    value="{{user.address}}" required>
+                                    
+                            </div>
+                            <div class="col-md-12">
+                                <label for="city" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-address-book mx-2"></i>City</label>
+                                <input type="text" name="city" id="city" class="form-control"
+                                    value="{{user.city}}" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="state" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-address-book mx-2"></i>State</label>
+                                <input type="text" name="state" id="state" class="form-control"
+                                    value="{{user.state}}" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="zip" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-address-book mx-2"></i>State</label>
+                                <input type="text" name="zip" id="zip" class="form-control"
+                                    value="{{user.state}}" required>
+                            </div>        
                             <div class="col-md-12 mb-3" id="datentimes">
                                 <label for="datentime" class="form-label mt-3 text-center"><i
                                         class="fa-solid fa-address-book mx-2"></i>datentime</label>
@@ -83,11 +109,13 @@
                                     {% if i.foruser.username == user.username %}
                                     <li class="list-group-item d-flex justify-content-between align-items-start">
                                         <div class="ms-2 me-auto">
-                                            <div class="fw-bold"><input type="hidden" name="services" value="{{i.name}}">
+                                            <div class="fw-bold"><input type="hidden" name="services" value="{{i.name}}"><input type="hidden" name="fit" value="{{i.fit}}"><input type="hidden" name="size" value="{{i.size}}"><input type="hidden" name="price" value="{{i.price}}">
                                             </div>
-                                            <div class="fw-bold">{{i.name}}</div>
-                                            £{{i.price}}
+                                            <div class="fw-bold">{{i.item.name}}</div>
+                                            {% if i.fit %}Fit - {{i.fit}},{% endif %} 
+                                             Size - {{i.size}}
                                         </div>
+                                        Rs.{{i.item.price}}
                                         <a href="{% url 'delcartbooking' i.id %}" style="margin-left: 15px;"><i class="fa-solid fa-trash"></i></a>
                                     </li>
                                     {% endif %}

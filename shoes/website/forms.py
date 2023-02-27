@@ -7,6 +7,8 @@ from website.models import AddToCartModel
 from website.models import CartBookingModel
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from website.models import Review
+
 
 class CreateUserForm(UserCreationForm):
     # phone_no = forms.CharField(max_length = 10)
@@ -43,3 +45,8 @@ class CartBookingForm(ModelForm):
     class Meta:
         model = CartBookingModel
         fields = '__all__'
+
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = ['name', 'email', 'review', 'rating']

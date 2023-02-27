@@ -9,6 +9,8 @@
 
 {% block content %}
 
+{{user}}
+
 <div class="main mx-auto" style="margin-top: 5em;">
   <div class="container mt-5">
     <div class="header__center" style="margin-top: 3.5em;">
@@ -84,19 +86,20 @@
                       style="color: palevioletred; font-size: 1.4em"></i></a>
                 </div>
               </div>
-          
+
 
               {% else %}
               <div class="col-sm-2">
-                <a href="{% url 'signin' %}">
+                <a href="">
                   <i class="fa-solid fa-cart-shopping mt-2 add-item-btn" title="add to cart" data-link-id="{{i.id}}"
                     data-name="{{i.name}}" data-value="{{i.price}}" data-quantity="{{i.quantity}}"
                     style="color: palevioletred; font-size: 1.4em"></i></a>
               </div>
             </div>
-          
+
 
             {% endif %}
+          </div>
 
         </div>
       </div>

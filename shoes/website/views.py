@@ -21,11 +21,27 @@ from website.forms import CreateUserForm
 import json
 from django.core.mail import send_mail
 from shoes.settings import EMAIL_HOST_USER
+from website.forms import ReviewForm
 
 
 
 def index(request):
-    return render(request, 'website/index.html')
+    data = ProductModel.objects.all()[:9]
+    item = ProductModel.objects.all()[:4]
+    navs = CategoryModel.objects.all()
+
+    print(data)
+    context = {'data': data, 'item':item,'navs':navs}
+    
+    return render(request, 'website/index.html', context)
+
+def ProductsCatviewPage(request, id):
+    navs = CategoryModel.objects.all()
+    catid = CategoryModel.objects.get(id=id)
+    data = ProductModel.objects.filter(cat=catid)
+    context = {'catid': catid, 'navs':navs, 'data':data}
+    return render(request, 'website/productcatviewpage.html', context)
+
 
 def signup(request):
     form = CreateUserForm()
@@ -90,6 +106,7 @@ def signout(request):
 
 def contact(request):
     form = ContactForm()
+    navs = CategoryModel.objects.all()
 
     if request.method == "POST":
         form = ContactForm(request.POST)
@@ -97,10 +114,10 @@ def contact(request):
         if form.is_valid():
             form.save()
             print("Form Saved")
-            return redirect("/")
+            # return redirect("/")
         else:
             print("Form Error: ", form.errors)
-    context = {'form': form}
+    context = {'form': form, 'navs': navs}
     return render(request, 'website/contact.html', context)
 
 
@@ -113,7 +130,7 @@ def booking(request):
         if form.is_valid():
             form.save()
             print("Form Saved")
-            return redirect("/")
+            # return redirect("/")
         else:
             print("Form Error: ", form.errors)
     context = {'form': form}
@@ -200,12 +217,12 @@ def product(request):
     form = ProductForm()
 
     if request.method == "POST":
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST, request.FILES)
         print(form)
         if form.is_valid():
             form.save()
             print("Form Saved")
-            return redirect("/")
+            # return redirect("/")
         else:
             print("Form Error: ", form.errors)
     context = {'form': form}
@@ -224,7 +241,7 @@ def category(request):
         if form.is_valid():
             form.save()
             print("Form Saved")
-            return redirect("/")
+            # return redirect("/")
         else:                                           
             print("Form Error: ", form.errors)
     context = {'form': form}
@@ -326,22 +343,25 @@ def AddToCartItem(request):
         print('form: ', request.POST)
 
         form = AddToCartForm(request.POST)
-        name = request.POST.get('name')
-        price = request.POST.get('price')
+        name = request.POST.get('item')
+        price = request.POST.get('size')
+        fit = request.POST.get('fit')
+        print("Name: ", name, price, fit)
         userid = request.POST.get('foruser')
         foruser = User.objects.get(id=userid)
         quantity = request.POST.get('quantity')
 
         print("name: ", name)
 
-        cart = AddToCartModel(name=name,price=price,quantity=quantity,foruser=foruser)
-        cart.save()
-        print('value')
-        # if form.is_valid():
-        #     form.save()
-        #     return redirect("/")
-        # else:
-        #     print("Form Error: ", form.errors)
+        # cart = AddToCartModel(name=name,price=price,quantity=quantity,foruser=foruser)
+        # cart.save()
+        # print('value')
+        if form.is_valid():
+            form.save()
+            # return redirect("/")
+            print("Form Saved")
+        else:
+            print("Form Error: ", form.errors)
     # return render (request,'website/checkout.html', context)
     return JsonResponse({'amount' : name}, status=200)
 
@@ -365,7 +385,7 @@ def showAddToCart(request):
         if form.is_valid():
             product = form.save(commit=False)
             form.save()
-            return redirect("/")
+            
         else:
             print("Form Error: ", form.errors)
 
@@ -381,7 +401,7 @@ def CartAndBooking(request):
     s = 0
     items = AddToCartModel.objects.filter(foruser = request.user.id)
     for i in items:
-        s += i.price
+        s += i.item.price
 
     if request.method == "POST":
         form = CartBookingForm(request.POST)
@@ -392,21 +412,32 @@ def CartAndBooking(request):
         foruser = User.objects.get(id=someuser)
         datentime = request.POST.get('datentime')
         se = request.POST.getlist('services')
+        sizes = request.POST.getlist('size')
+        fits = request.POST.getlist('fit')
+        prices = request.POST.getlist('price')
+
         total_payment = request.POST.get('total_payment')
         services = json.dumps(se)
+        size = json.dumps(sizes)
+        fit = json.dumps(fits)
+        price = json.dumps(prices)
+
         print("Services: ", services)
         print("name: ", name)
-        print("Services: ", phone)
-        print("Services: ", email)
-        print("Services: ", foruser)
-        print("Services: ", datentime)
-        print("Services: ", total_payment)
+        print("phone: ", phone)
+        print("email: ", email)
+        print("for user: ", foruser)
+        print("datentime: ", datentime)
+        print("total Payment: ", total_payment)
 
-        print("Services: ", services)
-        booking = CartBookingModel(name=name,phone=phone, email=email, datentime=datentime, total_payment=total_payment, services=services, foruser=foruser)
+        booking = CartBookingModel(name=name,phone=phone, email=email, datentime=datentime, total_payment=total_payment, services=services, foruser=foruser, size=size, fit=fit, price=price)
         booking.save()
         print("Value Saved")
-
+        # if form.is_valid():
+        #     form.save()
+        #     print("Form Saved")
+        # else:
+        #     print("Error: ", form.errors)
     context = {'item':items, 'total': s}
     return render(request, 'website/checkoutpage.html', context)
 
@@ -426,6 +457,39 @@ def DelAllBooking(request):
 
 @login_required
 def ShowUserBookings(request):
-    data = CartBookingModel.objects.all()
-    context = {'data': data}
-    return render(request, 'AdminPanel/userbooking.html', context)
+    if request.user.is_superuser:
+        data = CartBookingModel.objects.all()
+        context = {'data': data}
+        return render(request, 'AdminPanel/userbooking.html', context)
+    else:
+        navs = CategoryModel.objects.all()
+
+        data = CartBookingModel.objects.filter(foruser=request.user)
+        context = {'data': data, 'navs': navs}
+        return render(request, 'website/userbooking.html', context)
+
+
+def detailproduct(request,id):
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print('form.saved')
+    else:
+        form = ReviewForm()
+    navs = CategoryModel.objects.all()
+
+    data = ProductModel.objects.get(id=id)
+    context = {'data': data, 'navs': navs, 'form' : form}
+    return render(request, 'website/detailproduct.html', context)
+
+
+def review(request):
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print('form.saved')
+    else:
+        form = ReviewForm()
+    return render(request, 'website/review.html', {'form': form})

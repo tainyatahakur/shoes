@@ -24,7 +24,7 @@ class ContactModel(models.Model):
     message = models.TextField()
 
     def __str__(self):
-        return self.name
+        return self.fname
 
 class CategoryModel(models.Model):
     name = models.CharField(max_length=50)
@@ -35,15 +35,26 @@ class CategoryModel(models.Model):
 class ProductModel(models.Model):
     name = models.CharField(max_length=50)
     price = models.IntegerField()
+    img = models.ImageField()
+    img2 = models.ImageField()
+    img3 = models.ImageField()
+    img4 = models.ImageField()
+    img5 = models.ImageField()
+    img6 = models.ImageField()
+
     cat = models.ForeignKey("CategoryModel", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
 
 class AddToCartModel(models.Model):
-    name = models.CharField(max_length=50)
-    price = models.IntegerField()
+    item = models.ForeignKey(ProductModel, on_delete=models.CASCADE)    
+    # name = models.CharField(max_length=50)
+    # price = models.IntegerField()
+
     quantity = models.IntegerField(default=1)
+    size = models.IntegerField()
+    fit = models.CharField(max_length=15)
     # total_price = models.IntegerFielord(default=1)
     foruser = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -56,10 +67,27 @@ class CartBookingModel(models.Model):
     phone = models.CharField(max_length=15, blank=True, null=True)
     email = models.EmailField()
     datentime = models.DateTimeField()
+    address = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    zip = models.CharField(max_length=50)
     total_payment = models.CharField(max_length=20)
     services = models.JSONField(default=list)
+    size = models.JSONField(default=list)
+    price = models.JSONField(default=list)
+    fit = models.JSONField(default=list)
     foruser = models.ForeignKey(User, on_delete=models.CASCADE)
     BookingTime = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Review(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    review = models.TextField()
+    rating = models.IntegerField()
 
     def __str__(self):
         return self.name

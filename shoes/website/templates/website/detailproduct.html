@@ -1,0 +1,501 @@
+{% extends 'website/index.html' %}
+
+{% block content %}
+{% block popup %}
+
+{% endblock popup %}
+
+{% load static %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css"
+  integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+  integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+
+<link href="{% static 'css/index.css' %}" rel="stylesheet" />
+<link href="{% static 'css/products.css' %}" rel="stylesheet" />
+<script src="https://kit.fontawesome.com/8feaa5fbd6.js" crossorigin="anonymous"></script>
+
+<div class="main mx-auto" style="margin-top: 7em">
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="{{data.img.url}}" class="img-fluid" />
+      </div>
+      <div class="swiper-slide">
+        <img src="{{data.img2.url}}" class="img-fluid" />
+      </div>
+      <div class="swiper-slide">
+        <img src="{{data.img3.url}}" class="img-fluid" />
+      </div>
+      <div class="swiper-slide">
+        <img src="{{data.img4.url}}" class="img-fluid" />
+      </div>
+      <div class="swiper-slide">
+        <img src="{{data.img5.url}}" class="img-fluid" />
+      </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <div class="container-fluid">
+    <form action="" method="post" action="">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="container text-center" style="margin-top: 3em">
+            <h3>{{data.name}}</h3>
+            <input type="hidden" value="{{data.id}}" name="item" id="id-title">
+          </div>
+          <div class="container text-center">
+            <img src="{{data.img6.url}}" class="img-fluid" style="width: 25%" />
+          </div>
+          <div class="container text-center mx-auto" style="font-size: 1.4em; font-weight: 500">
+            Rs.{{data.price}}/-
+          </div>
+          <div class="container mx-auto text-center mt-3">
+            <h5>SELECT SIZE</h5>
+          </div>
+          <div class="container-fluid text-center mx-auto" style="padding: 1em 1em 1em">
+            <div class="row">
+              <select id="diff_size" class="mx-auto text-center" name="size" style="height: 4em">
+                <div class="col-sm-2">
+                  <option value="4">4</option>
+                </div>
+                <div class="col-sm-2">
+                  <option value="5">5</option>
+                </div>
+                <div class="col-sm-2">
+                  <option value="6">6</option>
+                </div>
+                <div class="col-sm-2">
+                  <option value="7">7</option>
+                </div>
+                <div class="col-sm-2">
+                  <option value="8">8</option>
+                </div>
+                <div class="col-sm-2">
+                  <option value="9">9</option>
+                </div>
+                <div class="col-sm-2">
+                  <option value="10">10</option>
+                </div>
+              </select>
+            </div>
+            <div class="container" style="display: flex">
+              <select id="diff_fit" class="mx-auto text-center" name="fit" style="height: 4em">
+                <option value="REG">REG</option>
+                <option value="WIDE">WIDE</option>
+              </select>
+            </div>
+            <!-- <div class="button mt-3">ADD TO CART</div> -->
+            <input type="submit" class="add-item-btn button mt-3" value="ADD TO CART">
+          </div>
+    </form>
+    <div class="container mx-auto text-center">
+      <button class="button nav-item dropdown mx-auto text-center" style="width: 100%">
+        <a class="nav-link dropdown-toggle mx-auto text-center" href="#" role="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          DESCRIPTION
+        </a>
+        <ul class="dropdown-menu text-center mx-auto" style="
+                    width: 93%;
+                    text-align: center;
+                    justify-content: center;
+                  ">
+          <h3>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Autem tempore voluptates aspernatur quibusdam laudantium
+            cum, vel sit explicabo! Ratione, totam id omnis ea quasi
+            reiciendis ipsam in beatae accusantium explicabo.
+          </h3>
+        </ul>
+      </button>
+      <div class="container mt-5">
+        <h6>SHARE</h6>
+        <i class="fa-brands fa-facebook mx-2" style="color: gray" title="Facebook"></i>
+        <i class="fa-brands fa-instagram mx-2" style="color: gray" title="instagram"></i>
+        <i class="fa-solid fa-link mx-2" style="color: gray; cursor: pointer" title="copy link"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 text-center mx-auto">
+    <div class="container mt-5 mx-auto text-center">
+      <img src="{{data.img.url}}" class="img-thumbnail" />
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="container mt-5">
+  <div class="container text-center mt-5">
+    <h4>YOU MAY ALSO LIKE</h4>
+  </div>
+  <div class="container-fluid mt-3">
+    <div class="owl-carousel owl-theme">
+      <div class="item" style="cursor: pointer">
+        <img src="{% static 'images/img1.jpg' %}" alt="shoe" />
+      </div>
+      <div class="item" style="cursor: pointer">
+        <img src="{% static 'images/img1.jpg' %}" alt="shoe" />
+      </div>
+      <div class="item" style="cursor: pointer">
+        <img src="{% static 'images/img1.jpg' %}" alt="shoe" />
+      </div>
+      <div class="item" style="cursor: pointer">
+        <img src="{% static 'images/img1.jpg' %}" alt="shoe" />
+      </div>
+      <div class="item" style="cursor: pointer">
+        <img src="{% static 'images/img1.jpg' %}" alt="shoe" />
+      </div>
+      <div class="item" style="cursor: pointer">
+        <img src="{% static 'images/img1.jpg' %}" alt="shoe" />
+      </div>
+      <div class="item" style="cursor: pointer">
+        <img src="{% static 'images/img1.jpg' %}" alt="shoe" />
+      </div>
+      <div class="item" style="cursor: pointer">
+        <img src="{% static 'images/img1.jpg' %}" alt="shoe" />
+      </div>
+      <div class="item" style="cursor: pointer">
+        <img src="{% static 'images/img1.jpg' %}" alt="shoe" />
+      </div>
+      <div class="item" style="cursor: pointer">
+        <img src="{% static 'images/img1.jpg' %}" alt="shoe" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr style="border: 1px solid pink" />
+<!--review-->
+
+<div class="container">
+  <button onclick="myFunction()" class="mx-auto" style="background-color: transparent; border: none">
+    <i class="fa-solid fa-pen-nib mx-2" style="background-color: white" title="write a review"></i>WRITE A REVIEW
+  </button>
+  <div id="myDIV">
+    <div class="container" style="border: 2px solid pink; padding: 1em 1em 1em">
+      <div class="container mx-auto">
+        <div class="row">
+          <div class="col-sm-6 text-center">
+            <h5>WRITE A REVIEW</h5>
+          </div>
+          <div class="col-sm-6 text-center">
+            <span id="date-time" style="color: palevioletred"></span>
+          </div>
+        </div>
+      </div>
+      <form class="row g-3">
+        <p><span style="color: palevioletred">*</span>Required Field</p>
+
+        <div class="container">
+          <p>Ratings:</p>
+          <div class="rate">
+            <input type="radio" id="star5" name="rate" value="5" />
+            <label for="star5" title="text">5 stars</label>
+            <input type="radio" id="star4" name="rate" value="4" />
+            <label for="star4" title="text">4 stars</label>
+            <input type="radio" id="star3" name="rate" value="3" />
+            <label for="star3" title="text">3 stars</label>
+            <input type="radio" id="star2" name="rate" value="2" />
+            <label for="star2" title="text">2 stars</label>
+            <input type="radio" id="star1" name="rate" value="1" />
+            <label for="star1" title="text">1 star</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">Name<span style="color: palevioletred">*</span></label>
+          <input type="text" class="form-control" id="inputEmail4" />
+        </div>
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">Email<span style="color: palevioletred">*</span></label>
+          <input type="email" class="form-control" id="inputEmail4" />
+        </div>
+
+        <div class="col-12">
+          <label for="inputAddress2" class="form-label">Review<span style="color: palevioletred">*</span></label>
+          <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+              style="height: 100px"></textarea>
+            <label for="floatingTextarea2">Review</label>
+          </div>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="button">SUBMIT</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <hr style="border: 2px solid pink" />
+</div>
+
+<div class="container">
+  <div class="row g-3" action="" method="POST">
+    <h5 style="text-decoration: underline pink">REVIEWS</h5>
+
+    <div class="container" style="border-bottom: 2px solid pink; padding: 1em 1em 1em">
+      <div class="row">
+        <div class="col-sm-6" style="display: flex">
+          <label for="inputAddress2" class="form-label mt-2">1.</label>
+          <input type="text" class="form-control" placeholder="First name" aria-label="First name"
+            style="border: none; width: 50%; font-weight: 600" />
+        </div>
+        <div class="col-sm-6 mx-auto">
+          <input type="date-time" style="border: none; color: palevioletred" />
+        </div>
+      </div>
+      <div class="container">
+        <div class="rate">
+          <input type="radio" id="star5" name="rate" value="5" />
+          <label for="star5" title="text">5 stars</label>
+          <input type="radio" id="star4" name="rate" value="4" />
+          <label for="star4" title="text">4 stars</label>
+          <input type="radio" id="star3" name="rate" value="3" />
+          <label for="star3" title="text">3 stars</label>
+          <input type="radio" id="star2" name="rate" value="2" />
+          <label for="star2" title="text">2 stars</label>
+          <input type="radio" id="star1" name="rate" value="1" />
+          <label for="star1" title="text">1 star</label>
+        </div>
+      </div>
+      <div class="container">
+        <div class="form-floating">
+          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+            style="height: 100px; border: none"></textarea>
+          <label for="floatingTextarea2"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="container-fluid mt-5" style="background-color: pink; padding: 1em 1em 1em">
+  <div class="row text-center">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-3">
+      <h3>Join Our Mailing List</h3>
+    </div>
+    <div class="col-sm-3" style="display: flex">
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+        placeholder="@email" />
+      <button class="button mx-2" style="border-radius: 10px">
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="flex-wrapper bg-black mx-auto">
+  <div class="container-fluid" style="padding-top: 1em">
+    <div class="row g-3">
+      <div class="col-sm-4 mb-2 text-center">
+        <h3 style="color: palevioletred">USEFUL LINKS</h3>
+        <ul style="list-style: none; color: white; font-size: 1.5em">
+          <a href="#" style="text-decoration: none">
+            <li style="list-style: none; color: white; margin-left: -25px" class="list mb-2">
+              HOME
+            </li>
+          </a>
+
+          <a href="#" style="text-decoration: none">
+            <li style="list-style: none; color: white; margin-left: -25px" class="mb-2">
+              SHOP
+            </li>
+          </a>
+          <a href="#" style="text-decoration: none">
+            <li style="list-style: none; color: white; margin-left: -25px" class="mb-2">
+              MY ACCOUNT
+            </li>
+          </a>
+          <a href="#" style="text-decoration: none">
+            <li style="list-style: none; color: white; margin-left: -25px" class="mb-2">
+              VIEW CART
+            </li>
+          </a>
+          <a href="#" style="text-decoration: none">
+            <li style="list-style: none; color: white; margin-left: -25px" class="mb-2">
+              CONTACT US
+            </li>
+          </a>
+        </ul>
+      </div>
+      <div class="col-sm-4 mb-4 text-center">
+        <h3 style="color: palevioletred">GET CONNECTED</h3>
+        <a href="#"><i class="fa-brands fa-facebook mx-2"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+      <div class="col-sm-4 mb-2 text-center">
+        <h3 style="color: palevioletred">SHOP ADDRESS</h3>
+        <p style="color: whitesmoke; font-size: 1.5em">NAME OF SHOP</p>
+        <p style="color: whitesmoke; font-size: 1.5em">STREET NAME</p>
+        <p style="color: whitesmoke; font-size: 1.5em">LOCATION0</p>
+        <p style="color: whitesmoke; font-size: 1.5em">CITY</p>
+        <i class="fa-solid fa-phone mx-2" style="color: palevioletred"></i>
+        <span style="color: whitesmoke; font-size: 1.3em">0123456789</span><br />
+        <i class="fa-solid fa-envelope mx-2 mt-2" style="color: palevioletred"></i>
+        <span style="color: whitesmoke; font-size: 1.3em">@gmail.com</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-sm-6">
+        <p style="
+                font-size: 1.5em;
+                font-weight: 600;
+                color: whitesmoke;
+                text-align: center;
+              ">
+          Visit Us Here!
+        </p>
+        <div class="map-responsive">
+          <h1>YOUR LOCATION ON MAP WILL BE SHOWN HERE</h1>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <h3 style="text-align: center; color: whitesmoke">Our Facebook</h3>
+        <div class="container mx-auto text-center">
+          <h1>YOUR FACEBOOK PAGE WILL BE SHOWN HERE</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr style="border: 1px solid white" />
+
+  <div class="footer">
+    <div class="container-fluid">
+      <p>Narula</p>
+    </div>
+  </div>
+</div>
+<!--script-->
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script src="{% static 'js/index.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+<script>
+  var nav = document.querySelector("nav");
+
+  window.addEventListener("scroll", function () {
+    if (window.pageYOffset > 100) {
+      nav.classList.add("bg-light", "shadow");
+    } else {
+      nav.classList.remove("bg-light", "shadow");
+    }
+  });
+</script>
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    pagination: {
+      el: ".swiper-pagination",
+      type: "progressbar",
+    },
+    loop: true,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+</script>
+<script src="{% static 'js/index.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+  integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+  integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  $(".owl-carousel").owlCarousel({
+    loop: true,
+    margin: 20,
+    autoplay: true,
+    autoplayTimeout: 2000,
+    stagePadding: 50,
+    nav: false,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      600: {
+        items: 3,
+      },
+      1000: {
+        items: 4,
+      },
+    },
+  });
+</script>
+<script>
+  function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+</script>
+<script>
+  const targetDiv = document.getElementById("third");
+  const btn = document.getElementById("toggle");
+  btn.onclick = function () {
+    if (targetDiv.style.display !== "none") {
+      targetDiv.style.display = "none";
+    } else {
+      targetDiv.style.display = "block";
+    }
+  };
+</script>
+<script>
+  var dt = new Date();
+  document.getElementById("date-time").innerHTML = dt;
+</script>
+
+<script>
+  $(document).ready(function () {
+    $('.add-item-btn').on('click', function (event) {
+      event.preventDefault();
+      var name = $('#id-title').val();
+      var value = $('#diff_size').val()
+      var fit = $('#diff_fit').val()
+
+      var quantity = 1;
+
+      var users = $(this).data('user');
+      var catid = $(this).data('link-id');
+
+      var pageurl = "{% url 'AddToCart' %}";
+      var data = { 'item': name, 'size': value, 'fit': fit, 'quantity': quantity, 'foruser': "{{request.user.id}}" };
+      $.ajax({
+        url: pageurl,
+        method: 'POST',
+        data: data,
+        success: function (response) {
+          // $(this).css('color', 'red');
+          alert('Item Added in Cart: ' + name);
+        },
+        error: function (xhr, status, error) {
+          alert("Please Login First");
+        }
+      });
+    });
+  })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+{% endblock content %}

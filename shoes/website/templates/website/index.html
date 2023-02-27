@@ -51,11 +51,12 @@
         </div>
     </div>
     {% endblock popup %}
-
-    <nav class="navbar fixed-top navbar-expand-lg bg-body-black">
+    {% block nav %}
+    <nav class="navbar fixed-top navbar-expand-lg bg-body-black mx-auto">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="{% static 'images/logo.jpeg' %}" alt="" class="img-fluid"
-                    style="width: auto; height: 3rem;"></a>
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'images/logo.jpeg' %}" class="img-fluid" style="height: 2em; width: auto;">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -64,65 +65,123 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/"
+                        <a class="nav-link mx-2" aria-current="page" href="/"
                             style="font-size: 1.5em; font-weight: 400; color: palevioletred">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle mx-2" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false" style="font-size: 1.5em; font-weight: 400; color: palevioletred" ;>
                             Shop
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'heels' %}">Heels</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li><a class="dropdown-item" href="{% url 'shoes' %}">Shoes</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'flats' %}">Flats</a>
-                            </li>
-                            <hr class="dropdown-divider" />
-
-                            <li><a class="dropdown-item" href="{% url 'boots' %}">Boots</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-
-                            <li><a class="dropdown-item" href="{% url 'loafer' %}">Loafer</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-
-                            <li><a class="dropdown-item" href="{% url 'mules' %}">Mules</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-
-                            <li><a class="dropdown-item" href="{% url 'pumps' %}">Pumps</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-
-                            <li><a class="dropdown-item" href="{% url 'sandal' %}">Sandal</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-
-                            <li><a class="dropdown-item" href="{% url 'sneaker' %}">Sneaker</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-
-                            <li><a class="dropdown-item" href="{% url 'wedges' %}">Wedges</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-
-                            <li><a class="dropdown-item" href="{% url 'espadrilles' %}">Espadrilles</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
+                        <ul class="dropdown-menu" style="letter-spacing: 2px;">
+                            <div class="ScrollStyle" style="max-height: 300px; overflow-y: scroll">
+                                <div class="container text-center" style="width: 280px;">
+                                    {% for i in navs %}
+                                    <li style="display: flex; flex-direction: row;"><a class="dropdown-item mt-2"
+                                            href="{% url 'CategoryWiseProducts' i.id %}"
+                                            style="text-align: left; ">{{i.name}}</a>
+                                        <img src="{% static 'images/img1.jpg' %}" class="img-fluid" alt="heels"
+                                            style="width: auto; height: 3em;">
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    {% endfor %}
+                                    <!-- <li style="display: flex; flex-direction: row;"><a class="dropdown-item mt-2"
+                                            href="/html/Boots.html" style="text-align: left; ">Boots</a>
+                                        <img src="/images/img1.jpg" class="img-fluid" alt="heels"
+                                            style="width: auto; height: 3em;">
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li style="display: flex; flex-direction: row;">
+                                        <a class="dropdown-item mt-2" href="/html/flats.html"
+                                            style="text-align: left; ">Flats</a>
+                                        <img src="/images/img1.jpg" class="img-fluid" alt="heels"
+                                            style="width: auto; height: 3em;">
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li style="display: flex; flex-direction: row;">
+                                        <a class="dropdown-item mt-2" href="/html/Sneaker.html"
+                                            style="text-align: left; ">Sneakers</a>
+                                        <img src="/images/img1.jpg" class="img-fluid" alt="heels"
+                                            style="width: auto; height: 3em;">
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li style="display: flex; flex-direction: row;">
+                                        <a class="dropdown-item mt-2" href="/html/Sandal.html"
+                                            style="text-align: left; ">Sandals</a>
+                                        <img src="/images/img1.jpg" class="img-fluid" alt="heels"
+                                            style="width: auto; height: 3em;">
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li style="display: flex; flex-direction: row;">
+                                        <a class="dropdown-item mt-2" href="/html/wedges.html"
+                                            style="text-align: left; ">Wedges</a>
+                                        <img src="/images/img1.jpg" class="img-fluid" alt="heels"
+                                            style="width: auto; height: 3em;">
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li style="display: flex; flex-direction: row;">
+                                        <a class="dropdown-item mt-2" href="/html/Mules.html"
+                                            style="text-align: left; ">Mules</a>
+                                        <img src="/images/img1.jpg" class="img-fluid" alt="heels"
+                                            style="width: auto; height: 3em;">
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li style="display: flex; flex-direction: row;">
+                                        <a class="dropdown-item mt-2" href="/html/flats.html"
+                                            style="text-align: left; ">Loafers</a>
+                                        <img src="/images/img1.jpg" class="img-fluid" alt="heels"
+                                            style="width: auto; height: 3em;">
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li style="display: flex; flex-direction: row;">
+                                        <a class="dropdown-item mt-2" href="/html/Pumps.html"
+                                            style="text-align: left; ">Pumps</a>
+                                        <img src="/images/img1.jpg" class="img-fluid" alt="heels"
+                                            style="width: auto; height: 3em;">
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li style="display: flex; flex-direction: row;">
+                                        <a class="dropdown-item mt-2" href="/html/espadrilles.html"
+                                            style="text-align: left; ">Espadrilles</a>
+                                        <img src="/images/img1.jpg" class="img-fluid" alt="heels"
+                                            style="width: auto; height: 3em;">
+                                    </li> -->
+                                </div>
+                            </div>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contact' %}"
+                        <a class="nav-link mx-2" href="#"
+                            style="font-size: 1.5em; font-weight: 400; color: palevioletred">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2" href="{% url 'contact' %}"
                             style="font-size: 1.5em; font-weight: 400; color: palevioletred">Contact Us</a>
                     </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'showbooking' %}"
+                            style="font-size: 1.5em; font-weight: 400; color: palevioletred">Your Bookings</a>
+                    </li>
+                    {% endif %}
                 </ul>
                 <hr style="border: 1px solid; color: palevioletred" />
                 <div class="icons" style="display: flex;">
@@ -146,22 +205,24 @@
                         </i>
                     </a>
                     {% else %}
-                    <i class="fa-solid fa-power-off"></i>
+                    <!-- <i class="fa-solid fa-power-off"></i> -->
                     <a href="{% url 'signin' %}">
-                        <i class="fa-solid fa-right-to-bracket mx-2 mt-2"
-                            style="color: palevioletred; font-size: 1.4em">
-                        </i>
+                            <i class="fa-solid fa-user mx-2 mt-2" style="color: palevioletred; font-size: 1.4em"
+                                title="signin/signout"></i></a>
                     </a>
                     {% endif %}
-
-
+                    <!-- <a href="#">
+                        <i class="fa-solid fa-user mx-2 mt-2" style="color: palevioletred; font-size: 1.4em"
+                            title="signin/signout"></i></a> -->
                     <a href="{% url 'checkout' %}">
-                        <i class="fa-solid fa-cart-shopping mx-2 mt-2" style="color: palevioletred; font-size: 1.4em">
+                        <i class="fa-solid fa-cart-shopping mx-2 mt-2" style="color: palevioletred; font-size: 1.4em"
+                            title="cart">
                         </i></a>
                 </div>
             </div>
         </div>
     </nav>
+    {% endblock nav %}
     {% block content %}
 
     <!--swiper-->
@@ -234,77 +295,57 @@
     <div class="container text-center mt-5">
         <h3>Our Best Seller</h3>
     </div>
-    <!--contwent-->
-    <div class="container mt-3">
+    <div class="container mt-5">
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card" style="border: none">
-                    <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
-                        onmouseover="this.src='../../../static/images/img2.jpg'"
-                        onmouseout="this.src='.../../../static/images/img1.jpg'" />
-                    <div class="card-body">
-                        <h5 class="card-title">Shoes Name</h5>
-                        <p class="card-text">&#8377</p>
-                    </div>
-                </div>
-            </div>
+            {% for i in data %}
             <div class="col">
                 <div class="card" style="border: none">
                     <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
                         onmouseover="this.src='../../../static/images/img2.jpg'"
                         onmouseout="this.src='../../../static/images/img1.jpg'" />
                     <div class="card-body">
-                        <h5 class="card-title">Shoes Name</h5>
-                        <p class="card-text">&#8377</p>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <a href="{% url 'DetailProduct' i.id %}">
+                                    <div class="col-sm-10">
+                                        <h5 class="card-title">{{i.name}}</h5>
+                                        <p class="card-text">&#8377 {{i.price}}</p>
+                                    </div>
+                                </a>
+                                {% if request.user.username == "" %}
+                                <div class="col-sm-2">
+                                    <a href="{% url 'signin' %}">
+                                        <i class="fa-solid fa-cart-shopping mt-2" title="add to cart"
+                                            data-link-id="{{i.id}}" data-name="{{i.name}}" data-value="{{i.price}}"
+                                            data-quantity="{{i.quantity}}"
+                                            style="color: palevioletred; font-size: 1.4em"></i></a>
+                                </div>
+                            </div>
+
+
+                            {% else %}
+                            <div class="col-sm-2">
+                                <a href="">
+                                    <i class="fa-solid fa-cart-shopping mt-2 add-item-btn" title="add to cart"
+                                        data-link-id="{{i.id}}" data-name="{{i.name}}" data-value="{{i.price}}"
+                                        data-quantity="{{i.quantity}}"
+                                        style="color: palevioletred; font-size: 1.4em"></i></a>
+                            </div>
+                        </div>
+
+
+                        {% endif %}
                     </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="border: none">
-                    <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
-                        onmouseover="this.src='../../../static/images/img2.jpg'"
-                        onmouseout="this.src='../../../static/images/img1.jpg'" />
-                    <div class="card-body">
-                        <h5 class="card-title">Shoes Name</h5>
-                        <p class="card-text">&#8377</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="border: none">
-                    <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
-                        onmouseover="this.src='../../../static/images/img2.jpg'"
-                        onmouseout="this.src='../../../static/images/img1.jpg'" />
-                    <div class="card-body">
-                        <h5 class="card-title">Shoes Name</h5>
-                        <p class="card-text">&#8377</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="border: none">
-                    <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
-                        onmouseover="this.src='../../../static/images/img2.jpg'"
-                        onmouseout="this.src='../../../static/images/img1.jpg'" />
-                    <div class="card-body">
-                        <h5 class="card-title">Shoes Name</h5>
-                        <p class="card-text">&#8377</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="border: none">
-                    <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
-                        onmouseover="this.src='../../../static/images/img2.jpg'"
-                        onmouseout="this.src='../../../static/images/img1.jpg'" />
-                    <div class="card-body">
-                        <h5 class="card-title">Shoes Name</h5>
-                        <p class="card-text">&#8377</p>
-                    </div>
+
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
+    </div>
+    </div>
+    <!--contwent-->
+
     <!--testimonails-->
     <div class="container-fluid bg-light mt-5" style="padding: 1em 1em 1em">
         <div class="container text-center mt-4">
@@ -351,51 +392,20 @@
     </div>
     <div class="container-fluid mt-5">
         <div class="row">
+            {% for i in item %}
             <div class="col-sm-3">
                 <div class="container" style="position: relative; margin: auto;">
                     <img src="{% static 'images/img1.jpg' %}" alt="Avatar" class="image" style="width:100%">
                     <div class="middle">
-                        <a href="#"><button class="btn-1">
+                        <a href="{% url 'DetailProduct' i.id %}"><button class="btn-1">
                                 <div class="text">SHOP NOW</div>
                             </button>
                         </a>
                     </div>
                 </div>
             </div>
+            {% endfor %}
 
-            <div class="col-sm-3 mt-1">
-                <div class="container" style="position: relative" ;>
-                    <img src="{% static 'images/img1.jpg' %}" alt="Avatar" class="image" style="width:100%">
-                    <div class="middle">
-                        <a href="#"><button class="btn-1">
-                                <div class="text">SHOP NOW</div>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3 mt-1">
-                <div class="container" style="position: relative" ;>
-                    <img src="{% static 'images/img1.jpg' %}" alt="Avatar" class="image" style="width:100%">
-                    <div class="middle">
-                        <a href="#"><button class="btn-1">
-                                <div class="text">SHOP NOW</div>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3 mt-1">
-                <div class="container" style="position: relative" ;>
-                    <img src="{% static 'images/img1.jpg' %}" alt="Avatar" class="image" style="width:100%">
-                    <div class="middle">
-                        <a href="#"><button class="btn-1">
-                                <div class="text">SHOP NOW</div>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </div>
@@ -587,6 +597,8 @@
         });
     </script>
     <script src="{% static 'js/index.js' %}"></script>
+
+
 
     {% endblock content %}
 </body>

@@ -33,7 +33,10 @@ urlpatterns = [
     path('signout', views.signout, name="signout"),
     path('Checkout/', views.CartAndBooking, name="checkout"),
     path('UserCart/', views.DelAllBooking, name="usercart"),
-
+    path('DetailProduct/<int:id>/', views.detailproduct, name="DetailProduct"),
+    path('CategoryWiseProducts/<int:id>/', views.ProductsCatviewPage, name="CategoryWiseProducts"),
+    path('review/', views.review, name='review'),
+    
     path('delcartitem/<int:id>/', views.DelCartBooking, name="delcartbooking"),
 
 ]

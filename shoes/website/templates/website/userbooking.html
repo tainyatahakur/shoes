@@ -1,0 +1,59 @@
+{% extends 'website/index.html' %}
+
+{% block popup %}
+{% load static %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+<link href="{% static 'css/editpage.css' %}" rel="stylesheet" />
+<!--boxicon-->
+<link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+<!--bootsrap-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+<!--fontawesome-->
+<script src="https://kit.fontawesome.com/8feaa5fbd6.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+<!--jquery-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" charset="utf-8"></script>
+<!--google material icon-->
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
+
+{% endblock popup %}
+
+
+{% block content %}
+<div class="container-fluid" style="margin-top: 150px;">
+    <table id="example" class="table table-bordered border-dark" style="width:100%">
+        <thead>
+            <tr class="table-dark">
+                <th class="table-dark">S.No</th>
+                <th class="table-dark">Name</th>
+                <th class="table-dark">ID</th>
+                <th class="table-dark">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <td style="color: #000;">{{forloop.counter}}</td>
+                <td style="color: #000;">{{i.name}}</td>
+                <td style="color: #000;">{{i.id}}</td>
+
+                <td>
+                    <a href="{% url 'viewuserbooking' i.id %}"><i class='bx bxs-edit-alt'
+                            style="margin-right: 15px;"></i></a>
+                    <!-- <a href="{% url 'deletecatgory' i.id %}" class="delete" title="delete"
+                        onclick="return confirm('Are you sure you want to delete this?')" style="margin-right: 8px"><i
+                            class='bx bxs-trash-alt'></i></a> -->
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="container-fluid mx-auto">
+        <a href="#"><i class='bx bxs-chevron-up'></i></a>
+    </div>
+</div>
+{% endblock content %}

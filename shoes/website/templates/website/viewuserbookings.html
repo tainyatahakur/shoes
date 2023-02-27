@@ -1,0 +1,178 @@
+{% extends 'website/index.html' %}
+
+{% block content %}
+
+{% block popup %}
+{% endblock popup %}
+
+
+
+{% load static %}
+
+
+<link href="{% static 'css/checkout.css' %}" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+<link href="{% static 'css/aboutus.css' %}" rel="stylesheet" />
+
+<style>
+    #save {
+        display: none;
+    }
+
+    #paypal-button-container {
+        display: none;
+    }
+</style>
+
+
+<body style="background-image: url('');
+    background-attachment: fixed;background-position: center;background-size: auto;">
+    <div class="container">
+        <main>
+            <div class="py-5 text-center">
+                <img class="d-block mx-auto mb-4" src="{% static 'images/logo.jpeg' %}" alt="" width="150px" height="57">
+            </div>
+
+            <form action="" method="POST" id="bookingform">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-person mx-2"></i>Your
+                                    Name</label>
+                                <input type="text" id="name" name="name" class="form-control" value="{{data.name}}"
+                                    readonly>
+                            </div>
+                            <div class="col-md-6" id="phonecon">
+                                <label for="phone" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-address-book mx-2"></i>Phone</label>
+                                <input type="text" id="name" name="phone" value="{{data.phone}}" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="email" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-address-book mx-2"></i>Email</label>
+                                <input type="text" name="email" id="email" class="form-control"
+                                    value="{{data.email}}" readonly>
+                            </div>
+                            <div class="col-md-12 mb-3" id="datentimes">
+                                <label for="datentime" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-address-book mx-2"></i>datentime</label>
+                                <input type="datetime" name="datentime" id="datentime" class="form-control" value="{{data.datentime}}" readonly>
+                            </div>
+
+                            <input type="hidden" id="total_amount"></input>
+                            <input type="hidden" name="total_payment" id="total_payment" value="{{total}}">
+                            <input type="hidden" name="foruser" value="{{user.id}}"></input>
+                            <input type="hidden" name="username" id="paymentstatus">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 order-md-last" style="width: 100%;">
+                                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="texts fw-bold">Your cart</span>
+                                    <span class="badge bg-primary rounded-pill">{{length}}</span>
+                                </h4>
+                                <ol class="list-group list-group-numbered">
+                                    {% for i in somedata %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold" style="padding: 6px;">{{i}}</div>
+                                            <!-- £{{i.price}} -->
+                                        </div>
+                                        <a href="" style="margin-left: 15px;"><i class="fa-solid fa-trash"></i></a>
+                                    </li>
+                                    {% endfor %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold"><strong style="font-size: 1.4rem;">Total</strong></div>
+                                        </div>
+                                        <span class=""><strong
+                                                style="font-size: 1.4rem; margin-left: 35px;">Rs. {{data.total_payment}}</strong></span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script
+                    src="https://www.paypal.com/sdk/js?client-id=AWFL7YRuIbPx-nbOh0-l8K8yxbOKsaaIzjSC4NMMJEcR3el2R0hEjF26UrosJAx7f9R-QQEXMgb_LT7u&currency=USD"></script>
+
+                <script>
+
+                    paypal.Buttons({
+                        createOrder: (data, actions) => {
+                            var amountt = document.getElementById("total_amount").value;
+                            return actions.order.create({
+                                purchase_units: [{
+                                    amount: {
+                                        value: "{{total}}"
+                                    }
+                                }]
+                            });
+                        },
+                        onApprove: (data, actions) => {
+
+                            return actions.order.capture().then(function (orderData) {
+                                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                                const transaction = orderData.purchase_units[0].payments.captures[0];
+                                alert(`Payment has been Done`)
+                                $('#paymentstatus').val("PaymentisDonecheckit");
+
+                                submitform()
+                                function submitform() {
+                                    document.getElementById("bookingform").submit();
+                                    alert('test');
+                                    DelData()
+                                }
+                            });
+                        }
+                    }).render('#paypal-button-container');
+                </script>
+
+                <input type="submit" value="Book" class="btn btn-primary mb-5" id="save">
+
+            </form>
+        </main>
+
+    </div>
+
+    <script>
+
+        $("#datentime").on("change paste keyup", function () {
+            $('#paypal-button-container').css('display', 'block')
+        });
+        // }
+    </script>
+
+    <script>
+        function DelData() {
+            let x = "{{user.id}}";
+            console.log("HEllo Coding")
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'usercart' %}",
+                data: { 'foruser': "{{user.id}}", 'csrfmiddlewaretoken': "{{csrf_token}}" },
+                success: function (data) {
+                    console.log("{{user.id}} + {{user.username}}");
+                },
+                error: function (error) {
+
+                }
+            })
+        }
+    </script>
+
+    <script src="{% static 'js/index.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+    {% endblock content %}

@@ -1,0 +1,10 @@
+{% extends 'website/index.html' %}
+
+{% block content %}
+<h1>Submit a review</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Submit review</button>
+</form>
+{% endblock %}

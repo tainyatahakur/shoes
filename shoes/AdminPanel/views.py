@@ -13,4 +13,7 @@ def ViewuserBooking(request, id):
     data = CartBookingModel.objects.get(id=id)
     somedata = json.loads(data.services)
     context = {'data': data, 'somedata': somedata}
-    return render(request, 'AdminPanel/viewuserbooking.html', context)
+    if request.user.is_superuser:
+        return render(request, 'AdminPanel/viewuserbooking.html', context)
+    else:
+        return render(request, 'website/viewuserbookings.html', context)

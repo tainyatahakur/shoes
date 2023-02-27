@@ -40,6 +40,8 @@
                 <thead>
                     <tr class="table-dark">
                         <th class="table-dark">S.No</th>
+                        <th class="table-dark">Id</th>
+
                         <th class="table-dark">Name</th>
                         <th class="table-dark">Price</th>
                         <th class="table-dark">Options</th>
@@ -49,6 +51,7 @@
                     {% for i in data %}
                     <tr>
                         <td style="color: #000;">{{forloop.counter}}</td>
+                        <td style="color: #000;">{{i.id}}</td>
                         <td style="color: #000;">{{i.name}}</td>
                         <td style="color: #000;">{{i.price}}</td>
                         <td>

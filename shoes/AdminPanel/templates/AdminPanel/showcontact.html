@@ -40,7 +40,7 @@
                     <tr class="table-dark">
                         <th class="table-dark">S.No</th>
                         <th class="table-dark">Name</th>
-                        <th class="table-dark">Phone</th>
+                        <th class="table-dark">Email</th>
                         <th class="table-dark">Messages</th>
                         <th class="table-dark">View</th>
                     </tr>
@@ -49,9 +49,9 @@
                     {% for i in data %}
                     <tr>
                         <td style="color: #000;">{{forloop.counter}}</td>
-                        <td style="color: #000;">{{i.name}}</td>
-                        <td style="color: #000;">{{i.phone}}</td>
-                        <td style="color: #000;">&#163; {{i.total_payment}}</td>
+                        <td style="color: #000;">{{i.fname}}</td>
+                        <td style="color: #000;">{{i.email}}</td>
+                        <td style="color: #000;">{{i.message|slice:"0:30"}}</td>
                         <td><a href="{% url 'update' i.id %}" style="color: #000;"><svg
                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-eye-fill" viewBox="0 0 16 16">
