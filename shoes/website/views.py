@@ -22,7 +22,8 @@ import json
 from django.core.mail import send_mail
 from shoes.settings import EMAIL_HOST_USER
 from website.forms import ReviewForm
-
+from django.core import serializers
+from website.models import Review
 
 
 def index(request):
@@ -30,9 +31,19 @@ def index(request):
     item = ProductModel.objects.all()[:4]
     navs = CategoryModel.objects.all()
 
-    print(data)
-    context = {'data': data, 'item':item,'navs':navs}
-    
+    if request.method == "POST":
+        search = request.POST.get('search')
+        print("Searchindex: ",search)
+        # query = request.POST.get('search')
+        if search:
+            data = ProductModel.objects.filter(name__icontains=search)
+            print("data: ", data)
+            return render(request, 'website/search.html', {'data': data})        
+        else:
+            print("Not Found")
+
+
+    context = {'data': data, 'item':item,'navs':navs}    
     return render(request, 'website/index.html', context)
 
 def ProductsCatviewPage(request, id):
@@ -470,6 +481,7 @@ def ShowUserBookings(request):
 
 
 def detailproduct(request,id):
+    # reviews = 
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -484,12 +496,43 @@ def detailproduct(request,id):
     return render(request, 'website/detailproduct.html', context)
 
 
+@csrf_exempt
 def review(request):
+    rating = Review.objects.all()
     if request.method == 'POST':
         form = ReviewForm(request.POST)
+        name = request.POST.get('name')
+        rating = request.POST.get('rating')
+        email = request.POST.get('email')
+        review = request.POST.get('review')
+        print("Data: ", name, email, rating, review)
+
         if form.is_valid():
             form.save()
-            print('form.saved')
+            print(' Review form Saved')
     else:
         form = ReviewForm()
-    return render(request, 'website/review.html', {'form': form})
+    return render(request, 'website/review.html', {'form': form,'ratings':rating})
+
+@csrf_exempt
+def search(request):
+    results = ""
+    search = ""
+
+    if request.method == "POST":
+        search = request.POST.get('search')
+        print("Search: ",search)
+        # query = request.POST.get('search')
+        if search:
+            searchres = ProductModel.objects.filter(name__icontains=search)
+            datas = serializers.serialize("json", searchres)           
+            print("res: ", results)
+            return render(request, 'website/search.html', {'datas': datas})
+        else:
+            data = None
+    context = {'results': results, 'query': search}
+    # return render(request, 'home/search.html', context)     
+    # return render(request, 'website/search.html', context)
+    # return JsonResponse(data, safe=False)
+    return render(request, 'website/search.html', {'result': data})
+

@@ -1,0 +1,62 @@
+{% extends 'website/index.html' %}
+{% load static %}
+{% block popup %}
+
+{% endblock popup%}
+
+{% block content %}
+<!-- <h1>Search results for "{{ query }}"</h1> -->
+
+{% if data %}
+</div>
+
+
+
+
+<div class="container" style="margin-top: 6em;">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for i in data %}
+        <div class="col">
+            <a href="{% url 'DetailProduct' i.id %}">
+                <div class="card" style="border: none">
+                    <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
+                        onmouseover="this.src='../../../static/images/img2.jpg'"
+                        onmouseout="this.src='../../../static/images/img1.jpg'" />
+                    <div class="card-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <h5 class="card-title">{{i.name}}</h5>
+                                    <p class="card-text">&#8377 {{i.price}}</p>
+                                </div>
+
+                                {% if request.user.username == "" %}
+                                <div class="col-sm-2">
+                                    <a href="{% url 'signin' %}">
+                                        <i class="fa-solid fa-cart-shopping mt-2" title="add to cart"
+                                            data-link-id="{{i.id}}" data-name="{{i.name}}" data-value="{{i.price}}"
+                                            data-quantity="{{i.quantity}}"
+                                            style="color: palevioletred; font-size: 1.4em"></i></a>
+                                </div>
+                            </div>
+
+
+                            {% else %}
+
+            </a>
+        </div>
+
+
+        {% endif %}
+    </div>
+
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
+{% else %}
+<p>No results found.</p>
+{% endif %}
+{% endblock %}

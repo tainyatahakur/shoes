@@ -31,7 +31,7 @@
                 <h2><b><i class="fa-solid fa-clipboard-user mx-2"></i>Add Product Name</b></h2>
             </div>
             <div class="col-sm-4">
-                <a href=""><button class="btn-1"><i class='bx bxs-file-plus'></i>Add Product Category</button></a>
+                <!-- <a href=""><button class="btn-1"><i class='bx bxs-file-plus'></i>Add Product Category</button></a> -->
             </div>
         </div>
     </div>
@@ -55,6 +55,31 @@
             <label for="text" class="form-label">Product Category</label>
             {% render_field form.cat|add_class:"form-control" %}
         </div>
+        <div class="col-md-3">
+            <label for="text" class="form-label">Image 1</label>
+            <img src="{{data.img.url}}" name="img" alt="" style="width:300px;height: 180px;">
+        </div>
+        <div class="col-md-3">
+            <label for="text" class="form-label">Image 2</label>
+            <img src="{{data.img2.url}}" name="img2" alt="" style="width:300px;height: 180px;">
+        </div>
+        <div class="col-md-3">
+            <label for="text" class="form-label">Image 3</label>
+            <img src="{{data.img3.url}}" name="img3" alt="" style="width:300px;height: 180px;">
+        </div>
+        <div class="col-md-3">
+            <label for="text" class="form-label">Image 4</label>
+            <img src="{{data.img4.url}}" name="img4" alt="" style="width:300px;height: 180px;">
+        </div>
+        <div class="col-md-3">
+            <label for="text" class="form-label">Image 5</label>
+            <img src="{{data.img5.url}}" name="img5" alt="" style="width:300px;height: 180px;">
+        </div>
+        <div class="col-md-3">
+            <label for="text" class="form-label">Image 6</label>
+            <img src="{{data.img6.url}}" name="img6" alt="" style="width:300px;height: 180px;">
+        </div>
+        
         
         <div class="col-md-12">
                 <button type="submit" class="btn-2" style="background-color: ff5f1f; padding: 10px 35px;">Submit</button>

@@ -3,11 +3,17 @@
 {% block popup %}
 
 {% endblock popup %}
+{% block nav %}
+{% load static %}
+<div class="container-fluid text-center mt-5" >
+    <a href="/">
+    <img src="{% static 'images/logo.jpeg' %}" alt="" style="width:auto; height: 6em" class="img-fluid mt-4">
+    </a>
+</div>
+{% endblock nav %}
 
 
 {% block content %}
-{% load static %}
-
 <div class="box mx-auto">
     <div class="container" style="margin-top: 10em">
         <p style="font-size: 5em">Contact Us</p>
@@ -21,7 +27,7 @@
                 <h4>CONTACT DETAILS</h4>
                 <span style="display: flex" class="mt-4">
                     <i class="fa-solid fa-location-dot mx-2" style="color: palevioletred"></i>
-                    <p>adresss</p>
+                    <p>address</p>
                 </span>
                 <span style="display: flex">
                     <i class="fa-solid fa-phone mx-2" style="color: palevioletred"></i>
@@ -31,6 +37,7 @@
                     <i class="fa-solid fa-envelope mx-2" style="color: palevioletred"></i>
                     <p>email</p>
                 </span>
+
                 <form class="row g-3 needs-validation mt-4" novalidate action="" method="POST">
                     {% csrf_token %}
                     <div class="col-md-4">

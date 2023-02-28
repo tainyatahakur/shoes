@@ -36,6 +36,7 @@ urlpatterns = [
     path('DetailProduct/<int:id>/', views.detailproduct, name="DetailProduct"),
     path('CategoryWiseProducts/<int:id>/', views.ProductsCatviewPage, name="CategoryWiseProducts"),
     path('review/', views.review, name='review'),
+    path('Search/', views.search, name ='Search'),
     
     path('delcartitem/<int:id>/', views.DelCartBooking, name="delcartbooking"),
 

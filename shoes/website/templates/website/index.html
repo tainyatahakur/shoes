@@ -191,11 +191,16 @@
                                 title="search">
                             </i>
                         </div>
-                        <div class="input">
-                            <input type="text" placeholder="Search" id="mysearch">
-                            <span class="clear" onclick="document.getElementById('mysearch').value ='' ">
-                            </span>
-                        </div>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div class="input">
+                                <input type="text" placeholder="Search" name="search" id="mysearch">
+                                <span class="clear" onclick="document.getElementById('mysearch').value ='' ">
+                                </span>
+                                <!-- <input type="submit"> -->
+                            </div>
+                        </form>
+
                     </div>
 
                     {% if user.is_authenticated %}
@@ -207,8 +212,8 @@
                     {% else %}
                     <!-- <i class="fa-solid fa-power-off"></i> -->
                     <a href="{% url 'signin' %}">
-                            <i class="fa-solid fa-user mx-2 mt-2" style="color: palevioletred; font-size: 1.4em"
-                                title="signin/signout"></i></a>
+                        <i class="fa-solid fa-user mx-2 mt-2" style="color: palevioletred; font-size: 1.4em"
+                            title="signin/signout"></i></a>
                     </a>
                     {% endif %}
                     <!-- <a href="#">
@@ -224,6 +229,8 @@
     </nav>
     {% endblock nav %}
     {% block content %}
+
+    <div id="searchres"></div>
 
     <!--swiper-->
     <div class="swiper mySwiper">
@@ -598,9 +605,36 @@
     </script>
     <script src="{% static 'js/index.js' %}"></script>
 
+    <script>
+        $(document).ready(function () {
+            $('#mysearchsd').on('change', function (event) {
+                event.preventDefault();
+                const searchinp = $('#mysearch').val()
+                console.log("search :", searchinp)
 
+                var pageurl = "{% url 'Search' %}";
+                var data = { 'search': searchinp };
+                $.ajax({
+                    url: pageurl,
+                    method: 'POST',
+                    data: data,
+                    success: function (response) {
+                        // $(this).css('color', 'red');
+                        let data = JSON.parse(response)
+                        console.log("data: ", data)
+                        // $('#searchres').html(data[0].fields.name)
+                        var header = '<tr><th>ID</th><th>Name</th><th>Email</th></tr>'
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Error saving form: ' + error);
+                    }
+                });
+            });
+        })
+    </script>
 
     {% endblock content %}
 </body>
 
 </html>
+

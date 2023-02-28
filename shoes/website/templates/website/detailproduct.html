@@ -189,42 +189,43 @@
           <div class="col-sm-6 text-center">
             <h5>WRITE A REVIEW</h5>
           </div>
-          <div class="col-sm-6 text-center">
-            <span id="date-time" style="color: palevioletred"></span>
-          </div>
+          <form class="row g-3 needs-validation mt-4" novalidate id="reviewform" action="" method="POST">
+            {% csrf_token %}
+            <div class="col-sm-6 text-center">
+              <span id="date-time" style="color: palevioletred"></span>
+            </div>
         </div>
       </div>
-      <form class="row g-3">
-        <p><span style="color: palevioletred">*</span>Required Field</p>
+        <p><span style="color: palevioletred"></span>Required Field</p>
 
         <div class="container">
           <p>Ratings:</p>
           <div class="rate">
-            <input type="radio" id="star5" name="rate" value="5" />
+            <input type="radio" id="star5" name="rating" value="5" />
             <label for="star5" title="text">5 stars</label>
-            <input type="radio" id="star4" name="rate" value="4" />
+            <input type="radio" id="star4" name="rating" value="4" />
             <label for="star4" title="text">4 stars</label>
-            <input type="radio" id="star3" name="rate" value="3" />
+            <input type="radio" id="star3" name="rating" value="3" />
             <label for="star3" title="text">3 stars</label>
-            <input type="radio" id="star2" name="rate" value="2" />
+            <input type="radio" id="star2" name="rating" value="2" />
             <label for="star2" title="text">2 stars</label>
-            <input type="radio" id="star1" name="rate" value="1" />
+            <input type="radio" id="star1" name="rating" value="1" />
             <label for="star1" title="text">1 star</label>
           </div>
         </div>
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label">Name<span style="color: palevioletred">*</span></label>
-          <input type="text" class="form-control" id="inputEmail4" />
+          <input type="text" class="form-control" id="name" name="name" />
         </div>
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label">Email<span style="color: palevioletred">*</span></label>
-          <input type="email" class="form-control" id="inputEmail4" />
+          <input type="email" class="form-control" id="email" name="email" />
         </div>
 
         <div class="col-12">
           <label for="inputAddress2" class="form-label">Review<span style="color: palevioletred">*</span></label>
           <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+            <textarea class="form-control" placeholder="Leave a comment here" id="review" name='review'
               style="height: 100px"></textarea>
             <label for="floatingTextarea2">Review</label>
           </div>
@@ -488,6 +489,37 @@
         success: function (response) {
           // $(this).css('color', 'red');
           alert('Item Added in Cart: ' + name);
+        },
+        error: function (xhr, status, error) {
+          alert("Please Login First");
+        }
+      });
+    });
+  })
+</script>
+
+<script>
+  $(document).ready(function () {
+    $('#reviewform').submit(function (event) {
+      event.preventDefault();
+      var name = $('#name').val();
+      var email = $('#email').val();
+      var rating = $("input[name='rating']:checked").val()
+      var review = $('#review').val();
+
+      console.log("rating: ", rating)
+      var quantity = 1;
+
+      var pageurl = "{% url 'review' %}";
+      var data = { 'name': name, 'email': email, 'review': review, 'rating': rating };
+      const formData = new FormData(this)
+      $.ajax({
+        url: pageurl,
+        method: 'POST',
+        data: data,
+        success: function (response) {
+          // $(this).css('color', 'red');
+          alert('Your Review is Submitted');
         },
         error: function (xhr, status, error) {
           alert("Please Login First");
