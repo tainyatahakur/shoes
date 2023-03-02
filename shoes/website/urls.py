@@ -37,7 +37,12 @@ urlpatterns = [
     path('CategoryWiseProducts/<int:id>/', views.ProductsCatviewPage, name="CategoryWiseProducts"),
     path('review/', views.review, name='review'),
     path('Search/', views.search, name ='Search'),
+    path('customuser/', views.CustomUserForm, name ='customuser'),
+    path('showreview/', views.show_review, name ='showreview'),
+    # path('verification/', views.Verification, name ='verification'),
+
     
+
     path('delcartitem/<int:id>/', views.DelCartBooking, name="delcartbooking"),
 
 ]

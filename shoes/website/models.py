@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class BookingModel(models.Model):
     name = models.CharField(max_length=50)
     phone = models.IntegerField()
@@ -88,6 +89,27 @@ class Review(models.Model):
     email = models.EmailField()
     review = models.TextField()
     rating = models.IntegerField()
+    prod = models.ForeignKey(ProductModel, on_delete=models.CASCADE)
+    datentime = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
+    
+class CustomUser(models.Model):
+    fname = models.CharField(max_length=100)
+    lname = models.CharField(max_length=100)
+    email = models.CharField(max_length=100)
+    username = models.CharField(max_length=100)
+    password1 = models.CharField(max_length=100)
+    password2 = models.CharField(max_length=100)
+    address1 = models.CharField(max_length=100)
+    address2 = models.CharField(max_length=100)
+    contact1 = models.IntegerField()
+    contact2 = models.IntegerField()
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    zip = models.IntegerField()
+
+
+
+    

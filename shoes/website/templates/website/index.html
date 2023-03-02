@@ -21,6 +21,10 @@
 </head>
 
 <body style="background-color: rgb(253, 240, 242);">
+    {% block preloader %}
+    <div id="preloader"></div>
+    {% endblock preloader %} 
+
     {% block popup %}
 
     <div class="popup mx-auto text-center">
@@ -31,7 +35,7 @@
         transform: translate(-50%,-50%);
         top: 50%;
         left: 50%;
-        z-index: 1000000;
+        z-index: 100;
         border-radius: 0.6em;
         box-shadow: 0 0.6em 2.5em rgba(0, 7, 70, 0.2) ;">
 
@@ -220,9 +224,14 @@
                         <i class="fa-solid fa-user mx-2 mt-2" style="color: palevioletred; font-size: 1.4em"
                             title="signin/signout"></i></a> -->
                     <a href="{% url 'checkout' %}">
-                        <i class="fa-solid fa-cart-shopping mx-2 mt-2" style="color: palevioletred; font-size: 1.4em"
+                        <i class="fa-solid fa-cart-shopping mx-2 mt-2 position-relative" style="color: palevioletred; font-size: 1.4em"
                             title="cart">
-                        </i></a>
+                        </i>
+                        <span class="position-absolute top-1 start-80 translate-middle badge rounded-pill bg-danger">
+                            {{lenofcart}}
+                            <span class="visually-hidden">unread messages</span>
+                          </span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -231,6 +240,15 @@
     {% block content %}
 
     <div id="searchres"></div>
+    {% if messages %}
+    <ul class="messages" style="display: none;">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %} id="messs">{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+
+
 
     <!--swiper-->
     <div class="swiper mySwiper">
@@ -242,7 +260,7 @@
                         WELCOME TO THE HOUSE OF RUHII
                     </h1>
                     <!-- <button class="button">SHOP NOW</button> -->
-                    <a href="{% url 'loafer' %}"><button class="button">SHOP NOW</button></a>
+                    <a href="{% url 'CategoryWiseProducts' 8 %}"><button class="button">SHOP NOW</button></a>
 
                 </div>
             </div>
@@ -254,7 +272,7 @@
                         Shoes.
                     </h3>
                     <!-- <button class="button">SHOP NOW</button> -->
-                    <a href="{% url 'flats' %}"><button class="button">SHOP NOW</button></a>
+                    <a href="{% url 'CategoryWiseProducts' 9 %}"><button class="button">SHOP NOW</button></a>
 
                 </div>
             </div>
@@ -265,7 +283,7 @@
                         Shop Now and Discover Your New Favorite Pair of Women's Shoes.
                     </h3>
                     <!-- <button class="button">SHOP NOW</button> -->
-                    <a href="{% url 'sneaker' %}"><button class="button">SHOP NOW</button></a>
+                    <a href="{% url 'CategoryWiseProducts' 10 %}"><button class="button">SHOP NOW</button></a>
 
                 </div>
             </div>
@@ -276,7 +294,7 @@
                         Find The Perfect Balance of Style and Comfort With Our Range of
                         Women's Shoes.
                     </h3>
-                    <a href="{% url 'sandal' %}"><button class="button">SHOP NOW</button></a>
+                    <a href="{% url 'CategoryWiseProducts' 11 %}"><button class="button">SHOP NOW</button></a>
                 </div>
             </div>
         </div>
@@ -296,7 +314,7 @@
             Got You Covered.
         </h3>
         <!-- <button class="button mt-3">SHOP NOW</button> -->
-        <a href="{% url 'heels' %}"><button class="button">SHOP NOW</button></a>
+        <a href="{% url 'CategoryWiseProducts' 12 %}"><button class="button">SHOP NOW</button></a>
 
     </div>
     <div class="container text-center mt-5">
@@ -308,8 +326,8 @@
             <div class="col">
                 <div class="card" style="border: none">
                     <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
-                        onmouseover="this.src='../../../static/images/img2.jpg'"
-                        onmouseout="this.src='../../../static/images/img1.jpg'" />
+                        onmouseover="this.src='{{i.img.url}}'"
+                        onmouseout="this.src='{{i.img2.url}}'" />
                     <div class="card-body">
                         <div class="container-fluid">
                             <div class="row">
@@ -623,7 +641,7 @@
                         let data = JSON.parse(response)
                         console.log("data: ", data)
                         // $('#searchres').html(data[0].fields.name)
-                        var header = '<tr><th>ID</th><th>Name</th><th>Email</th></tr>'
+                        // var header = '<tr><th>ID</th><th>Name</th><th>Email</th></tr>'
                     },
                     error: function (xhr, status, error) {
                         alert('Error saving form: ' + error);
@@ -632,9 +650,18 @@
             });
         })
     </script>
+    <script>
+       var message =  document.getElementById("messs").innerHTML;
+       alert(message)
+    </script>
+    <script>
+        var loader = document.getElementById("preloader");
+          window.addEventListener("load", function () {
+        loader.style.display = "none";
+          });
+    </script>
 
     {% endblock content %}
 </body>
 
 </html>
-

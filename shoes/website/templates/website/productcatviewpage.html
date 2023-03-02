@@ -1,12 +1,12 @@
 {% extends "website/index.html" %}
-
+{% block preloader %}
 {% block popup %}
 {% load static %}
 <link href="{% static 'css/index.css' %}" rel="stylesheet">
 <link href="{% static 'css/heels.css' %}" rel="stylesheet">
 
 {% endblock popup %}
-
+{% endblock preloader %}
 {% block content %}
 
 <!-- {{user}} -->
@@ -60,17 +60,14 @@
 
     </div>
 
-
-
-
     <div class="container mt-5">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for i in data %}
             <div class="col">
                 <div class="card" style="border: none">
-                    <img src="{{i.img.url}}" class="card-img-top"
-                        onmouseover="this.src='../../../static/images/img2.jpg'"
-                        onmouseout="this.src='../../../static/images/img1.jpg'" />
+                    <img src="{{i.img.url}}" class="card-img-top" style="width: 100%; height: 200px"
+                        onmouseover="this.src='{{i.img.url}}'"
+                        onmouseout="this.src='{{i.img2.url}}'" />
                     <div class="card-body">
                         <div class="container-fluid">
                             <div class="row">

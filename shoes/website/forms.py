@@ -5,6 +5,7 @@ from website.models import ProductModel
 from website.models import CategoryModel
 from website.models import AddToCartModel
 from website.models import CartBookingModel
+from website.models import CustomUser
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from website.models import Review
@@ -50,3 +51,10 @@ class ReviewForm(ModelForm):
     class Meta:
         model = Review
         fields = ['name', 'email', 'review', 'rating']
+
+class CustomUserForm(ModelForm):
+    # phone_no = forms.CharField(max_length = 10)
+    class Meta:
+        model = CustomUser
+        fields = ["fname", "lname", "username","email","password1", "password2", "address1", "address2", "contact1", "contact2", "city", "state", "zip"]
+

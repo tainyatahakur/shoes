@@ -17,8 +17,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from website.forms import CreateUserForm
+from website.forms import CreateUserForm, CustomUserForm
 import json
+import random
 from django.core.mail import send_mail
 from shoes.settings import EMAIL_HOST_USER
 from website.forms import ReviewForm
@@ -30,6 +31,12 @@ def index(request):
     data = ProductModel.objects.all()[:9]
     item = ProductModel.objects.all()[:4]
     navs = CategoryModel.objects.all()
+    if request.user.is_authenticated:
+        cart = AddToCartModel.objects.filter(foruser=request.user)
+        lenofcart = len(cart)
+    else:
+        lenofcart = 0
+    print("Len of cart; ", lenofcart)
 
     if request.method == "POST":
         search = request.POST.get('search')
@@ -43,44 +50,63 @@ def index(request):
             print("Not Found")
 
 
-    context = {'data': data, 'item':item,'navs':navs}    
+    context = {'data': data, 'item':item,'navs':navs,'lenofcart':lenofcart}    
     return render(request, 'website/index.html', context)
 
 def ProductsCatviewPage(request, id):
+    if request.user.is_authenticated:
+        cart = AddToCartModel.objects.filter(foruser=request.user)
+        lenofcart = len(cart)
+    else:
+        lenofcart = 0
+    print("Len of cart; ", lenofcart)
     navs = CategoryModel.objects.all()
     catid = CategoryModel.objects.get(id=id)
     data = ProductModel.objects.filter(cat=catid)
-    context = {'catid': catid, 'navs':navs, 'data':data}
+    context = {'catid': catid, 'navs':navs, 'data':data,'lenofcart':lenofcart}
     return render(request, 'website/productcatviewpage.html', context)
 
 
 def signup(request):
     form = CreateUserForm()
-
-    username = request.POST.get('username')
-    email = request.POST.get('email')
-    password1 = request.POST.get('pass1')
-    password2 = request.POST.get('pass2')
-    print(username)
-    print(email)
-
+    customform = CustomUserForm()
     if request.method=='POST':
-        form = CreateUserForm(request.POST)
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        address1 = request.POST.get('address1')
+        address2 = request.POST.get('address2')
+        contact1 = request.POST.get('contact1')
+        contact2 = request.POST.get('contact2')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        zip = request.POST.get('zip')
 
+        
+        print(username)
+        print(email, password1, password2)
+
+        form = CreateUserForm(request.POST)
+        customform = CustomUserForm(request.POST)
+        print(customform)
         if form.is_valid():
+            if customform.is_valid():
+                customform.save()
+                print("Form2 save")
+            else:
+                print("Form2 Error: ", customform.errors)
             form.save()
             print("Form Saved")
             user = form.cleaned_data.get("username")
-            messages.success(request, "Account created for "+ user+ " succesfully")
+            messages.success(request, "Account created for "+ user+ " successfully")
             # response = JsonResponse({"success":True})
             return redirect("/")
 
         else:
             print("Invalid Form", form.errors)
-            response = JsonResponse({"error":form.errors})
-            response.status_code = 403
-            return response
-
+            messages.success(request, form.errors)
+            
     return render(request, "website/signup.html")
 
 
@@ -88,22 +114,28 @@ def signup(request):
 def signin(request):
 
     if request.method == 'POST':
-        username = request.POST['username']
-        pass1 = request.POST['password']
+        username = request.POST.get('username')
+        pass1 = request.POST.get('password')
+        otp = request.POST.get('otp')
+        print('otp', otp)
         print('username: ', username)
         user = authenticate(username=username, password=pass1)
 
         if user is not None:
             login(request, user)
             fname = user.first_name
+            random_numbers = random.randint(111111, 999999)
             print("login Done")
+            send_mail("User Data: ", f"OTP: {random_numbers}", EMAIL_HOST_USER, ['navmudhar120@gmail.com'], fail_silently=True)
+
+            messages.success(request, 'OTP sent successfully on your registered email')
             if request.user.is_superuser:
                 return redirect('dashboard')
-            return redirect('index')
+            return render(request, 'website/verification.html', {"otp": random_numbers})
         else:
            print('form error ')
-           messages.error(request, "Bad Credentials")
-           return redirect('index')
+           messages.error(request, "Wrong Credentials")
+        #    return redirect('index')
 
     return render(request, "website/signin.html")
 
@@ -181,6 +213,8 @@ def UpdateProduct(request, id):
         if form.is_valid():
             form.save()
             print("Form Saved")
+            messages.success(request, "product added successfully")
+
             # return redirect("/")
         else:
             print("Form Error: ", form.errors)
@@ -233,6 +267,7 @@ def product(request):
         if form.is_valid():
             form.save()
             print("Form Saved")
+            messages.success(request, "product added successfully")
             # return redirect("/")
         else:
             print("Form Error: ", form.errors)
@@ -252,6 +287,8 @@ def category(request):
         if form.is_valid():
             form.save()
             print("Form Saved")
+            messages.success(request, "ProductCategory added successfully")
+
             # return redirect("/")
         else:                                           
             print("Form Error: ", form.errors)
@@ -481,7 +518,16 @@ def ShowUserBookings(request):
 
 
 def detailproduct(request,id):
-    # reviews = 
+    last_six_reviews = list(Review.objects.all())
+    rating = last_six_reviews[-5:]
+    # cart = AddToCartModel.objects.filter(foruser=request.user)
+    if request.user.is_authenticated:
+        cart = AddToCartModel.objects.filter(foruser=request.user)
+        lenofcart = len(cart)
+    else:
+        lenofcart = 0
+    print("Len of cart; ", lenofcart)
+    
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -492,7 +538,7 @@ def detailproduct(request,id):
     navs = CategoryModel.objects.all()
 
     data = ProductModel.objects.get(id=id)
-    context = {'data': data, 'navs': navs, 'form' : form}
+    context = {'data': data, 'navs': navs, 'form' : form, 'rating' : rating, 'lenofcart' : lenofcart}
     return render(request, 'website/detailproduct.html', context)
 
 
@@ -505,11 +551,17 @@ def review(request):
         rating = request.POST.get('rating')
         email = request.POST.get('email')
         review = request.POST.get('review')
-        print("Data: ", name, email, rating, review)
+        prod = request.POST.get('prod')
+        prodid = ProductModel.objects.get(id=prod)
+        print("Data: ", name, email, rating, review, prod)
 
-        if form.is_valid():
-            form.save()
-            print(' Review form Saved')
+        someform = Review(name=name, rating=rating,email=email,review=review,prod=prodid)
+        someform.save()
+        print(' Review form Saved')
+
+        # if form.is_valid():
+        #     form.save()
+        #     print(' Review form Saved')
     else:
         form = ReviewForm()
     return render(request, 'website/review.html', {'form': form,'ratings':rating})
@@ -535,4 +587,23 @@ def search(request):
     # return render(request, 'website/search.html', context)
     # return JsonResponse(data, safe=False)
     return render(request, 'website/search.html', {'result': data})
+
+def show_review(request):
+    context = {"all_data": Review.objects.all(),}
+    return render(request,"show_review.html",context)
+
+
+# send_mail("User Data: ", f"Hello\nYour Email: {username}\n This is password: {password1}", EMAIL_HOST_USER, ['kumardigamberjha7@gmail.com'], fail_silently=True)
+
+# def verification(request):
+#     if request.method == "POST":
+#         form = VerificationForm(request.POST)
+#         if form.is_valid():
+#             otp = form.save(commit=False)
+#             form.save()
+            
+#         else:
+#             print("Form Error: ", form.errors)
+
+#     return render(request, 'website/verification.html')
 

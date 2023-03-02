@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
+ *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Tilt Neon', cursive;
+ }
+ .button{
+    background-color: rgb(255, 111, 135);
+    color: white;
+    border: 1px solid palevioletred;
+    padding: 8px 40px 8px;
+ }
+ .button:hover{
+    background-color: palevioletred;
+    color: white;
+    border: 1px solid pink;
+    padding: 8px 40px 8px;
+ }

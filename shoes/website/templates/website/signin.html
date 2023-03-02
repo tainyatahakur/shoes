@@ -12,29 +12,38 @@
 </head>
 
 <body>
+    {% block preloader %}
+{% endblock preloader %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %} id="messs">{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
     <section>
-            <div class="form-container">
-                <h1>Login</h1>
-                <form action="#" method='POST'>
-                {% csrf_token %}   
-                    <div class="control">
-                        <label for="email">Email</label>
-                        <input type="text" name="username" id="email">
-                    </div>
-                    <div class="control">
-                        <label for="psw">Password</label>
-                        <input type="password" name="password" id="psw">
-                    </div>
-                    <span><input type="checkbox" value="lsRememberMe" id="rememberMe"> Remember Me </span>
-                    <div class="control">
-                        <input type="submit" value="Login" onclick="lsRememberMe()">
-                    </div>
+        <div class="form-container">
+            <h1>Login</h1>
+            <form action="#" method='POST'>
+                {% csrf_token %}
+                <div class="control">
+                    <label for="email">Username</label>
+                    <input type="text" name="username" id="email">
+                </div>
+                <div class="control">
+                    <label for="psw">Password</label>
+                    <input type="password" name="password" id="psw">
+                </div>
+                <span><input type="checkbox" value="lsRememberMe" id="rememberMe"> Remember Me </span>
+                <div class="control">
+                    <input type="submit" value="Login" onclick="lsRememberMe()">
+                </div>
                 <div class="link">
                     <a href="#">Forgot Password ?</a>
                     <br><br>
                     New To Site?<a href="{% url 'signup' %}" style="text-decoration: underline;"> Sign Up Here</a>
                 </div>
-            </div>
+        </div>
         </form>
     </section>
 
@@ -59,6 +68,10 @@
                 localStorage.checkbox = "";
             }
         }
+    </script>
+    <script>
+        var message = document.getElementById("messs").innerHTML
+        alert(message)
     </script>
 </body>
 

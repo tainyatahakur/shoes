@@ -1,0 +1,11 @@
+<html>
+<h1>
+    {% block preloader %}
+{% endblock preloader %}
+    Show all the Reviews
+</h1>
+{% for data in all_data %}
+<h3>{{data.reviews, data.username, data.email, data.rating}}</h3>
+{% endfor %}
+
+</html>

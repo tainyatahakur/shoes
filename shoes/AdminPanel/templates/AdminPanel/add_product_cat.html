@@ -14,7 +14,7 @@
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }} p-2 mb-2 bg-success text-white" style="list-style: none; border-radius: 10px; width: 95%; margin: auto auto; margin-top: 75px; z-index: 1;" {% endif %}>{{ message }}</li>
+    <li{% if message.tags %} class="{{ message.tags }} p-2 mb-2 bg-success text-white" id ="messs" style="list-style: none; border-radius: 10px; width: 95%; margin: auto auto; margin-top: 75px; z-index: 1;" {% endif %}>{{ message }}</li>
         {% endfor %}
 </ul>
 {% endif %}
@@ -74,5 +74,9 @@
         sidebar.classList.toggle("close");
     });
 </script>
+<!-- <script>
+   var message =  document.getElementById("messs").innerHTML;
+   alert(message)
+</script> -->
 
 {% endblock content %}
