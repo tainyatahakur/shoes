@@ -47,14 +47,6 @@
             <label for="text" class="form-label">Name</label>
             <input type="text" class="form-control" id="text" name="name" value="{{data.name}}">
         </div>
-        <div class="col-md-3">
-            <label for="text" class="form-label">Price</label>
-            {% render_field form.price|add_class:"form-control" %}
-        </div>
-        <div class="col-md-3">
-            <label for="text" class="form-label">Product Category</label>
-            {% render_field form.cat|add_class:"form-control" %}
-        </div>
         
         <div class="col-md-12">
                 <button type="submit" class="btn-2" style="background-color: ff5f1f; padding: 10px 35px;">Submit</button>

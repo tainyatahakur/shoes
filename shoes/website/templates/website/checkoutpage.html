@@ -51,44 +51,45 @@
                                 <label for="name" class="form-label mt-3 text-center"><i
                                         class="fa-solid fa-person mx-2"></i>Your
                                     Name</label>
-                                <input type="text" id="name" name="name" class="form-control" value="{{user.username}}"
+                                <input type="text" id="name" name="name" class="form-control" value="{{someuser}}"
                                     required>
                             </div>
                             <div class="col-md-6" id="phonecon">
                                 <label for="phone" class="form-label mt-3 text-center"><i
                                         class="fa-solid fa-address-book mx-2"></i>Phone</label>
-                                <input type="text" id="name" name="phone" class="form-control" required>
+                                <input type="text" id="name" name="phone" value="{{someuser.contact1}}" class="form-control" required>
                             </div>
                             <div class="col-md-12">
                                 <label for="email" class="form-label mt-3 text-center"><i
                                         class="fa-solid fa-address-book mx-2"></i>Email</label>
                                 <input type="text" name="email" id="email" class="form-control"
-                                    value="{{user.email}}" required>
+                                    value="{{someuser.email}}" required>
                             </div>
                             <div class="col-md-12">
                                 <label for="address" class="form-label mt-3 text-center"><i
                                         class="fa-solid fa-address-book mx-2"></i>Address</label>
                                 <input type="text" name="address" id="address" class="form-control"
-                                    value="{{user.address}}" required>
+                                    value="{{someuser.address1}}" required>
                                     
                             </div>
+
                             <div class="col-md-4">
                                 <label for="city" class="form-label mt-3 text-center"><i
                                         class="fa-solid fa-address-book mx-2"></i>City</label>
                                 <input type="text" name="city" id="city" class="form-control"
-                                    value="{{user.city}}" required>
+                                    value="{{someuser.city}}" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="state" class="form-label mt-3 text-center"><i
                                         class="fa-solid fa-address-book mx-2"></i>State</label>
                                 <input type="text" name="state" id="state" class="form-control"
-                                    value="{{user.state}}" required>
+                                    value="{{someuser.state}}" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="zip" class="form-label mt-3 text-center"><i
                                         class="fa-solid fa-address-book mx-2"></i>Zip</label>
                                 <input type="text" name="zip" id="zip" class="form-control"
-                                    value="{{user.state}}" required>
+                                    value="{{someuser.zip}}" required>
                             </div>        
                             <div class="col-md-12 mb-3 text-center" id="datentimes">
                                 <label for="text" class="form-label mt-3"
@@ -99,6 +100,8 @@
                                 class="form-control mx-auto"
                                 placeholder="Date Of Delivery"
                                 style="border-radius: 0; text-align: center; width: 50%"
+                                value="{{dod}}"
+                                readonly
                               />
                             </div>
                             <div id="paypal-button-container" style="width: 50%; margin:auto; margin-top: 25px;">
@@ -125,9 +128,10 @@
                                             </div>
                                             <div class="fw-bold">{{i.item.name}}</div>
                                             {% if i.fit %}Fit - {{i.fit}},{% endif %} 
-                                             Size - {{i.size}}
+                                             Size - {{i.size}},
+                                             quantity - {{i.quantity}}
                                         </div>
-                                        Rs.{{i.item.price}}
+                                        Rs.{{i.total_price}}
                                         <a href="{% url 'delcartbooking' i.id %}" style="margin-left: 15px;"><i class="fa-solid fa-trash" style="color: rgb(255, 61, 94)
                                         
                                         ;"></i></a>
@@ -139,7 +143,7 @@
                                             <div class="fw-bold"><strong style="font-size: 1.4rem;">Total</strong></div>
                                         </div>
                                         <span class=""><strong
-                                                style="font-size: 1.4rem; margin-left: 35px;">£{{total}}</strong></span>
+                                                style="font-size: 1.4rem; margin-left: 35px;">Rs. {{total}}</strong></span>
                                     </li>
                                 </ol>
                             </div>

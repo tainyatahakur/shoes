@@ -33,19 +33,19 @@
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide">
-        <img src="{{data.img.url}}" class="img-fluid" />
+        <img src="{{data.img.url}}" />
       </div>
       <div class="swiper-slide">
-        <img src="{{data.img2.url}}" class="img-fluid" />
+        <img src="{{data.img2.url}}" />
       </div>
       <div class="swiper-slide">
-        <img src="{{data.img3.url}}" class="img-fluid" />
+        <img src="{{data.img3.url}}" />
       </div>
       <div class="swiper-slide">
-        <img src="{{data.img4.url}}" class="img-fluid" />
+        <img src="{{data.img4.url}}" />
       </div>
       <div class="swiper-slide">
-        <img src="{{data.img5.url}}" class="img-fluid" />
+        <img src="{{data.img5.url}}" />
       </div>
     </div>
     <div class="swiper-button-next"></div>
@@ -68,46 +68,44 @@
           <div class="container text-center mx-auto" style="font-size: 1.4em; font-weight: 500">
             Rs.{{data.price}}/-
           </div>
-          <div class="container mx-auto text-center mt-3">
-            <h5>SELECT SIZE</h5>
-          </div>
-          <div class="container-fluid text-center mx-auto" style="padding: 1em 1em 1em">
-            <div class="row">
-              <select id="diff_size" class="mx-auto text-center" name="size" style="height: 4em">
-                <div class="col-sm-2">
+          <div class="container mt-2 text-center mx-auto">
+            <div class="row text-center mx-auto">
+              <div class="col-sm-2 text-center mx-auto">
+                <label>Size</label>
+                <select class="form-select text-center mx-auto" name="size" id="diff_size" aria-label="Default select example" style="border: 1px solid black;">
+                  <option selected>Size</option>
                   <option value="4">4</option>
-                </div>
-                <div class="col-sm-2">
                   <option value="5">5</option>
-                </div>
-                <div class="col-sm-2">
                   <option value="6">6</option>
-                </div>
-                <div class="col-sm-2">
                   <option value="7">7</option>
-                </div>
-                <div class="col-sm-2">
                   <option value="8">8</option>
-                </div>
-                <div class="col-sm-2">
                   <option value="9">9</option>
-                </div>
-                <div class="col-sm-2">
                   <option value="10">10</option>
-                </div>
-              </select>
-            </div>
-            <div class="container" style="display: flex">
-              <select id="diff_fit" class="mx-auto text-center" name="fit" style="height: 4em">
-                <option value="REG">REG</option>
-                <option value="WIDE">WIDE</option>
-              </select>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
+              <div class="col-sm-4 text-center mx-auto">
+                <label>Select Fit</label>
+                <select class="form-select" name="fit" id="diff_fit" aria-label="Default select example" style="border: 1px solid black;">
+                  <!-- <option selected>Fit</option>\/ -->
+                  <option value="regular">Regular</option>
+                  <option value="wide">WIDE</option>
+                </select>
+              </div>
+              <div class="col-sm-2 text-center mx-auto">
+                <label >Quantity</label>
+                <label for="number" class="form-label"></label>
+                <input type="number" class="form-label text-center mx-auto" id="quantity" min="1" placeholder="1" name="quantity" style="border: 1px solid black; height:2em; border-radius: 4px; width: 50%; ">
+              </div>
             </div>
             <!-- <div class="button mt-3">ADD TO CART</div> -->
-            <input type="submit" class="add-item-btn button mt-3" value="ADD TO CART">
+            <div class="container text-center">
+              <input type="submit" class="add-item-btn button mt-3" value="ADD TO CART">
+            </div>
           </div>
     </form>
-    <div class="container mx-auto text-center">
+    <div class="container mx-auto text-center mt-3">
       <button class="button nav-item dropdown mx-auto text-center" style="width: 100%">
         <a class="nav-link dropdown-toggle mx-auto text-center" href="#" role="button" data-bs-toggle="dropdown"
           aria-expanded="false">
@@ -186,15 +184,15 @@
   </div>
 </div>
 
-<hr style="border: 1px solid pink" />
+<hr style="border: 1px solid black" />
 <!--review-->
 
 <div class="container">
   <button onclick="myFunction()" class="mx-auto" style="background-color: transparent; border: none">
-    <i class="fa-solid fa-pen-nib mx-2" style="background-color: white" title="write a review"></i>WRITE A REVIEW
+    <i class="fa-solid fa-pen-nib mx-2" style="background-color: white" title="write a review"></i>WRITE A REVIEW 
   </button>
   <div id="myDIV">
-    <div class="container" style="border: 2px solid pink; padding: 1em 1em 1em">
+    <div class="container" style="border: 2px solid black; padding: 1em 1em 1em">
       <div class="container mx-auto">
         <div class="row">
           <div class="col-sm-6 text-center">
@@ -205,25 +203,25 @@
           </div>
         </div>
       </div>
-      <p><span style="color: palevioletred"></span>Required Field</p>
+      <p><span style="color: palevioletred">*</span>Required Field</p>
       <form class="row g-3 needs-validation mt-4" novalidate id="reviewform" action="#" method="POST">
         {% csrf_token %}
-        <div class="container">
+        <div class="container" >
           <p>Ratings:</p>
           <div class="rates">
-            <input type="radio" id="star5" name="rating" value="5" />
-            <label for="star5" title="text">5 stars</label>
-            <input type="radio" id="star4" name="rating" value="4" />
-            <label for="star4" title="text">4 stars</label>
-            <input type="radio" id="star3" name="rating" value="3" />
-            <label for="star3" title="text">3 stars</label>
-            <input type="radio" id="star2" name="rating" value="2" />
-            <label for="star2" title="text">2 stars</label>
-            <input type="radio" id="star1" name="rating" value="1" />
-            <label for="star1" title="text">1 star</label>
+            <input type="radio" id="star5" name="rating" value="5"  class="mx-1" />
+            <label for="star5" title="text">Poor</label><br>
+            <input type="radio" id="star4" name="rating" value="4"  class="mx-1" />
+            <label for="star4" title="text">Fair</label><br>
+            <input type="radio" id="star3" name="rating" value="3"  class="mx-1" />
+            <label for="star3" title="text">Good</label><br>
+            <input type="radio" id="star2" name="rating" value="2"   class="mx-1"/>
+            <label for="star2" title="text">Excellent</label><br>
+            <input type="radio" id="star1" name="rating" value="1"  class="mx-1" />
+            <label for="star1" title="text">Outstanding</label>
           </div>
         </div>
-        <div class="container">
+        <div class="container mt-4">
           <div class="row">
             <div class="col-md-6">
               <input type="hidden" value="{{data.id}}" name="prod" id="prodid" />
@@ -254,16 +252,16 @@
 </div>
 </div>
 <div class="container">
-  <hr style="border: 2px solid pink" />
+  <hr style="border: 2px solid black" />
 </div>
 
 <div class="container">
   <div class="row g-3" action="" method="POST">
-    <h5 style="text-decoration: underline pink">REVIEWS</h5>
+    <h5 style="text-decoration: underline black">REVIEWS</h5>
 
 
     {% for i in rating %}
-    <div class="container" style="border-bottom: 2px solid pink; padding: 1em 1em 1em">
+    <div class="container" style="border-bottom: 2px solid black; padding: 1em 1em 1em">
       <div class="row">
         <div class="col-sm-6" style="display: flex">
           <label for="inputAddress2" class="form-label mt-2">{{forloop.counter}}</label>
@@ -306,7 +304,7 @@
 </div>
 </div>
 
-<div class="container-fluid mt-5" style="background-color: pink; padding: 1em 1em 1em">
+<div class="container-fluid mt-5" style="background-color: black; padding: 1em 1em 1em">
   <div class="row text-center">
     <div class="col-sm-3"></div>
     <div class="col-sm-3">
@@ -511,14 +509,23 @@
       var name = $('#id-title').val();
       var value = $('#diff_size').val()
       var fit = $('#diff_fit').val()
+      console.log("fit: ", fit)
 
-      var quantity = 1;
+      // var size = $('#diff_size').val()
+      console.log("size: ", value)
+
+      var quantity = $('#quantity').val()
+      console.log("Quantity: ", quantity)
+
+      var total_price = quantity * "{{data.price}}"
+      console.log("Total Price: ", total_price)
+      // var quantity = 1;
 
       var users = $(this).data('user');
       var catid = $(this).data('link-id');
 
       var pageurl = "{% url 'AddToCart' %}";
-      var data = { 'item': name, 'size': value, 'fit': fit, 'quantity': quantity, 'foruser': "{{request.user.id}}" };
+      var data = { 'item': name, 'size': value, 'fit': fit, 'quantity': quantity, 'foruser': "{{request.user.id}}", 'total_price': total_price};
       $.ajax({
         url: pageurl,
         method: 'POST',

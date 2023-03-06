@@ -1,0 +1,7 @@
+<h1>User Record</h1>
+{% for item in record %}
+    <p>Date: {{ item.date }}</p>
+    <p>Description: {{ item.description }}</p>
+{% empty %}
+    <p>No records found.</p>
+{% endfor %}

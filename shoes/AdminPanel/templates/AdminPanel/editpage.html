@@ -412,8 +412,23 @@
       <li>
         <div class="icon-link">
           <a href="#">
+            <i class="bx bx-building-house"></i>
+            <span class="link_name">Category</span>
+          </a>
+          <i class="bx bxs-chevron-down arrow"></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Category</a></li>
+          <li><a href="{% url 'showcategory' %}">All Categories</a></li>
+          <li><a href="{% url 'Category' %}">Add Categories</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <div class="icon-link">
+          <a href="#">
             <i class="bx bx-clipboard"></i>
-            <span class="link_name">Projects</span>
+            <span class="link_name">Product</span>
           </a>
           <i class="bx bxs-chevron-down arrow"></i>
         </div>
@@ -427,39 +442,19 @@
           <li><a href=""></a></li>
         </ul>
       </li>
-      <li>
-        <div class="icon-link">
-          <a href="#">
-            <i class="bx bx-building-house"></i>
-            <span class="link_name">Treatments</span>
-          </a>
-          <i class="bx bxs-chevron-down arrow"></i>
-        </div>
-        <ul class="sub-menu">
-          <li><a class="link_name" href="#">Category</a></li>
-          <li><a href="{% url 'showcategory' %}">All Categories</a></li>
-          <li><a href="{% url 'Category' %}">Add Categories</a></li>
-
-
-
-        </ul>
-      </li>
 
       <li>
         <div class="icon-link">
           <a href="#">
             <i class='bx bxl-product-hunt'></i>
-            <span class="link_name">Services</span>
+            <span class="link_name">Contact Us</span>
           </a>
           <i class="bx bxs-chevron-down arrow"></i>
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="{% url 'showcontact' %}">Contact Us</a></li>
+          <li><a href="{% url 'showcontact' %}">Contact Us</a></li>
 
-
-
-          <li><a href=""></a></li>
-          <li><a href=""></a></li>
         </ul>
       </li>
 
@@ -474,7 +469,7 @@
         <ul class="sub-menu">
           <li><a class="link_name" href="#">Booking</a></li>
           <li><a href="{% url 'showbooking' %}">Booking</a></li>
-          <li><a href="">Appointments</a></li>
+          <!-- <li><a href="">Appointments</a></li> -->
         </ul>
       </li>
 
@@ -488,8 +483,10 @@
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">Master</a></li>
-          <li><a href="">Booking</a></li>
-          <li><a href="">Accounts</a></li>
+          <li><a href="{% url 'showbooking' %}">Booking</a></li>
+          <li><a href="{% url 'accounts' %}">Accounts</a></li>
+          <li><a href="{% url 'showuserdata' %}">Show Data</a></li>
+
         </ul>
       </li>
 
@@ -753,4 +750,5 @@
 
   {% endif %}
 </body>
+
 </html>

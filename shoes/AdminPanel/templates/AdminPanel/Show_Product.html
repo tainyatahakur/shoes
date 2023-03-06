@@ -34,6 +34,11 @@
             </div>
         </div>
         <br>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" name="search">
+            <input type="submit" value="search">
+        </form>
         <!--table-->
         <div class="container-fluid mt-3">
             <table id="example" class="table table-bordered border-dark" style="width:100%">

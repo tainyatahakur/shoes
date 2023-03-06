@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import timedelta
 
 
 class BookingModel(models.Model):
@@ -52,15 +53,16 @@ class AddToCartModel(models.Model):
     item = models.ForeignKey(ProductModel, on_delete=models.CASCADE)    
     # name = models.CharField(max_length=50)
     # price = models.IntegerField()
-
+    time = models.DateField(auto_now_add=True)
     quantity = models.IntegerField(default=1)
     size = models.IntegerField()
     fit = models.CharField(max_length=15)
-    # total_price = models.IntegerFielord(default=1)
+    total_price = models.IntegerField(default=1)
+    dod = models.DateField(null=True, blank=True)
     foruser = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return str(self.item)
     
 
 class CartBookingModel(models.Model):
@@ -103,13 +105,15 @@ class CustomUser(models.Model):
     password1 = models.CharField(max_length=100)
     password2 = models.CharField(max_length=100)
     address1 = models.CharField(max_length=100)
-    address2 = models.CharField(max_length=100)
+    address2 = models.CharField(max_length=100, blank=True, null=True)
     contact1 = models.IntegerField()
-    contact2 = models.IntegerField()
+    contact2 = models.IntegerField(blank=True, null=True)
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
     zip = models.IntegerField()
+    
 
 
-
+    def __str__(self):
+        return self.fname
     
