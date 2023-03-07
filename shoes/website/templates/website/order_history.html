@@ -1,0 +1,45 @@
+{% extends 'website/index.html' %}
+
+{% block content %}
+{% block preloader %}
+{% endblock preloader %}
+    <h1>Order History</h1>
+
+    {% if orders %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Order S.No</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Messages</th>
+                    <th>View</th>
+                    
+            
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.S.No }}</td>
+                        <td>{{ order.Name }}</td>
+                        <td>{{ order.Phone }}</td>
+                        <td>{{ order.Messages }}</td>
+                        <td>{{ order.View }}</td>
+
+
+                        <td>
+                            <ul>
+                                {% for item in order.items.all %}
+                                    <li>{{ item.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No orders found.</p>
+    {% endif %}
+{% endblock %}

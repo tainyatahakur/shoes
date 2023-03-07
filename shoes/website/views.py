@@ -26,6 +26,8 @@ from website.forms import ReviewForm
 from django.core import serializers
 from website.models import Review
 from datetime import date, timedelta
+from website.models import Order
+
 
 def index(request):
     data = ProductModel.objects.all()[:9]
@@ -139,7 +141,7 @@ def signin(request):
             login(request, user)
             random_numbers = random.randint(111111, 999999)
             print("login Done")
-            send_mail("User Data: ", f"OTP: {random_numbers}", EMAIL_HOST_USER, email , fail_silently=True)
+            send_mail("User Data: ", f"OTP: {random_numbers}", EMAIL_HOST_USER, [email] , fail_silently=True)
 
             messages.success(request, 'OTP sent successfully on your registered email')
             if request.user.is_superuser:
@@ -698,3 +700,12 @@ def record(request):
         'record': record,
     }
     return render(request, 'website/record.html', context)
+
+def order_history(request):
+    foruser = request.user
+    record = CartBookingModel.objects.filter()
+    user = CartBookingModel.objects.filter(foruser= foruser)
+    context = {
+        'record': record,
+    }
+    return render(request, 'website/order_history.html', {'orders': record})

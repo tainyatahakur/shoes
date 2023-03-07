@@ -117,3 +117,8 @@ class CustomUser(models.Model):
     def __str__(self):
         return self.fname
     
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    order_id = models.CharField(max_length=50)
+    date = models.DateTimeField(auto_now_add=True)  

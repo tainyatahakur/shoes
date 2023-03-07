@@ -43,7 +43,9 @@ urlpatterns = [
     path('forgot-password/', views.forgot_password, name='forgot_password'),
     path('new-password/', views.new_password, name='new_password'),
     path('record/', views.record, name = "Record"),
-
+    path('record/', views.record, name = "Record"),
+    path('orderhistory/', views.order_history, name = "OrderHistory"),
+    
 
     
 

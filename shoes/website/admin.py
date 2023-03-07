@@ -12,3 +12,4 @@ admin.site.register(CategoryModel)
 admin.site.register(AddToCartModel)
 admin.site.register(CartBookingModel)
 admin.site.register(CustomUser)
+
