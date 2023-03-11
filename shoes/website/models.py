@@ -69,19 +69,23 @@ class CartBookingModel(models.Model):
     name = models.CharField(max_length=75)
     phone = models.CharField(max_length=15, blank=True, null=True)
     email = models.EmailField()
-    datentime = models.DateTimeField()
+    datentime = models.DateField()
     address = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
     zip = models.CharField(max_length=50)
     total_payment = models.CharField(max_length=20)
     services = models.JSONField(default=list)
+    quantity = models.JSONField(default=list)
     size = models.JSONField(default=list)
     price = models.JSONField(default=list)
     fit = models.JSONField(default=list)
     foruser = models.ForeignKey(User, on_delete=models.CASCADE)
     BookingTime = models.DateTimeField(auto_now_add=True)
-
+    OrderStatus = models.CharField(max_length=15)
+    description= models.CharField(max_length=500)
+    dateofdelivery = models.DateField()
+    
     def __str__(self):
         return self.name
 
@@ -103,6 +107,7 @@ class CustomUser(models.Model):
     email = models.CharField(max_length=100)
     username = models.CharField(max_length=100)
     password1 = models.CharField(max_length=100)
+    dod = models.DateField()
     password2 = models.CharField(max_length=100)
     address1 = models.CharField(max_length=100)
     address2 = models.CharField(max_length=100, blank=True, null=True)

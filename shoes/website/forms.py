@@ -56,5 +56,5 @@ class CustomUserForm(ModelForm):
     # phone_no = forms.CharField(max_length = 10)
     class Meta:
         model = CustomUser
-        fields = ["fname", "lname", "username","email","password1", "password2", "address1", "address2", "contact1", "contact2", "city", "state", "zip"]
+        fields = ["fname", "lname", "username","email","password1", "password2", "address1", "address2", "contact1", "contact2", "city", "state", "zip", 'dod']
 

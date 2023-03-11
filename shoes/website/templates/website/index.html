@@ -23,7 +23,7 @@
 <body style="background-color: rgb(255, 255, 255);">
     {% block preloader %}
     <div id="preloader"></div>
-    {% endblock preloader %} 
+    {% endblock preloader %}
 
     {% block popup %}
 
@@ -173,21 +173,49 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" href="#"
-                            style="font-size: 1.5em; font-weight: 400; color: black">About Us</a>
+                        <a class="nav-link mx-2" href="#" style="font-size: 1.5em; font-weight: 400; color: black">About
+                            Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-2" href="{% url 'contact' %}"
                             style="font-size: 1.5em; font-weight: 400; color: black">Contact Us</a>
                     </li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'showbooking' %}"
-                            style="font-size: 1.5em; font-weight: 400; color: black">Your Bookings</a>
-                    </li>
-                    {% endif %}
+                    
                 </ul>
                 <hr style="border: 1px solid; color: black" />
+                <div class="dropdown mx-2">
+                    {% if user.is_authenticated %}
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="background-color: transparent; color: black; border: none;">
+                        <span style="font-weight: 600; font-size: 1.3em;">{{user}}</span>
+
+                    </button>
+                    {% else %}
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="background-color: transparent; color: black; border: none;">
+                        <span style="font-weight: 600; font-size: 1.3em;">User Profile</span>
+
+                    </button>
+                    {% endif %}
+
+                    
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="{% url 'YourProfile' %}">Your Account</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'OrderHistory' %}">Your Orders</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li><a class="dropdown-item" href="{% url 'signout' %}">Sign-Out</a></li>
+                        {% else %}
+                        <li><a class="dropdown-item" href="{% url 'signin' %}">Sign-In</a></li>
+                        {% endif %}
+
+                    </ul>
+                </div>
                 <div class="icons" style="display: flex;">
                     <div class="search">
                         <div class="icon">
@@ -207,30 +235,19 @@
 
                     </div>
 
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'signout' %}">
-                        <i class="fa-solid fa-right-to-bracket mx-2 mt-2"
-                            style="color: black; font-size: 1.4em">
-                        </i>
-                    </a>
-                    {% else %}
-                    <!-- <i class="fa-solid fa-power-off"></i> -->
-                    <a href="{% url 'signin' %}">
-                        <i class="fa-solid fa-user mx-2 mt-2" style="color: black; font-size: 1.4em"
-                            title="signin/signout"></i></a>
-                    </a>
-                    {% endif %}
+
+
                     <!-- <a href="#">
                         <i class="fa-solid fa-user mx-2 mt-2" style="color: black; font-size: 1.4em"
                             title="signin/signout"></i></a> -->
                     <a href="{% url 'checkout' %}">
-                        <i class="fa-solid fa-cart-shopping mx-2 mt-2 position-relative" style="color: black; font-size: 1.4em"
-                            title="cart">
+                        <i class="fa-solid fa-cart-shopping mx-2 mt-2 position-relative"
+                            style="color: black; font-size: 1.4em" title="cart">
                         </i>
                         <span class="position-absolute top-1 start-80 translate-middle badge rounded-pill bg-danger">
                             {{lenofcart}}
                             <span class="visually-hidden">unread messages</span>
-                          </span>
+                        </span>
                     </a>
                 </div>
             </div>
@@ -326,8 +343,7 @@
             <div class="col">
                 <div class="card" style="border: none">
                     <img src="{% static 'images/img1.jpg' %}" class="card-img-top"
-                        onmouseover="this.src='{{i.img.url}}'"
-                        onmouseout="this.src='{{i.img2.url}}'" />
+                        onmouseover="this.src='{{i.img.url}}'" onmouseout="this.src='{{i.img2.url}}'" />
                     <div class="card-body">
                         <div class="container-fluid">
                             <div class="row">
@@ -353,8 +369,7 @@
                                 <a href="">
                                     <i class="fa-solid fa-cart-shopping mt-2 add-item-btn" title="add to cart"
                                         data-link-id="{{i.id}}" data-name="{{i.name}}" data-value="{{i.price}}"
-                                        data-quantity="{{i.quantity}}"
-                                        style="color: black; font-size: 1.4em"></i></a>
+                                        data-quantity="{{i.quantity}}" style="color: black; font-size: 1.4em"></i></a>
                             </div>
                         </div>
 
@@ -591,6 +606,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
+
     <script>
         var swiper = new Swiper(".mySwiper", {
             spaceBetween: 30,
@@ -651,14 +667,14 @@
         })
     </script>
     <script>
-       var message =  document.getElementById("messs").innerHTML;
-       alert(message)
+        var message = document.getElementById("messs").innerHTML;
+        alert(message)
     </script>
     <script>
         var loader = document.getElementById("preloader");
-          window.addEventListener("load", function () {
-        loader.style.display = "none";
-          });
+        window.addEventListener("load", function () {
+            loader.style.display = "none";
+        });
     </script>
 
     {% endblock content %}

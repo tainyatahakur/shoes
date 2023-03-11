@@ -1,0 +1,355 @@
+{% extends "website/index.html" %}
+{% block content %}
+{% load static %}
+{% block preloader %}
+{% endblock preloader %}
+{% block popup %}
+{% endblock popup %}
+
+  <body>
+    <!-- <nav class="navbar fixed-top navbar-expand-lg bg-body-black mx-auto">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+          <img
+            src="{% static 'images/WhatsApp_Image_2023-02-18_at_14.35.22-removebg-preview.png' %}"
+            class="img-fluid"
+            style="height: 2em; width: auto"
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link mx-2"
+                aria-current="page"
+                href="#"
+                style="font-size: 1.5em; font-weight: 400; color: palevioletred"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle mx-2"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="font-size: 1.5em; font-weight: 400; color: palevioletred"
+                ;
+              >
+                Shop
+              </a>
+              <ul class="dropdown-menu" style="letter-spacing: 2px">
+                <div
+                  class="ScrollStyle"
+                  style="max-height: 300px; overflow-y: scroll"
+                >
+                  <div class="container text-center" style="width: 280px">
+                    <li style="display: flex; flex-direction: row">
+                      <a
+                        class="dropdown-item mt-2"
+                        style="text-align: left"
+                        >Heels</a
+                      >
+                      <img
+                        src="/images/img1.jpg"
+                        class="img-fluid"
+                        alt="heels"
+                        style="width: auto; height: 3em"
+                      />
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li style="display: flex; flex-direction: row">
+                      <a
+                        class="dropdown-item mt-2"
+                        href="/html/Boots.html"
+                        style="text-align: left"
+                        >Boots</a
+                      >
+                      <img
+                        src="/images/img1.jpg"
+                        class="img-fluid"
+                        alt="heels"
+                        style="width: auto; height: 3em"
+                      />
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li style="display: flex; flex-direction: row">
+                      <a
+                        class="dropdown-item mt-2"
+                        href="/html/flats.html"
+                        style="text-align: left"
+                        >Flats</a
+                      >
+                      <img
+                        src="/images/img1.jpg"
+                        class="img-fluid"
+                        alt="heels"
+                        style="width: auto; height: 3em"
+                      />
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li style="display: flex; flex-direction: row">
+                      <a
+                        class="dropdown-item mt-2"
+                        href="/html/Sneaker.html"
+                        style="text-align: left"
+                        >Sneakers</a
+                      >
+                      <img
+                        src="/images/img1.jpg"
+                        class="img-fluid"
+                        alt="heels"
+                        style="width: auto; height: 3em"
+                      />
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li style="display: flex; flex-direction: row">
+                      <a
+                        class="dropdown-item mt-2"
+                        href="/html/Sandal.html"
+                        style="text-align: left"
+                        >Sandals</a
+                      >
+                      <img
+                        src="/images/img1.jpg"
+                        class="img-fluid"
+                        alt="heels"
+                        style="width: auto; height: 3em"
+                      />
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li style="display: flex; flex-direction: row">
+                      <a
+                        class="dropdown-item mt-2"
+                        href="/html/wedges.html"
+                        style="text-align: left"
+                        >Wedges</a
+                      >
+                      <img
+                        src="/images/img1.jpg"
+                        class="img-fluid"
+                        alt="heels"
+                        style="width: auto; height: 3em"
+                      />
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li style="display: flex; flex-direction: row">
+                      <a
+                        class="dropdown-item mt-2"
+                        href="/html/Mules.html"
+                        style="text-align: left"
+                        >Mules</a
+                      >
+                      <img
+                        src="/images/img1.jpg"
+                        class="img-fluid"
+                        alt="heels"
+                        style="width: auto; height: 3em"
+                      />
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li style="display: flex; flex-direction: row">
+                      <a
+                        class="dropdown-item mt-2"
+                        href="/html/flats.html"
+                        style="text-align: left"
+                        >Loafers</a
+                      >
+                      <img
+                        src="/images/img1.jpg"
+                        class="img-fluid"
+                        alt="heels"
+                        style="width: auto; height: 3em"
+                      />
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li style="display: flex; flex-direction: row">
+                      <a
+                        class="dropdown-item mt-2"
+                        href="/html/Pumps.html"
+                        style="text-align: left"
+                        >Pumps</a
+                      >
+                      <img
+                        src="/images/img1.jpg"
+                        class="img-fluid"
+                        alt="heels"
+                        style="width: auto; height: 3em"
+                      />
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li style="display: flex; flex-direction: row">
+                      <a
+                        class="dropdown-item mt-2"
+                        href="/html/espadrilles.html"
+                        style="text-align: left"
+                        >Espadrilles</a
+                      >
+                      <img
+                        src="/images/img1.jpg"
+                        class="img-fluid"
+                        alt="heels"
+                        style="width: auto; height: 3em"
+                      />
+                    </li>
+                  </div>
+                </div>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link mx-2"
+                href="#"
+                style="font-size: 1.5em; font-weight: 400; color: palevioletred"
+                >About Us</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link mx-2"
+                href="/html/Contact.html"
+                style="font-size: 1.5em; font-weight: 400; color: palevioletred"
+                >Contact Us</a
+              >
+            </li>
+          </ul>
+          <hr style="border: 1px solid; color: palevioletred" />
+          <div class="icons" style="display: flex">
+            <div class="search">
+              <div class="icon">
+                <i
+                  class="fa-solid fa-magnifying-glass"
+                  style="color: palevioletred; font-size: 1.4em"
+                  title="search"
+                >
+                </i>
+              </div>
+              <div class="input">
+                <input type="text" placeholder="Search" id="mysearch" />
+                <span
+                  class="clear"
+                  onclick="document.getElementById('mysearch').value ='' "
+                >
+                </span>
+              </div>
+            </div>
+
+            <a href="#">
+              <i
+                class="fa-solid fa-user mx-2 mt-2"
+                style="color: palevioletred; font-size: 1.4em"
+                title="signin/signout"
+              ></i
+            ></a>
+            <a href="/html/checkoutpage.html">
+              <i
+                class="fa-solid fa-cart-shopping mx-2 mt-2"
+                style="color: palevioletred; font-size: 1.4em"
+                title="cart"
+              >
+              </i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </nav> -->
+
+    <div class="container" style="margin-top: 6em">
+      <div class="row">
+       
+          <div
+            class="col-sm-4"
+            style="
+              border: 1px solid grey;
+              padding: 1em 1em 1em;
+              border-radius: 10px;
+            "
+          >
+            <div class="row">
+              <div class="col-sm-6">
+                <a href="#">
+                <img src="{% static 'images/order.png' %}" class="img-fluid" />
+                </a>
+              </div>
+              <div class="col-sm-6">
+                <a href="#" style="color: black; text-decoration: none;">
+                <p>Your Orders</p>
+                <p>Track Orders, Return or Buy More</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+      
+          <div
+            class="col-sm-4"
+            style="
+              border: 1px solid grey;
+              padding: 1em 1em 1em;
+              border-radius: 10px;
+            "
+          >
+            <div class="row">
+              <div class="col-sm-6">
+                <a href="#">
+                <img src="{% static 'images/details.png' %}" class="img-fluid" />
+                </a>
+              </div>
+              <div class="col-sm-6">
+                <a href="#" style="color: black; text-decoration: none;">
+                <p>Edit Details</p>
+                <p>Track Orders, Return or Buy More</p>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4"  
+          style="
+          border: 1px solid grey;
+          padding: 1em 1em 1em;
+          border-radius: 10px;
+        ">
+
+          </div>
+        
+          
+
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      var nav = document.querySelector("nav");
+
+      window.addEventListener("scroll", function () {
+        if (window.pageYOffset > 100) {
+          nav.classList.add("bg-light", "shadow");
+        } else {
+          nav.classList.remove("bg-light", "shadow");
+        }
+      });
+    </script>
+    {% endblock content %}
+    <script src="{% static 'js/index.js' %}"></script>
+  </body>
+</html>
+

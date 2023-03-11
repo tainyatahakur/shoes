@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+*{
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: rgb(255, 255, 255); 
+  }
+
+  page {
+    background: rgb(255, 255, 255);
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.5cm;
+    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+  }
+  page[size="A4"] {  
+    width: 21cm;
+    height: 24cm; 
+  }
+  .invoice-head td {
+    padding: 0 8px;
+  }
+  .container {
+    padding-top:30px;
+  }
+  .invoice-body{
+    background-color:transparent;
+  }
+  .invoice-thank{
+    margin-top: 60px;
+    padding: 5px;
+  }
+  address{
+    margin-top:15px;
+  }

@@ -1,6 +1,5 @@
 from django.urls import path,include
 from website import views
-from . import views
 
 
 urlpatterns = [
@@ -37,17 +36,15 @@ urlpatterns = [
     path('CategoryWiseProducts/<int:id>/', views.ProductsCatviewPage, name="CategoryWiseProducts"),
     path('review/', views.review, name='review'),
     path('Search/', views.search, name ='Search'),
-    path('customuser/', views.CustomUserForm, name ='customuser'),
     path('showreview/', views.show_review, name ='showreview'),
     # path('verification/', views.Verification, name ='verification'),
     path('forgot-password/', views.forgot_password, name='forgot_password'),
     path('new-password/', views.new_password, name='new_password'),
     path('record/', views.record, name = "Record"),
-    path('record/', views.record, name = "Record"),
     path('orderhistory/', views.order_history, name = "OrderHistory"),
-    
-
-    
+    # path('UsersProfile/', views.UserProfiles, name="UsersProfile"),
+    path('yourprofile/', views.Your_profile, name = "YourProfile"),
+    path('Invoice/<int:id>/', views.Invoice, name="Invoice"),
 
     path('delcartitem/<int:id>/', views.DelCartBooking, name="delcartbooking"),
 

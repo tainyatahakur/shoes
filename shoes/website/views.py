@@ -7,6 +7,7 @@ from website.models import ContactModel
 from website.forms import ContactForm
 from website.models import BookingModel
 from website.forms import BookingForm
+from django.utils import timezone
 from website.forms import ProductModel
 from website.forms import ProductForm
 from website.forms import CategoryForm
@@ -18,8 +19,9 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm
 from website.forms import CreateUserForm, CustomUserForm
-import json
-import random
+import json            
+import random         
+
 from django.core.mail import send_mail
 from shoes.settings import EMAIL_HOST_USER
 from website.forms import ReviewForm
@@ -83,13 +85,15 @@ def signup(request):
         address2 = request.POST.get('address2')
         contact1 = request.POST.get('contact1')
         contact2 = request.POST.get('contact2')
+        dod = request.POST.get('dod')
+        print("Dod: ", dod)
         city = request.POST.get('city')
         state = request.POST.get('state')
         zip = request.POST.get('zip')
         otp = request.POST.get('otp')
         print('otp', otp)
         print('username: ', username)
-        user = authenticate(email=email, password=password1, passwors=password2, address1=address1,
+        user = authenticate(email=email, password=password1, passwors=password2, address1=address1,dod=dod,
                             address2=address2, contact1=contact1, contact2=contact2, city=city, state=state, zip=zip)
 
         form = CreateUserForm(request.POST)
@@ -163,7 +167,7 @@ def signout(request):
 
 def contact(request):
     form = ContactForm()
-    navs = CategoryModel.objects.all()
+    navs = CategoryModel.objects.all()           
 
     if request.method == "POST":
         form = ContactForm(request.POST)
@@ -462,7 +466,7 @@ def DelCartBooking(request, id):
 @login_required
 def showAddToCart(request):
     data = AddToCartModel.objects.all()
-    total_price = data.aggregate(Sum('price'))['price__sum']
+    total_price = data.aggregate(sum('price'))['price__sum']
     form = AddToCartForm()
 
     if request.method == "POST":
@@ -505,8 +509,15 @@ def CartAndBooking(request):
         se = request.POST.getlist('services')
         sizes = request.POST.getlist('size')
         fits = request.POST.getlist('fit')
-        prices = request.POST.getlist('price')
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        zip = request.POST.get('zip')
+        state = request.POST.get('state')
+        quantity = request.POST.getlist('quantity')
 
+        prices = request.POST.getlist('price')
+        orderstatus = request.POST.getlist('OrderStatus')
+        
         total_payment = request.POST.get('total_payment')
         services = json.dumps(se)
         size = json.dumps(sizes)
@@ -521,8 +532,8 @@ def CartAndBooking(request):
         print("datentime: ", datentime)
         print("total Payment: ", total_payment)
 
-        booking = CartBookingModel(name=name, phone=phone, email=email, datentime=datentime,
-                                   total_payment=total_payment, services=services, foruser=foruser, size=size, fit=fit, price=price)
+        booking = CartBookingModel(name=name, phone=phone, email=email, datentime=datentime,address=address, city=city, zip=zip, quantity=quantity,state=state,
+                                   total_payment=total_payment, services=services, foruser=foruser, size=size, fit=fit, price=price,OrderStatus=orderstatus,dateofdelivery=dod)
         booking.save()
         print("Value Saved")
         # if form.is_valid():
@@ -530,6 +541,7 @@ def CartAndBooking(request):
         #     print("Form Saved")
         # else:
         #     print("Error: ", form.errors)
+        return redirect('OrderHistory')
     context = {'item': items, 'total': s, 'today': today, 'dod': dod, 'someuser': someuser}
     return render(request, 'website/checkoutpage.html', context)
 
@@ -591,7 +603,7 @@ def detailproduct(request, id):
 def review(request):
     rating = Review.objects.all()
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
+        form = ReviewForm(request.POST)                               
         name = request.POST.get('name')
         rating = request.POST.get('rating')
         email = request.POST.get('email')
@@ -666,7 +678,7 @@ def forgot_password(request):
         messages.success(request, 'OTP sent successfully on your registered email')
         return render(request, 'website/new_password.html', {'otp': random_numbers, 'email': email})
 
-    return render(request, 'website/forgot_password.html')
+    return render(request, 'website/forgot_password.html')          
 
 
 @csrf_exempt
@@ -688,11 +700,10 @@ def new_password(request):
         messages.success(request, 'OTP sent successfully on your registered email')
         # return redirect('')
 
-    return render(request, 'website/change_password.html')
+    return render(request, 'website/change_password.html')       
 
 
 def record(request):
-
     foruser = request.user
     record = CartBookingModel.objects.filter()
     user = CartBookingModel.objects.filter(foruser= foruser)
@@ -701,11 +712,65 @@ def record(request):
     }
     return render(request, 'website/record.html', context)
 
+@login_required
 def order_history(request):
     foruser = request.user
-    record = CartBookingModel.objects.filter()
-    user = CartBookingModel.objects.filter(foruser= foruser)
+    navs = CategoryModel.objects.all()
+
+    record = CartBookingModel.objects.filter(foruser= foruser).values('id','dateofdelivery', 'BookingTime', 'description','services', 'quantity', 'size', 'price', 'fit')
+    for booking in record:
+        booking['services'] = json.loads(booking['services'])
+        booking['quantity'] = booking['quantity']
+        booking['size'] = json.loads(booking['size'])
+        booking['price'] = json.loads(booking['price'])
+        booking['fit'] = json.loads(booking['fit'])
+
+    print("record: ",record)
     context = {
-        'record': record,
+        'record': record, 'navs': navs
     }
-    return render(request, 'website/order_history.html', {'orders': record})
+    # return render(request, 'website/order_history.html', {'orders': record})
+    return render(request, 'website/order_history.html', context)
+
+# def order_history(request):
+#     today = timezone.now().date()
+#     date_range = [
+#         (today - timedelta(days=30)).strftime('%Y-%m-%d'),
+#         (today - timedelta(days=180)).strftime('%Y-%m-%d'),
+#     ]
+#     selected_date = request.GET.get('date', date_range[0])
+#     orders = CartBookingModel.objects.filter(
+#         datentime = selected_date,
+#         foruser = request.user
+#     ).order_by('datentime')
+#     context = {
+#         'date_range':date_range,
+#         'selected_date':selected_date,
+#         'orders':orders
+#     }
+#     return render(request, 'website/order_history.html', context)
+
+
+# def UserProfile(request):  
+#     return(request, 'website/account.html')
+
+@login_required
+def Your_profile(request):
+    navs = CategoryModel.objects.all()
+
+    context = {'navs': navs}
+    return render(request, 'website/account.html', context)
+
+
+@login_required
+def Invoice(request, id):
+    foruser = request.user
+    data= CartBookingModel.objects.filter(id=id).values('id','address','dateofdelivery', 'total_payment', 'BookingTime', 'description','services', 'quantity', 'price','name', 'datentime')
+
+    for booking in data:
+        booking['services'] = json.loads(booking['services'])
+        booking['price'] = json.loads(booking['price'])
+        booking['quantity'] = booking['quantity']
+
+    context = {'data': data}#, 'services': services,'price': price, 'q': quantity}
+    return render(request, 'website/invoice.html', context)

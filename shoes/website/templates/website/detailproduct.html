@@ -72,7 +72,8 @@
             <div class="row text-center mx-auto">
               <div class="col-sm-2 text-center mx-auto">
                 <label>Size</label>
-                <select class="form-select text-center mx-auto" name="size" id="diff_size" aria-label="Default select example" style="border: 1px solid black;">
+                <select class="form-select text-center mx-auto" name="size" id="diff_size"
+                  aria-label="Default select example" style="border: 1px solid black;">
                   <option selected>Size</option>
                   <option value="4">4</option>
                   <option value="5">5</option>
@@ -87,16 +88,18 @@
               </div>
               <div class="col-sm-4 text-center mx-auto">
                 <label>Select Fit</label>
-                <select class="form-select" name="fit" id="diff_fit" aria-label="Default select example" style="border: 1px solid black;">
+                <select class="form-select" name="fit" id="diff_fit" aria-label="Default select example"
+                  style="border: 1px solid black;">
                   <!-- <option selected>Fit</option>\/ -->
                   <option value="regular">Regular</option>
                   <option value="wide">WIDE</option>
                 </select>
               </div>
               <div class="col-sm-2 text-center mx-auto">
-                <label >Quantity</label>
+                <label>Quantity</label>
                 <label for="number" class="form-label"></label>
-                <input type="number" class="form-label text-center mx-auto" id="quantity" min="1" placeholder="1" name="quantity" style="border: 1px solid black; height:2em; border-radius: 4px; width: 50%; ">
+                <input type="number" class="form-label text-center mx-auto" id="quantity" min="1" value="1"
+                  name="quantity" style="border: 1px solid black; height:2em; border-radius: 4px; width: 50%; ">
               </div>
             </div>
             <!-- <div class="button mt-3">ADD TO CART</div> -->
@@ -189,7 +192,7 @@
 
 <div class="container">
   <button onclick="myFunction()" class="mx-auto" style="background-color: transparent; border: none">
-    <i class="fa-solid fa-pen-nib mx-2" style="background-color: white" title="write a review"></i>WRITE A REVIEW 
+    <i class="fa-solid fa-pen-nib mx-2" style="background-color: white" title="write a review"></i>WRITE A REVIEW
   </button>
   <div id="myDIV">
     <div class="container" style="border: 2px solid black; padding: 1em 1em 1em">
@@ -206,18 +209,18 @@
       <p><span style="color: palevioletred">*</span>Required Field</p>
       <form class="row g-3 needs-validation mt-4" novalidate id="reviewform" action="#" method="POST">
         {% csrf_token %}
-        <div class="container" >
+        <div class="container">
           <p>Ratings:</p>
           <div class="rates">
-            <input type="radio" id="star5" name="rating" value="5"  class="mx-1" />
+            <input type="radio" id="star5" name="rating" value="5" class="mx-1" />
             <label for="star5" title="text">Poor</label><br>
-            <input type="radio" id="star4" name="rating" value="4"  class="mx-1" />
+            <input type="radio" id="star4" name="rating" value="4" class="mx-1" />
             <label for="star4" title="text">Fair</label><br>
-            <input type="radio" id="star3" name="rating" value="3"  class="mx-1" />
+            <input type="radio" id="star3" name="rating" value="3" class="mx-1" />
             <label for="star3" title="text">Good</label><br>
-            <input type="radio" id="star2" name="rating" value="2"   class="mx-1"/>
+            <input type="radio" id="star2" name="rating" value="2" class="mx-1" />
             <label for="star2" title="text">Excellent</label><br>
-            <input type="radio" id="star1" name="rating" value="1"  class="mx-1" />
+            <input type="radio" id="star1" name="rating" value="1" class="mx-1" />
             <label for="star1" title="text">Outstanding</label>
           </div>
         </div>
@@ -525,7 +528,7 @@
       var catid = $(this).data('link-id');
 
       var pageurl = "{% url 'AddToCart' %}";
-      var data = { 'item': name, 'size': value, 'fit': fit, 'quantity': quantity, 'foruser': "{{request.user.id}}", 'total_price': total_price};
+      var data = { 'item': name, 'size': value, 'fit': fit, 'quantity': quantity, 'foruser': "{{request.user.id}}", 'total_price': total_price };
       $.ajax({
         url: pageurl,
         method: 'POST',

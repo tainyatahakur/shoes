@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <title>Invoice</title>
+    <link href="{% static 'css/invoice.css' %}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <page size="A4" class="mx-auto">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img src="{% static 'images/WhatsApp_Image_2023-02-18_at_14.35.22-removebg-preview.png' %}"
+                        class="img-fluid text-center" style="height: 5em" />
+                    <address>
+                        <strong class="text-center mx-auto">House OF RUHII</strong><br />
+                        <br />
+                    </address>
+                </div>
+                {% for i in data %}
+                <div class="col-sm-6">
+                    <table class="invoice-head">
+                        <tbody>
+                            <tr>
+                                <td class="pull-right"><strong>Customer Name</strong></td>
+                                <td>{{i.name}}</td>
+                            </tr>
+                            <tr>
+                                <td class="pull-right"><strong>Address</strong></td>
+                                <td>{{i.address}}</td>
+                            </tr>
+                            <tr>
+                                <td class="pull-right"><strong>Order_ID:</strong></td>
+                                <td>{{i.id}}</td>
+                            </tr>
+                            <tr>
+                                <td class="pull-right"><strong>Date</strong></td>
+                                <td>{{i.datentime}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="span8 text-center">
+                    <h2>Invoice</h2>
+                </div>
+            </div>
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-sm-3" style="border: 2px solid black">
+                        <h5 style="border-bottom: 2px solid black; padding-bottom: 5px;">Product</h5>
+                        {% for i in data %}
+                        {% for k in i.services %}
+                        {{k}}<br>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-3" style="border: 2px solid black">
+                        <h5 style="border-bottom: 2px solid black; padding-bottom: 5px;">Description</h5>
+                        {% for i in data %}
+                        {% for k in i.services %}
+                        {{k}}<br>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-3" style="border: 2px solid black">
+                        <h5 style="border-bottom: 2px solid black; padding-bottom: 5px;">Quantity</h5>
+                        {% for i in data %}
+                        {% for k in i.quantity %}
+                        {{k}}<br>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-3" style="border: 2px solid black">
+                        <h5 style="border-bottom: 2px solid black; padding-bottom: 5px;">Amount</h5>
+                        {% for i in data %}
+                        {% for k in i.price %}
+                        Rs. {{k}}<br>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    {% for i in data %}
+                    {% for j in i.quantity %}
+                    {% for k in i.price %}
+                    Rs. {{ j|int * k }}<br>
+                    {% endfor %}
+                    {% endfor %}
+                    {% endfor %}
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-3 mt-3">
+                        <h5 style="border-bottom: 2px solid black; padding-bottom: 5px; font-weight: 600;">Total</h5>
+                    </div>
+                    <div class="col-sm-3 mt-3">
+                        {% for i in data %}
+                        <strong
+                            style="border-bottom: 2px solid black; padding: 5px 35px;">Rs.{{i.total_payment}}</strong>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-sm-4"><strong>Phone:</strong>1234567890</div>
+                <div class="col-sm-4">
+                    <strong>Email:</strong> <a href="#">RUHII@gmail.com</a>
+                </div>
+                <div class="col-sm-4">
+                    <strong>Website:</strong> <a href="#">HouseOfRUHII.com</a>
+                </div>
+            </div>
+        </div>
+    </page>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
