@@ -1,0 +1,267 @@
+{% extends 'website/index.html' %}
+
+{% block content %}
+
+{% block popup %}
+{% endblock popup %}
+
+{% block preloader %}
+{% endblock preloader %}
+
+{% block nav %}
+{% endblock nav %}
+
+{% load static %}
+<link href="{% static 'css/checkout.css' %}" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+<link href="{% static 'css/aboutus.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<style>
+    #save {
+        display: none;
+    }
+
+    #paypal-button-container {
+        /* display: none; */
+    }
+</style>
+
+
+<body style="background-image: url('');
+    background-attachment: fixed;background-position: center;background-size: auto;">
+    <div class="container">
+        <main>
+            <div class="py-5 text-center">
+                <a href="/">
+                    <img class="d-block mx-auto mb-4" src="{% static 'images/logo.jpeg' %}" alt="" width="150px"
+                        height="57">
+                </a>
+                <h2>Checkout</h2>
+            </div>
+
+            <form action="" method="POST" id="bookingform">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-person mx-2"></i>Your
+                                    Name</label>
+                                <input type="text" id="name" name="name" class="form-control" value="{{user.username}}"
+                                    required>
+                            </div>
+                            <div class="col-md-6" id="phonecon">
+                                <label for="phone" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-address-book mx-2"></i>Phone</label>
+                                <input type="text" id="name" name="phone" value="{{prod.phone}}" class="form-control"
+                                    required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="email" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-address-book mx-2"></i>Email</label>
+                                <input type="text" name="email" id="email" class="form-control" value="{{prod.email}}"
+                                    required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="address" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-address-book mx-2"></i>Address</label>
+                                <input type="text" name="address" id="address" class="form-control"
+                                    value="{{prod.address}}" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="city" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-address-book mx-2"></i>City</label>
+                                <input type="text" name="city" id="city" class="form-control" value="{{prod.city}}"
+                                    required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="state" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-address-book mx-2"></i>State</label>
+                                <input type="text" name="state" id="state" class="form-control" value="{{prod.state}}"
+                                    required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="zip" class="form-label mt-3 text-center"><i
+                                        class="fa-solid fa-address-book mx-2"></i>Zip</label>
+                                <input type="text" name="zip" id="zip" class="form-control" value="{{prod.zip}}"
+                                    required>
+                            </div>
+
+                            <div class="col-md-6" id="datentimes">
+                                <label for="text" class="form-label mt-3">Date Of Delivery</label>
+                                <input type="text" class="form-control" placeholder="Date Of Delivery"
+                                    style="border-radius: 0; text-align: center" value="{{dod|date:'Y-m-d'}}"
+                                    name="datentime" readonly />
+                            </div>
+                            <div class="col-md-6">
+
+                            </div>
+                            <div id="paypal-button-container" style="width: 50%; margin:auto; margin-top: 25px;">
+                            </div>
+                            <input type="hidden" id="total_amount"></input>
+                            <input type="hidden" id="total_amount" name="order_status" value="Active"></input>
+
+                            <input type="hidden" name="total_payment" id="total_payment" value="{{total}}">
+                            <input type="hidden" name="foruser" value="{{user.id}}"></input>
+                            <input type="hidden" name="username" id="paymentstatus">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 order-md-last" style="width: 100%;">
+                                <h4 class="d-flex justify-content-between align-items-center">
+                                    <span class="text"
+                                        style="background-color: transparent; color: black;font-weight: 500; font-size: 1.2em;">Your
+                                        cart</span>
+                                    <span class="badge bg-primary rounded-pill">{{length}}</span>
+                                </h4>
+                                <ol class="list-group list-group-numbered">
+                                    {% for i in items %}
+                                    {% for k in i %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold"><input type="hidden" name="services"
+                                                    value="{{k.name}}"><input type="hidden" name="fit"
+                                                    value="{{i.fit}}"><input type="hidden" name="quantity"
+                                                    value="{{i.quantity}}"><input type="hidden" name="size"
+                                                    value="{{i.size}}"><input type="hidden" name="price"
+                                                    value="{{k.price}}">
+                                            </div>
+                                            <div class="fw-bold">{{k.name}}</div>
+                                            {% if i.fit %}Fit - {{i.fit}},{% endif %}
+                                            <div class="container" style="display: flex;">
+                                                <select class="form-select mx-2" name="fit" id="diff_fit"
+                                                    style="width: 90px;" aria-label="Default select example"
+                                                    style="border: 1px solid black;">
+                                                    <!-- <option selected>Fit</option>\/ -->
+                                                    <option value="regular">Regular</option>
+                                                    <option value="wide">WIDE</option>
+                                                </select>
+                                                <input type="number" class="form-control mx-2 text-center "
+                                                    id="quantity" min="1" value="1" name="quantity"
+                                                    style=" height:2em; border-radius: 4px; width: 50px; ">
+                                                <br>
+                                                <select class="form-select text-center mx-auto" name="size"
+                                                    style="width: 90px" id="diff_size"
+                                                    aria-label="Default select example"
+                                                    style="border: 1px solid black;">
+                                                    <option selected>Size</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        Rs.{{k.price}}
+                                        <a href="" style="margin-left: 15px;"><i class="fa-solid fa-trash" style="color: rgb(255, 61, 94);"></i></a>
+                                    </li>
+                                    {% endfor %}
+                                    {% endfor %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold"><strong style="font-size: 1.4rem;">Total</strong></div>
+                                        </div>
+                                        <span class=""><strong style="font-size: 1.4rem; margin-left: 35px;">Rs.
+                                                <span id="sometotalprice"></span></strong></span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script
+                    src="https://www.paypal.com/sdk/js?client-id=AWFL7YRuIbPx-nbOh0-l8K8yxbOKsaaIzjSC4NMMJEcR3el2R0hEjF26UrosJAx7f9R-QQEXMgb_LT7u&currency=USD"></script>
+
+                <script>
+
+                    paypal.Buttons({
+                        createOrder: (data, actions) => {
+                            var amountt = document.getElementById("total_amount").value;
+                            return actions.order.create({
+                                purchase_units: [{
+                                    amount: {
+                                        value: "{{total}}"
+                                    }
+                                }]
+                            });
+                        },
+                        onApprove: (data, actions) => {
+
+                            return actions.order.capture().then(function (orderData) {
+                                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                                const transaction = orderData.purchase_units[0].payments.captures[0];
+                                alert(`Payment has been Done`)
+                                $('#paymentstatus').val("PaymentisDonecheckit");
+
+                                submitform()
+                                function submitform() {
+                                    document.getElementById("bookingform").submit();
+                                    alert('test');
+                                    DelData()
+                                }
+                            });
+                        }
+                    }).render('#paypal-button-container');
+                </script>
+
+                <input type="submit" value="Book" class="btn btn-primary mb-5" id="save">
+
+            </form>
+        </main>
+
+    </div>
+
+    <script>
+
+        $("#datentime").on("change paste keyup", function () {
+            $('#paypal-button-container').css('display', 'block')
+        });
+        // }
+    </script>
+
+    <script>
+        function DelData() {
+            let x = "{{user.id}}";
+            console.log("HEllo Coding")
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'usercart' %}",
+                data: { 'foruser': "{{user.id}}", 'csrfmiddlewaretoken': "{{csrf_token}}" },
+                success: function (data) {
+                    console.log("{{user.id}} + {{user.username}}");
+                },
+                error: function (error) {
+
+                }
+            })
+        }
+    </script>
+
+    <script src="{% static 'js/index.js' %}"></script>
+
+    <script>
+        $('#quantity').on('change', function (event) {
+            let x = $('#quantity').val()
+            // console.log("X: ", x)
+            
+        })
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+    {% endblock content %}

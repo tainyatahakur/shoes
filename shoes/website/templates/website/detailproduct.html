@@ -120,10 +120,7 @@
                     justify-content: center;
                   ">
           <h3>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Autem tempore voluptates aspernatur quibusdam laudantium
-            cum, vel sit explicabo! Ratione, totam id omnis ea quasi
-            reiciendis ipsam in beatae accusantium explicabo.
+            {{data.desc}}
           </h3>
         </ul>
       </button>
@@ -147,13 +144,21 @@
 </div>
 </div>
 
+{% for i in users %}
+  {{i.id}}
+{% endfor %}
+
 <div class="container mt-5">
   <div class="container text-center mt-5">
     <h4>YOU MAY ALSO LIKE</h4>
   </div>
   <div class="container-fluid mt-3">
     <div class="owl-carousel owl-theme">
+      {% for i in similarprod %}
       <div class="item" style="cursor: pointer">
+        <img src="{{i.img.url}}" alt="shoe" />
+      </div>
+      <!-- <div class="item" style="cursor: pointer">
         <img src="{% static 'images/img1.jpg' %}" alt="shoe" />
       </div>
       <div class="item" style="cursor: pointer">
@@ -179,10 +184,8 @@
       </div>
       <div class="item" style="cursor: pointer">
         <img src="{% static 'images/img1.jpg' %}" alt="shoe" />
-      </div>
-      <div class="item" style="cursor: pointer">
-        <img src="{% static 'images/img1.jpg' %}" alt="shoe" />
-      </div>
+      </div> -->
+      {% endfor %}
     </div>
   </div>
 </div>
@@ -269,11 +272,11 @@
         <div class="col-sm-6" style="display: flex">
           <label for="inputAddress2" class="form-label mt-2">{{forloop.counter}}</label>
           <input type="text" class="form-control" placeholder="First name" value="{{i.name}}" aria-label="First name"
-            style="border: none; width: 50%; background: transparent; font-weight: 600" />
+            style="border: none; width: 50%; background: transparent; font-weight: 600" readonly />
         </div>
         <div class="col-sm-6 mx-auto">
           <input type="text" value="{{i.datentime}}"
-            style="border: none; color: palevioletred; background: transparent;" />
+            style="border: none; color: palevioletred; background: transparent;" readonly />
         </div>
       </div>
       Rating: {{i.rating}}
@@ -296,7 +299,7 @@
           <!-- <textarea class="form-control" placeholder="Leave a comment here" value = "{{i.reviews}}" id="floatingTextarea2"
             style="height: 100px; border: none"></textarea> -->
           <input type="text" class="form-control" value="{{i.review}}"
-            style="height: 100px; width: 100%; background:transparent; border: none ;">
+            style="height: 100px; width: 100%; background:transparent; border: none ;" readonly>
           <label for="floatingTextarea2"></label>
         </div>
       </div>
@@ -560,7 +563,7 @@
       var quantity = 1;
 
       var pageurl = "{% url 'review' %}";
-      var data = { 'name': name, 'email': email, 'review': review, 'rating': rating, "prod": prodid };
+      var data = { 'name': name, 'email': email, 'review': review, 'rating': rating, "prod": prodid, 'foruser': '{{user}}' };
       const formData = new FormData(this)
       $.ajax({
         url: pageurl,

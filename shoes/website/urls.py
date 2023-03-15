@@ -44,6 +44,10 @@ urlpatterns = [
     path('orderhistory/', views.order_history, name = "OrderHistory"),
     # path('UsersProfile/', views.UserProfiles, name="UsersProfile"),
     path('yourprofile/', views.Your_profile, name = "YourProfile"),
+    path('BuyAgain/<int:id>/', views.BuyAgain, name = "buyagain"),
+
+    path('CancelBooking/<int:id>/', views.CancelBooking, name = "CancelBooking"),
+
     path('Invoice/<int:id>/', views.Invoice, name="Invoice"),
 
     path('delcartitem/<int:id>/', views.DelCartBooking, name="delcartbooking"),

@@ -30,6 +30,7 @@ class ContactModel(models.Model):
 
 class CategoryModel(models.Model):
     name = models.CharField(max_length=50)
+    img = models.ImageField()
 
     def __str__(self):
         return self.name
@@ -43,7 +44,7 @@ class ProductModel(models.Model):
     img4 = models.ImageField()
     img5 = models.ImageField()
     img6 = models.ImageField()
-
+    desc = models.TextField()
     cat = models.ForeignKey("CategoryModel", on_delete=models.CASCADE)
 
     def __str__(self):
@@ -82,13 +83,18 @@ class CartBookingModel(models.Model):
     fit = models.JSONField(default=list)
     foruser = models.ForeignKey(User, on_delete=models.CASCADE)
     BookingTime = models.DateTimeField(auto_now_add=True)
-    OrderStatus = models.CharField(max_length=15)
+    # OrderStatus = models.CharField(max_length=15)
     description= models.CharField(max_length=500)
     dateofdelivery = models.DateField()
+    order_status = models.CharField(default="Active", max_length=30)
     
     def __str__(self):
         return self.name
 
+
+class TrackOrder(models.Model):
+    order = models.ForeignKey(CartBookingModel, on_delete=models.CASCADE)
+    # dispatch = models.CharField()
 
 class Review(models.Model):
     name = models.CharField(max_length=100)
@@ -97,6 +103,7 @@ class Review(models.Model):
     rating = models.IntegerField()
     prod = models.ForeignKey(ProductModel, on_delete=models.CASCADE)
     datentime = models.DateTimeField(auto_now_add=True)
+    foruser = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

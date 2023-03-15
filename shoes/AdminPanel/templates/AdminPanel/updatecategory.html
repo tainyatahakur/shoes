@@ -40,12 +40,16 @@
 
 
 <div class="container" style="padding-left: 20px;">
-    <form class="row g-3 mt-3" method="POST" action="">
+    <form class="row g-3 mt-3" method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
         
         <div class="col-md-3">
             <label for="text" class="form-label">Name</label>
             <input type="text" class="form-control" id="text" name="name" value="{{data.name}}">
+        </div>
+        <div class="col-md-3">
+            <label for="text" class="form-label">Image</label>
+            {% render_field form.img|add_class:"form-control" name="img" %}
         </div>
         
         <div class="col-md-12">

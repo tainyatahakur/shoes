@@ -33,8 +33,10 @@ from website.models import Order
 
 def index(request):
     data = ProductModel.objects.all()[:9]
-    item = ProductModel.objects.all()[:4]
+    # item = ProductModel.objects.all()[:4]
     navs = CategoryModel.objects.all()
+    cats = CategoryModel.objects.all()[:4]
+
     if request.user.is_authenticated:
         cart = AddToCartModel.objects.filter(foruser=request.user)
         lenofcart = len(cart)
@@ -53,12 +55,13 @@ def index(request):
         else:
             print("Not Found")
 
-    context = {'data': data, 'item': item,
+    context = {'data': data, 'cat': cats,
                'navs': navs, 'lenofcart': lenofcart}
     return render(request, 'website/index.html', context)
 
 
 def ProductsCatviewPage(request, id):
+    
     if request.user.is_authenticated:
         cart = AddToCartModel.objects.filter(foruser=request.user)
         lenofcart = len(cart)
@@ -136,7 +139,10 @@ def signin(request):
         print("Email: ", email)
         pass1 = request.POST.get('password')
         print("Password: ", pass1)
-        username = User.objects.get(email=email).username
+        try: 
+            username = User.objects.get(email=email).username
+        except:
+            username = None
         otp = request.POST.get('otp')
         print('otp', otp)
         user = authenticate(request, username=username, password=pass1)
@@ -248,7 +254,7 @@ def UpdateCategory(request, id):
     form = CategoryForm(instance=data)
 
     if request.method == "POST":
-        form = CategoryForm(request.POST, instance=data)
+        form = CategoryForm(request.POST, request.FILES, instance=data)
         print(form)
         if form.is_valid():
             form.save()
@@ -516,7 +522,7 @@ def CartAndBooking(request):
         quantity = request.POST.getlist('quantity')
 
         prices = request.POST.getlist('price')
-        orderstatus = request.POST.getlist('OrderStatus')
+        orderstatus = request.POST.getlist('order_status')
         
         total_payment = request.POST.get('total_payment')
         services = json.dumps(se)
@@ -533,7 +539,7 @@ def CartAndBooking(request):
         print("total Payment: ", total_payment)
 
         booking = CartBookingModel(name=name, phone=phone, email=email, datentime=datentime,address=address, city=city, zip=zip, quantity=quantity,state=state,
-                                   total_payment=total_payment, services=services, foruser=foruser, size=size, fit=fit, price=price,OrderStatus=orderstatus,dateofdelivery=dod)
+                                   total_payment=total_payment, services=services, foruser=foruser, size=size, fit=fit, price=price,order_status=orderstatus,dateofdelivery=dod)
         booking.save()
         print("Value Saved")
         # if form.is_valid():
@@ -574,7 +580,7 @@ def ShowUserBookings(request):
 
 
 def detailproduct(request, id):
-    last_six_reviews = list(Review.objects.all())
+    last_six_reviews = list(Review.objects.filter(foruser=request.user))
     rating = last_six_reviews[-5:]
     # cart = AddToCartModel.objects.filter(foruser=request.user)
     if request.user.is_authenticated:
@@ -591,17 +597,20 @@ def detailproduct(request, id):
             print('form.saved')
     else:
         form = ReviewForm()
+    users = User.objects.all()
     navs = CategoryModel.objects.all()
-
     data = ProductModel.objects.get(id=id)
+    similarprod = ProductModel.objects.filter(cat=data.cat)[:10]
+    # print("Cat: ", data.cat.name)
     context = {'data': data, 'navs': navs, 'form': form,
-               'rating': rating, 'lenofcart': lenofcart}
+               'rating': rating, 'lenofcart': lenofcart, 'similarprod': similarprod, 'users': users}
     return render(request, 'website/detailproduct.html', context)
 
 
 @csrf_exempt
 def review(request):
-    rating = Review.objects.all()
+    rating = Review.objects.filter(foruser=request.user)
+    print("Rating: ", rating)
     if request.method == 'POST':
         form = ReviewForm(request.POST)                               
         name = request.POST.get('name')
@@ -611,9 +620,9 @@ def review(request):
         prod = request.POST.get('prod')
         prodid = ProductModel.objects.get(id=prod)
         print("Data: ", name, email, rating, review, prod)
-
+        activeuser = User.objects.get(id=request.user.id)
         someform = Review(name=name, rating=rating,
-                          email=email, review=review, prod=prodid)
+                          email=email, review=review, prod=prodid, foruser=activeuser)
         someform.save()
         print(' Review form Saved')
 
@@ -674,7 +683,7 @@ def forgot_password(request):
         print("Email: ", email)
         random_numbers = random.randint(111111, 999999)
         print("Signup Done")
-        send_mail("User Data: ", f"OTP: {random_numbers}", EMAIL_HOST_USER, email , fail_silently=True)
+        send_mail("User Data: ", f"OTP: {random_numbers}", EMAIL_HOST_USER, [email] , fail_silently=True)
         messages.success(request, 'OTP sent successfully on your registered email')
         return render(request, 'website/new_password.html', {'otp': random_numbers, 'email': email})
 
@@ -696,13 +705,15 @@ def new_password(request):
             user.set_password(pass2)
             user.save()
             print("Password Saved")
-        # send_mail("User Data: ", f"OTP: {random_numbers}", EMAIL_HOST_USER, ['kumardigamberjha7@gmail.com'], fail_silently=True)
-        messages.success(request, 'OTP sent successfully on your registered email')
-        # return redirect('')
+            send_mail("Password Reset Successful", f"Your Password has been reset", EMAIL_HOST_USER, [email], fail_silently=True)
+            messages.success(request, 'OTP sent successfully on your registered email')
+            return redirect('')
+        else:
+            messages.success(request, 'Password Did Not Matched')
 
     return render(request, 'website/change_password.html')       
 
-
+@login_required
 def record(request):
     foruser = request.user
     record = CartBookingModel.objects.filter()
@@ -712,12 +723,13 @@ def record(request):
     }
     return render(request, 'website/record.html', context)
 
+
 @login_required
 def order_history(request):
     foruser = request.user
     navs = CategoryModel.objects.all()
 
-    record = CartBookingModel.objects.filter(foruser= foruser).values('id','dateofdelivery', 'BookingTime', 'description','services', 'quantity', 'size', 'price', 'fit')
+    record = CartBookingModel.objects.filter(foruser= foruser).values('id','dateofdelivery', 'BookingTime', 'description','services', 'quantity', 'size', 'price', 'fit', 'order_status')
     for booking in record:
         booking['services'] = json.loads(booking['services'])
         booking['quantity'] = booking['quantity']
@@ -732,27 +744,32 @@ def order_history(request):
     # return render(request, 'website/order_history.html', {'orders': record})
     return render(request, 'website/order_history.html', context)
 
-# def order_history(request):
-#     today = timezone.now().date()
-#     date_range = [
-#         (today - timedelta(days=30)).strftime('%Y-%m-%d'),
-#         (today - timedelta(days=180)).strftime('%Y-%m-%d'),
-#     ]
-#     selected_date = request.GET.get('date', date_range[0])
-#     orders = CartBookingModel.objects.filter(
-#         datentime = selected_date,
-#         foruser = request.user
-#     ).order_by('datentime')
-#     context = {
-#         'date_range':date_range,
-#         'selected_date':selected_date,
-#         'orders':orders
-#     }
-#     return render(request, 'website/order_history.html', context)
 
+@login_required
+def BuyAgain(request, id):
+    today = date.today()
+    dod = today + timedelta(days=4)
 
-# def UserProfile(request):  
-#     return(request, 'website/account.html')
+    prod = CartBookingModel.objects.get(id=id)
+    ls = json.loads(prod.services)
+    items = []
+    for i in ls:
+        x = ProductModel.objects.filter(name=i)
+        items.append(x)
+    for i in items:
+        for k in range(len(i)):
+            print(i[k])
+            b = str(i[k].price)
+            cart = AddToCartModel(item=i[k],total_price=b,quantity=1,foruser=request.user, fit="Regular", size=6)
+            cart.save()
+            print("Value Added To Cart")
+            return redirect('checkout')
+    print("Ls: ", ls)
+    print("Item: ", items)
+
+    context = {'prod': prod, 'items': items, 'today': today, 'dod': dod}
+    return render(request, 'website/buyAgain.html', context)
+
 
 @login_required
 def Your_profile(request):
@@ -765,7 +782,7 @@ def Your_profile(request):
 @login_required
 def Invoice(request, id):
     foruser = request.user
-    data= CartBookingModel.objects.filter(id=id).values('id','address','dateofdelivery', 'total_payment', 'BookingTime', 'description','services', 'quantity', 'price','name', 'datentime')
+    data= CartBookingModel.objects.filter(id=id).values('id','address','dateofdelivery', 'total_payment', 'BookingTime', 'description','services', 'quantity', 'price','name', 'datentime', 'order_status')
 
     for booking in data:
         booking['services'] = json.loads(booking['services'])
@@ -774,3 +791,17 @@ def Invoice(request, id):
 
     context = {'data': data}#, 'services': services,'price': price, 'q': quantity}
     return render(request, 'website/invoice.html', context)
+
+
+
+@login_required
+def CancelBooking(request, id):
+    # name = request.POST.get('id')
+    # if request.method == 'POST':
+        # print("Name: ", name)
+    data = CartBookingModel.objects.get(id=id)
+    data.order_status = "Cancelled"
+    data.save()
+    print(data.order_status)
+    print("Data: ", data)
+    return redirect('OrderHistory')

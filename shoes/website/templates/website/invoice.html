@@ -87,13 +87,7 @@
                         {% endfor %}
                         {% endfor %}
                     </div>
-                    {% for i in data %}
-                    {% for j in i.quantity %}
-                    {% for k in i.price %}
-                    Rs. {{ j|int * k }}<br>
-                    {% endfor %}
-                    {% endfor %}
-                    {% endfor %}
+
                     <div class="col-sm-6">
                     </div>
                     <div class="col-sm-3 mt-3">
@@ -103,10 +97,16 @@
                         {% for i in data %}
                         <strong
                             style="border-bottom: 2px solid black; padding: 5px 35px;">Rs.{{i.total_payment}}</strong>
+                        {% if i.order_status == "Cancelled" %}
+                        <span class="mt-2" style="margin-top: 15px;">Cancelled</span>
+                        {% endif %}
                         {% endfor %}
                     </div>
+
                 </div>
             </div>
+
+
             <div class="row mt-5">
                 <div class="col-sm-4"><strong>Phone:</strong>1234567890</div>
                 <div class="col-sm-4">
