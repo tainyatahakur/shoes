@@ -97,11 +97,14 @@
                         {% for i in data %}
                         <strong
                             style="border-bottom: 2px solid black; padding: 5px 35px;">Rs.{{i.total_payment}}</strong>
+                        </div>
                         {% if i.order_status == "Cancelled" %}
-                        <span class="mt-2" style="margin-top: 15px;">Cancelled</span>
+                        <span style="margin-top: 25px; width: 100vw; padding: 15px; background-color: red; color: white;">Cancelled</span>
+                        {% endif %}
+                        {% if i.order_status == "Returned" %}
+                        <span style="margin-top: 25px; width: 100vw; padding: 15px; background-color: red; color: white;">Returned</span>
                         {% endif %}
                         {% endfor %}
-                    </div>
 
                 </div>
             </div>

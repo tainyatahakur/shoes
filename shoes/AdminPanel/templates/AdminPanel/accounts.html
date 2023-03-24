@@ -30,7 +30,7 @@
                         <th class="table-dark">S.No</th>
                         <th class="table-dark">Name</th>
                         <th class="table-dark">Booking Date</th>
-                        <th class="table-dark">Appointment Date</th>
+                        <th class="table-dark">Delivery Date</th>
                         <th class="table-dark">Total Payment</th>
                     </tr>
                 </thead>
@@ -43,7 +43,7 @@
                         <td>{{i.name}}</td>
                         <td>{{i.BookingTime}}</td>
                         <td>{{i.datentime}}</td>
-                        <td>{{i.total_payment}}</td>
+                        <td>Rs. {{i.total_payment}}</td>
                     </tr>
                     {% endfor %}
                     <tr>

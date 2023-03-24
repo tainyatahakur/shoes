@@ -144,9 +144,7 @@
 </div>
 </div>
 
-{% for i in users %}
-  {{i.id}}
-{% endfor %}
+
 
 <div class="container mt-5">
   <div class="container text-center mt-5">
@@ -215,15 +213,15 @@
         <div class="container">
           <p>Ratings:</p>
           <div class="rates">
-            <input type="radio" id="star5" name="rating" value="5" class="mx-1" />
+            <input type="radio" id="star5" name="rating" value="Poor" class="mx-1" />
             <label for="star5" title="text">Poor</label><br>
-            <input type="radio" id="star4" name="rating" value="4" class="mx-1" />
+            <input type="radio" id="star4" name="rating" value="Fair" class="mx-1" />
             <label for="star4" title="text">Fair</label><br>
-            <input type="radio" id="star3" name="rating" value="3" class="mx-1" />
+            <input type="radio" id="star3" name="rating" value="Good" class="mx-1" />
             <label for="star3" title="text">Good</label><br>
-            <input type="radio" id="star2" name="rating" value="2" class="mx-1" />
+            <input type="radio" id="star2" name="rating" value="Excellent" class="mx-1" />
             <label for="star2" title="text">Excellent</label><br>
-            <input type="radio" id="star1" name="rating" value="1" class="mx-1" />
+            <input type="radio" id="star1" name="rating" value="Outstanding" class="mx-1" />
             <label for="star1" title="text">Outstanding</label>
           </div>
         </div>
@@ -538,10 +536,17 @@
         data: data,
         success: function (response) {
           // $(this).css('color', 'red');
-          alert('Item Added in Cart: ' + name);
+          alert('Item Added in Cart');
         },
         error: function (xhr, status, error) {
-          alert("Please Login First");
+          if ("{{user.is_authenticated}}"){
+            // console.log("User Is Authenticated")
+            alert("Please Select A Valid Choice")
+          }
+          else{
+            // console.log("Dont know the user")
+            alert("Please Login First");
+          }
         }
       });
     });
@@ -563,7 +568,7 @@
       var quantity = 1;
 
       var pageurl = "{% url 'review' %}";
-      var data = { 'name': name, 'email': email, 'review': review, 'rating': rating, "prod": prodid, 'foruser': '{{user}}' };
+      var data = { 'name': name, 'email': email, 'review': review, 'rating': rating, "prod": prodid};
       const formData = new FormData(this)
       $.ajax({
         url: pageurl,
@@ -574,7 +579,7 @@
           alert('Your Review is Submitted');
         },
         error: function (xhr, status, error) {
-          alert("Please Login First");
+          alert("Please Select a Valid Choice");
         }
       });
     });

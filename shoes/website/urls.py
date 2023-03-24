@@ -36,6 +36,9 @@ urlpatterns = [
     path('CategoryWiseProducts/<int:id>/', views.ProductsCatviewPage, name="CategoryWiseProducts"),
     path('review/', views.review, name='review'),
     path('Search/', views.search, name ='Search'),
+    path('Filter/', views.ProdFilter, name ='filter'),
+    path('ChangeUserSettings/', views.ChangeUserSettings, name ='changeUserSettings'),
+
     path('showreview/', views.show_review, name ='showreview'),
     # path('verification/', views.Verification, name ='verification'),
     path('forgot-password/', views.forgot_password, name='forgot_password'),
@@ -47,6 +50,7 @@ urlpatterns = [
     path('BuyAgain/<int:id>/', views.BuyAgain, name = "buyagain"),
 
     path('CancelBooking/<int:id>/', views.CancelBooking, name = "CancelBooking"),
+    path('ReturnBooking/<int:id>/', views.ReturnOrder, name = "ReturnBooking"),
 
     path('Invoice/<int:id>/', views.Invoice, name="Invoice"),
 

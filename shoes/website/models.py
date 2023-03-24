@@ -87,6 +87,7 @@ class CartBookingModel(models.Model):
     description= models.CharField(max_length=500)
     dateofdelivery = models.DateField()
     order_status = models.CharField(default="Active", max_length=30)
+    # order_stage = models.CharField(default="", max_length=30)
     
     def __str__(self):
         return self.name
@@ -100,10 +101,10 @@ class Review(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     review = models.TextField()
-    rating = models.IntegerField()
+    rating = models.CharField(max_length=20)
     prod = models.ForeignKey(ProductModel, on_delete=models.CASCADE)
     datentime = models.DateTimeField(auto_now_add=True)
-    foruser = models.ForeignKey(User, on_delete=models.CASCADE)
+    # foruser = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

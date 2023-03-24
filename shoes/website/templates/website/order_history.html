@@ -24,6 +24,10 @@
       <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button"
         role="tab" aria-controls="contact-tab-pane" aria-selected="false">Cancelled Orders</button>
     </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#return-tab-pane" type="button"
+        role="tab" aria-controls="profile-tab-pane" aria-selected="false">Order Returned</button>
+    </li>
 
   </ul>
 
@@ -49,12 +53,15 @@
 
             </ul>
 
-            
+
           </form>
         </div>
 
         {% for i in record %}
         {% if i.order_status != "Cancelled" %}
+        {% if i.order_status == "Returned" %}
+
+        {% else %}
         <div class="container mt-3" style="border: 1px solid black;
               padding: 1em 1em 1em;
               border-radius: 16px;">
@@ -101,21 +108,35 @@
                 </button>
               </a>
               {% endif %}
-              <!-- {{i.order_status}} -->
-              {% if i.order_status != "Cancelled" %}
-              <a href="{% url 'CancelBooking' i.id %}">
-                <button class="button-1 mt-2">
-                  Cancel
-                </button>
-              </a>
-              {% else %}
+
+              {% if i.order_status == "Cancelled" or i.order_status == "Returned" %}
+              {% if i.order_status == "Cancelled" %}
               <span class="mt-2" style="color: red;">
                 Cancelled
               </span>
+              {% elif i.order_status == "Returned" %}
+              <span class="mt-2" style="color: red;">
+                Returned
+              </span>
               {% endif %}
+              {% else %}
+              <a href="{% url 'CancelBooking' i.id %}">
+                <button class="btn mt-2 btn-danger w-80">
+                  Cancel
+                </button>
+              </a>
+              <a href="{% url 'ReturnBooking' i.id %}">
+                <button class="btn mt-2 btn-warning">
+                  Return
+                </button>
+              </a>
+              {% endif %}
+
             </div>
           </div>
         </div>
+        {% endif %}
+
         {% else %}
         {% endif %}
         {% endfor %}
@@ -231,7 +252,7 @@
             {% endif %}
             <!-- {{i.order_status}} -->
             {% if i.order_status != "Cancelled" %}
-            <a href="{% url 'CancelBooking' i.id %}">
+            <a href="{% url 'CancelBooking' i.id %}" onclick="return confirm('Are you sure you want to Cancel Booking?')">
               <button class="button-1 mt-2">
                 Cancel
               </button>
@@ -247,29 +268,82 @@
       {% endif %}
       {% endfor %}
     </div>
+
+    <div class="tab-pane fade" id="return-tab-pane" role="tabpanel" aria-labelledby="return-tab" tabindex="0">
+
+      {% for i in record %}
+      {% if i.order_status == "Returned" %}
+      <div class="container mt-3" style="border: 1px solid black;
+              padding: 1em 1em 1em;
+              border-radius: 16px;">
+        <div class="row">
+          <div class="col-sm-4">
+            <img src="{% static 'images/img2.jpg' %}" class="img-fluid" />
+          </div>
+          <div class="col-sm-2">
+            <p style="font-weight: bold;">Product Name</p>
+            {% for k in i.services %}
+            {{k}}<br>
+            {% endfor %}
+
+            <!-- <p></p> -->
+            <p class="mt-5" style="font-weight: bold;">Product Description</p>
+            <p>{{i.description}}</p>
+
+          </div>
+          <div class="col-sm-2">
+            <p class="" style="font-weight: bold;">Quantity</p>
+            {% for k in i.quantity %}
+
+            {{k}}<br>
+            {% endfor %}
+            <p class="mt-5" style="font-weight: bold;">Date Of Booking</p>
+            <p>{{i.BookingTime}}</p>
+          </div>
+          <div class="col-sm-2">
+            <p style="font-weight: bold;">Date of Delivery</p>
+            <p>{{i.dateofdelivery}}</p>
+          </div>
+          <div class="col-sm-2" style="display: flex; flex-direction: column">
+            <p style="font-weight: bold;">Order ID:</p>
+            <p>{{i.id}}</p>
+            <a href="{% url 'Invoice' i.id %}"
+              style=" display: flex; flex-direction: row; text-decoration: none; color: black">
+              <i class="fa-solid fa-download mx-2 mt-4" title="download invoice"></i>
+              <p style="font-weight: bold;" class="mt-4">Download Invoice</p>
+            </a>
+
+            <span class="mt-2" style="color: red;">
+              Returned
+            </span>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
   </div>
+</div>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
 
-
-  <script>
-    var nav = document.querySelector("nav");
-
-    window.addEventListener("scroll", function () {
-      if (window.pageYOffset > 100) {
-        nav.classList.add("bg-light", "shadow");
-      } else {
-        nav.classList.remove("bg-light", "shadow");
-      }
-    });
-  </script>
 
 <script>
+  var nav = document.querySelector("nav");
 
+  window.addEventListener("scroll", function () {
+    if (window.pageYOffset > 100) {
+      nav.classList.add("bg-light", "shadow");
+    } else {
+      nav.classList.remove("bg-light", "shadow");
+    }
+  });
 </script>
-  </body>
-  {% endblock content %}
+
+<script src="{% static 'js/index.js' %}"></script>
+
+</body>
+{% endblock content %}

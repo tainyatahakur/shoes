@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from website.models import CustomUser
 
+
 @login_required
 def dashboard(request):
     return render(request, 'AdminPanel/index.html')
@@ -44,5 +45,7 @@ def Accounts(request):
 
 
 @login_required
-def ShowTodayBooking(request):
-    return render()
+def ReturnBookingOrder(request):
+    data = CartBookingModel.objects.filter(order_status = "Returned")
+    context = {'data': data}
+    return render(request, 'AdminPanel/returnitems.html', context)

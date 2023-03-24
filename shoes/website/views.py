@@ -51,7 +51,7 @@ def index(request):
         if search:
             data = ProductModel.objects.filter(cat__name__icontains=search)
             print("data: ", data)
-            return render(request, 'website/search.html', {'data': data})
+            return render(request, 'website/search.html', {'data': data, 'navs': navs})
         else:
             print("Not Found")
 
@@ -61,7 +61,7 @@ def index(request):
 
 
 def ProductsCatviewPage(request, id):
-    
+
     if request.user.is_authenticated:
         cart = AddToCartModel.objects.filter(foruser=request.user)
         lenofcart = len(cart)
@@ -75,6 +75,33 @@ def ProductsCatviewPage(request, id):
                'data': data, 'lenofcart': lenofcart}
     return render(request, 'website/productcatviewpage.html', context)
 
+
+def ProdFilter(request):
+    params = request.GET.get('param')
+    filter = request.GET.get('filter')
+    navs = CategoryModel.objects.all()
+
+    print(filter)
+    b = "'price low to high'"
+    if filter == "price low to high":
+        print("True")
+        data = ProductModel.objects.filter(cat=params).order_by('price')
+        print("Price Low To High: ", data)
+        context = {'data': data, 'navs': navs}
+        return render(request, 'website/prodfilter.html', context)
+
+    elif filter == "price high to low":
+        print("True")
+        data = ProductModel.objects.filter(cat=params).order_by('-price')
+        print("Price Low To High: ", data)
+        context = {'data': data, 'navs': navs}
+        return render(request, 'website/prodfilter.html', context)
+
+        # context = 
+    data = ProductModel.objects.filter(cat=params)
+    # print("Data: ", data)
+    context = {'catid': params, 'navs': navs}
+    return render(request, 'website/prodfilter.html', context)
 
 def signup(request):
     form = CreateUserForm()
@@ -110,8 +137,8 @@ def signup(request):
                   email  ], fail_silently=True)
                 messages.success(
                     request, 'OTP sent successfully on your registered email')
-                user = form.save()
                 customform.save()
+                user = form.save()
                 login(request, user)
                 print("Form2 save")
                 return render(request, 'website/verification.html', {"otp": random_numbers})
@@ -495,7 +522,10 @@ def CartAndBooking(request):
     today = date.today()
     activeuser = request.user.username
     print(activeuser)
-    someuser = CustomUser.objects.get(username=activeuser)
+    try:
+        someuser = CustomUser.objects.get(username=activeuser)
+    except:
+        someuser = None
     print("SomeUser: ",someuser)
     dod = today + timedelta(days=4)
     # lenofcart = len(allitems)
@@ -520,9 +550,10 @@ def CartAndBooking(request):
         zip = request.POST.get('zip')
         state = request.POST.get('state')
         quantity = request.POST.getlist('quantity')
-
+        print("quantity: ", quantity)
         prices = request.POST.getlist('price')
-        orderstatus = request.POST.getlist('order_status')
+        orderstatus = request.POST.get('order_status')
+        # orderstage = request.POST.getlist('order_stage')
         
         total_payment = request.POST.get('total_payment')
         services = json.dumps(se)
@@ -580,7 +611,7 @@ def ShowUserBookings(request):
 
 
 def detailproduct(request, id):
-    last_six_reviews = list(Review.objects.filter(foruser=request.user))
+    last_six_reviews = list(Review.objects.filter(prod=id))
     rating = last_six_reviews[-5:]
     # cart = AddToCartModel.objects.filter(foruser=request.user)
     if request.user.is_authenticated:
@@ -609,8 +640,6 @@ def detailproduct(request, id):
 
 @csrf_exempt
 def review(request):
-    rating = Review.objects.filter(foruser=request.user)
-    print("Rating: ", rating)
     if request.method == 'POST':
         form = ReviewForm(request.POST)                               
         name = request.POST.get('name')
@@ -622,7 +651,7 @@ def review(request):
         print("Data: ", name, email, rating, review, prod)
         activeuser = User.objects.get(id=request.user.id)
         someform = Review(name=name, rating=rating,
-                          email=email, review=review, prod=prodid, foruser=activeuser)
+                          email=email, review=review, prod=prodid)
         someform.save()
         print(' Review form Saved')
 
@@ -631,7 +660,7 @@ def review(request):
         #     print(' Review form Saved')
     else:
         form = ReviewForm()
-    return render(request, 'website/review.html', {'form': form, 'ratings': rating})
+    return render(request, 'website/review.html', {'form': form})
 
 
 @csrf_exempt
@@ -730,6 +759,17 @@ def order_history(request):
     navs = CategoryModel.objects.all()
 
     record = CartBookingModel.objects.filter(foruser= foruser).values('id','dateofdelivery', 'BookingTime', 'description','services', 'quantity', 'size', 'price', 'fit', 'order_status')
+    if request.method == "POST":
+        search = request.POST.get('search')
+        print("Searchindex: ", search)
+        # query = request.POST.get('search')
+        if search:
+            data = ProductModel.objects.filter(cat__name__icontains=search)
+            print("data: ", data)
+            return render(request, 'website/search.html', {'data': data, 'navs': navs})
+        else:
+            print("Not Found")
+
     for booking in record:
         booking['services'] = json.loads(booking['services'])
         booking['quantity'] = booking['quantity']
@@ -805,3 +845,66 @@ def CancelBooking(request, id):
     print(data.order_status)
     print("Data: ", data)
     return redirect('OrderHistory')
+
+
+@login_required
+def ReturnOrder(request, id):
+    data = CartBookingModel.objects.get(id=id)
+    data.order_status = "Returned"
+    data.save()
+    print(data.order_status)
+    print("Data: ", data)
+    return redirect('OrderHistory')
+
+
+def ChangeUserSettings(request):
+    if request.method == "POST":
+        search = request.POST.get('search')
+        print("Searchindex: ", search)
+        # query = request.POST.get('search')
+        navs = CategoryModel.objects.all()
+        
+        if search:
+            data = ProductModel.objects.filter(cat__name__icontains=search)
+            print("data: ", data)
+            return render(request, 'website/search.html', {'data': data, 'navs': navs})
+        else:
+            print("Not Found")
+    user = request.user
+    data = CustomUser.objects.get(username=user)
+    form = CustomUserForm(instance = data)
+    if request.method == "POST":
+        fname = request.POST.get('fname')
+        lname = request.POST.get('lname')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        address1 = request.POST.get('address1')
+        address2 = request.POST.get('address2')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        zip = request.POST.get('zip')
+
+
+        data.fname = fname
+        data.lname = lname
+        data.username = username
+        data.email = email
+        data.address1 = address1
+        data.address2 = address2
+        data.city = city
+        data.state = state
+        data.zip = zip
+
+        data.save()
+        print("Value Saved")
+        # form = CustomUserForm(request.POST, instance=data)
+
+        # if form.is_valid():
+        #     form.save()
+        #     print("Form Saved")
+
+        # else:
+        #     print("Form Error: ", form.errors)
+    print("Data: ", data)
+    context = {'data': data}
+    return render(request, 'website/change_user_settings.html', context)
